@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -33,7 +34,8 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.tag == "TileMap")
         {
-            if (collision.contacts[collision.contactCount-1].point.y<transform.position.y) isTouchingFloor = true;
+            
+            if (collision.contacts[collision.contactCount-1].point.y<(transform.position.y-transform.localScale.y)) isTouchingFloor = true;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
