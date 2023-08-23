@@ -11,11 +11,13 @@ public class Player : Creature
     }
     private void UserInput()
     {
+        if (isInDash) return;
         if (Input.GetKey(KeyCode.A)) Move(false);
         if (Input.GetKey(KeyCode.D)) Move(true);
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) Stop();
         if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))) Stop();
 
         if (Input.GetKey(KeyCode.Space)) Jump();
+        if(Input.GetKey(KeyCode.LeftShift)&&isDashReady) Dash();
     }
 }

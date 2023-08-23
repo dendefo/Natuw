@@ -141,3 +141,6 @@ MonoBehaviour:
   rb: {fileID: 223688728170418627}
   SRenderer: {fileID: 223688728170418626}
   isTouchingFloor: 0
+  isInDash: 0
+  DashDistance: 3
+  DashTime: 0.125

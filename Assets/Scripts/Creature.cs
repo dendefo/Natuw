@@ -12,9 +12,23 @@ abstract public class Creature : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] SpriteRenderer SRenderer;
     [SerializeField] bool isTouchingFloor;
+    
+    [SerializeField] protected bool isInDash = false;
+    [SerializeField] float DashDistance;
+    [SerializeField] float DashTime;
+    private float DashTimer;
+    protected bool isDashReady = false;
+    Vector3 startPosition;
     virtual protected void FixedUpdate()
     {
         CalculateJump();
+        if (isInDash)
+        {
+            transform.position = Vector3.Lerp(startPosition, startPosition + (DashDistance * (SRenderer.flipX ? Vector3.left : Vector3.right)), (Time.time - DashTimer) / DashTime);
+            rb.velocity = Vector2.zero;
+
+        }
+        if (Time.time - DashTimer > DashTime) isInDash = false;
     }
 
     protected void Stop()
@@ -31,8 +45,17 @@ abstract public class Creature : MonoBehaviour
     {
         if (rb.velocity.y == 0) isTouchingFloor = true;
         else isTouchingFloor = false;
+        if (isTouchingFloor && !isInDash) isDashReady = true;
     }
+    protected void Dash()
+    {
+        startPosition = transform.position;
+        rb.velocity = Vector2.zero;
+        DashTimer = Time.time;
+        isInDash = true;
+        isDashReady = false;
 
+    }
     protected void Move(bool isRight)
     {
         rb.velocity = new Vector2(MoveVelocity * (isRight ? 1 : -1), rb.velocity.y);
