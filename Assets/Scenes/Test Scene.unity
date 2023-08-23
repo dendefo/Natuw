@@ -2309,10 +2309,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 102621556, guid: aac61b8dad7fc264eb7b4465a872049f, type: 3}
-      propertyPath: JumpVelocity
-      value: 19
-      objectReference: {fileID: 0}
     - target: {fileID: 223688728170418625, guid: aac61b8dad7fc264eb7b4465a872049f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2417,10 +2413,6 @@ PrefabInstance:
     - target: {fileID: 274190016077784174, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 4864971097061526855, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
-      propertyPath: MoveVelocity
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}

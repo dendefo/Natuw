@@ -5,23 +5,33 @@ using UnityEngine;
 public class Enemy : Creature
 {
     List<Node> path;
-    private void Update()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+        CalculatePath();
         EnemyMovement();
     }
-
-    private void EnemyMovement()
+    private void CalculatePath()
     {
         path = Node.BuildPath(Pathfinder(SceneManager.Instance.GameGrid, (Vector2Int)SceneManager.Instance.GameGrid.WorldToCell(SceneManager.Instance.Player.gameObject.transform.position)));
-        Vector2Int nextNode;
+
+    }
+    private void EnemyMovement()
+    {
+        Vector2Int direction;
         path.Reverse();
-        foreach (Node node in path)
+        for (int i = 1; i < path.Count; i++)
         {
-            nextNode = node.Coor - (Vector2Int)SceneManager.Instance.GameGrid.WorldToCell(transform.position);
-            Debug.Log(nextNode);
-            if (nextNode.x == -1) Move(false);
-            else if (nextNode.x == 1) Move(true);
-            else if (nextNode.y == 1) Jump();
+            direction = path[i].Coor - path[i-1].Coor;
+            if (i > 2 && direction.y != -1)
+            {
+                if (direction.x != -1) Move(false);
+                else Move(true);
+                return;
+            }
+            if (direction.x == -1) Move(false);
+            else if (direction.x == 1) Move(true);
+            else if (direction.y == 1) Jump();
             else continue;
             return;
         }

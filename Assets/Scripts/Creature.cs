@@ -38,6 +38,12 @@ abstract public class Creature : MonoBehaviour
         rb.velocity = new Vector2(MoveVelocity * (isRight ? 1 : -1), rb.velocity.y);
         SRenderer.flipX = !isRight;
     }
+    /// <summary>
+    /// Pathfinding algorithm for enemies
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
     public Node Pathfinder(Grid level, Vector2Int target)
     {
         var unitPos = (Vector2Int)level.WorldToCell(transform.position);
