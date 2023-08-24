@@ -5,20 +5,25 @@ using UnityEngine;
 public class Enemy : Creature
 {
     List<Node> path;
+    int UpdateRates = 0;
     protected override void FixedUpdate()
     {
+        if (UpdateRates % 3 == 1) UpdateRates =0;
         base.FixedUpdate();
         CalculatePath();
         EnemyMovement();
+        UpdateRates++;
     }
     private void CalculatePath()
     {
-        path = Node.BuildPath(Pathfinder(SceneManager.Instance.GameGrid, (Vector2Int)SceneManager.Instance.GameGrid.WorldToCell(SceneManager.Instance.Player.gameObject.transform.position)));
+        if (Vector3.Distance(SceneManager.Instance.Player.transform.position, transform.position) > 25) { path = null; return; }
+        path = Node.BuildPath(Pathfinder(SceneManager.Instance.TileMap, (Vector2Int)SceneManager.Instance.TileMap.WorldToCell(SceneManager.Instance.Player.gameObject.transform.position)));
 
     }
     private void EnemyMovement()
     {
         Vector2Int direction;
+        if (path == null) return;
         path.Reverse();
         for (int i = 1; i < path.Count; i++)
         {
@@ -42,7 +47,7 @@ public class Enemy : Creature
         for (int i = 1; i < path.Count; i++)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(SceneManager.Instance.GameGrid.CellToWorld((Vector3Int)path[i].Coor), SceneManager.Instance.GameGrid.CellToWorld((Vector3Int)path[i - 1].Coor));
+            Gizmos.DrawLine(SceneManager.Instance.TileMap.CellToWorld((Vector3Int)path[i].Coor), SceneManager.Instance.TileMap.CellToWorld((Vector3Int)path[i - 1].Coor));
         }
     }
 

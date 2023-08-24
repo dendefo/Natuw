@@ -10,25 +10,27 @@ abstract public class Creature : MonoBehaviour
     [SerializeField] float MoveVelocity;
     [SerializeField] float JumpVelocity;
     [SerializeField] protected Rigidbody2D rb;
-    [SerializeField] SpriteRenderer SRenderer;
+    [SerializeField] protected SpriteRenderer SRenderer;
     [SerializeField] bool isTouchingFloor;
-    
+
     [SerializeField] protected bool isInDash = false;
-    [SerializeField] float DashDistance;
-    [SerializeField] float DashTime;
+    [SerializeField] protected float DashSpeed;
+    [SerializeField] protected float DashTime;
     private float DashTimer;
     protected bool isDashReady = false;
-    Vector3 startPosition;
     virtual protected void FixedUpdate()
     {
         CalculateJump();
         if (isInDash)
         {
-            transform.position = Vector3.Lerp(startPosition, startPosition + (DashDistance * (SRenderer.flipX ? Vector3.left : Vector3.right)), (Time.time - DashTimer) / DashTime);
-            rb.velocity = Vector2.zero;
+            rb.velocity = Vector2.right * DashSpeed * (SRenderer.flipX ? -1 : 1);
 
         }
-        if (Time.time - DashTimer > DashTime) isInDash = false;
+        if (isInDash && Time.time - DashTimer > DashTime )
+        {
+            isInDash = false;
+            rb.velocity = Vector2.zero;
+        }
     }
 
     protected void Stop()
@@ -49,8 +51,6 @@ abstract public class Creature : MonoBehaviour
     }
     protected void Dash()
     {
-        startPosition = transform.position;
-        rb.velocity = Vector2.zero;
         DashTimer = Time.time;
         isInDash = true;
         isDashReady = false;
@@ -67,9 +67,9 @@ abstract public class Creature : MonoBehaviour
     /// <param name="level"></param>
     /// <param name="target"></param>
     /// <returns></returns>
-    public Node Pathfinder(Grid level, Vector2Int target)
+    public Node Pathfinder(Tilemap level, Vector2Int target)
     {
-        var unitPos = (Vector2Int)level.WorldToCell(transform.position);
+        var unitPos = (Vector2Int)(level.WorldToCell(transform.position));
         List<Node> reachable = new()
             {
                 new Node(unitPos,null,Vector2Int.Distance(unitPos,target))
@@ -77,8 +77,13 @@ abstract public class Creature : MonoBehaviour
 
         List<Node> visited = new List<Node>(); //List of Nodes that we already checked
 
+        int runs = 0;
+        int loop = 0;
+
         while (reachable.Count != 0) //If reachable is 0 and algothm didn't made return, enemy can't reach the player
         {
+            runs++;
+            if (runs > 1000) break;
             Node node = reachable[0];
 
             foreach (Node node1 in reachable)
@@ -88,6 +93,8 @@ abstract public class Creature : MonoBehaviour
 
             if (node.Coor == target) //If node's coor-s are same to player's, than we found a path and it's the shortest one
             {
+                Debug.Log(loop);
+
                 return node;
                 //node = Node.BuildPath(node); //Algorith that gives us next node to move to
                 //CollisionLogic.CollisionCheck(level, node.Coor - Coor, this); //Moving the enemy
@@ -101,12 +108,14 @@ abstract public class Creature : MonoBehaviour
             {
                 foreach (int x in new List<int> { -1, 0, 1 }) //For X axis
                 {
+                    loop++;
                     Vector2Int newCoords = new(x, y);
                     newCoords += node.Coor;
                     if (y * y == x * x || visited.Exists(n => n.Coor == newCoords)) continue; //If it is diagonal or 0,0 OR if it is already been checked
                                                                                               //It leaves only four directions (0,1)(0,-1)(1,0)(-1,0). No diagonal moving
 
-                    entity = SceneManager.Instance.TileMap.GetColliderType((Vector3Int)newCoords); //Looking what's on the Square
+                    entity = level.GetColliderType((Vector3Int)newCoords); //Looking what's on the Square
+
 
 
                     if (entity != Tile.ColliderType.None) continue; //If it's not walkable, then continue
@@ -117,7 +126,9 @@ abstract public class Creature : MonoBehaviour
                     reachable.Add(adjacent); // Add to List
                 }
             }
+
         }
+
         return null; //There is no path
     }
 }

@@ -1991,7 +1991,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -12, y: -7, z: 0}
   m_Size: {x: 23, y: 13, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -2297,7 +2297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ee8d01122f1c04785e76c391073d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameGrid: {fileID: 108382300}
   TileMap: {fileID: 118101160}
   Player: {fileID: 102621556}
 --- !u!4 &1324860802

@@ -18,6 +18,10 @@ public class Player : Creature
         if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))) Stop();
 
         if (Input.GetKey(KeyCode.Space)) Jump();
-        if(Input.GetKey(KeyCode.LeftShift)&&isDashReady) Dash();
+        if(Input.GetKeyDown(KeyCode.LeftShift)&&isDashReady) Dash();
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0)*(SRenderer.flipX?-1:1)));
     }
 }
