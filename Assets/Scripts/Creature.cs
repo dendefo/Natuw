@@ -26,7 +26,7 @@ abstract public class Creature : MonoBehaviour
             rb.velocity = Vector2.right * DashSpeed * (SRenderer.flipX ? -1 : 1);
 
         }
-        if (isInDash && Time.time - DashTimer > DashTime )
+        if (isInDash && Time.time - DashTimer > DashTime)
         {
             isInDash = false;
             rb.velocity = Vector2.zero;
@@ -49,6 +49,7 @@ abstract public class Creature : MonoBehaviour
         else isTouchingFloor = false;
         if (isTouchingFloor && !isInDash) isDashReady = true;
     }
+    protected float CalculateJumpHeight() => (-Mathf.Pow(JumpVelocity, 2)) / (2 *Physics2D.gravity.y*rb.gravityScale);
     protected void Dash()
     {
         DashTimer = Time.time;
@@ -77,13 +78,9 @@ abstract public class Creature : MonoBehaviour
 
         List<Node> visited = new List<Node>(); //List of Nodes that we already checked
 
-        int runs = 0;
-        int loop = 0;
 
         while (reachable.Count != 0) //If reachable is 0 and algothm didn't made return, enemy can't reach the player
         {
-            runs++;
-            if (runs > 1000) break;
             Node node = reachable[0];
 
             foreach (Node node1 in reachable)
@@ -93,7 +90,6 @@ abstract public class Creature : MonoBehaviour
 
             if (node.Coor == target) //If node's coor-s are same to player's, than we found a path and it's the shortest one
             {
-                Debug.Log(loop);
 
                 return node;
                 //node = Node.BuildPath(node); //Algorith that gives us next node to move to
@@ -108,7 +104,6 @@ abstract public class Creature : MonoBehaviour
             {
                 foreach (int x in new List<int> { -1, 0, 1 }) //For X axis
                 {
-                    loop++;
                     Vector2Int newCoords = new(x, y);
                     newCoords += node.Coor;
                     if (y * y == x * x || visited.Exists(n => n.Coor == newCoords)) continue; //If it is diagonal or 0,0 OR if it is already been checked

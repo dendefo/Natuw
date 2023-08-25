@@ -23,5 +23,7 @@ public class Player : Creature
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0)*(SRenderer.flipX?-1:1)));
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
     }
 }
