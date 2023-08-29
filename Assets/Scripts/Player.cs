@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : Creature
 {
+    public Animator animator; //refrencing the animator
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
