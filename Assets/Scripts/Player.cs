@@ -9,6 +9,11 @@ public class Player : Creature
         base.FixedUpdate();
         UserInput();
     }
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
+    }
     private void UserInput()
     {
         if (isInDash) return;
@@ -18,7 +23,6 @@ public class Player : Creature
         if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))) Stop();
 
         if (Input.GetKey(KeyCode.Space)) Jump();
-        if(Input.GetKeyDown(KeyCode.LeftShift)&&isDashReady) Dash();
     }
     private void OnDrawGizmos()
     {

@@ -6,11 +6,19 @@ public class Enemy : Creature
 {
     List<Node> path;
     int UpdateRates = 0;
+    private void Start()
+    {
+        SceneManager.Instance.EnemyList.Add(this);
+    }
     protected override void FixedUpdate()
     {
-        if (UpdateRates % 3 == 1) UpdateRates =0;
+        if (UpdateRates % ((1/Time.fixedDeltaTime)+ SceneManager.Instance.EnemyList.IndexOf(this)) == 1)
+        {
+            CalculatePath();
+            UpdateRates = 0;
+        }
         base.FixedUpdate();
-        CalculatePath();
+
         EnemyMovement();
         UpdateRates++;
     }
@@ -27,7 +35,7 @@ public class Enemy : Creature
         path.Reverse();
         for (int i = 1; i < path.Count; i++)
         {
-            direction = path[i].Coor - path[i-1].Coor;
+            direction = path[i].Coor - path[i - 1].Coor;
             if (i > 2 && direction.y != -1)
             {
                 if (direction.x != -1) Move(false);
