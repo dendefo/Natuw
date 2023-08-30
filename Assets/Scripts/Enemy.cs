@@ -21,6 +21,8 @@ public class Enemy : Creature
 
         EnemyMovement();
         UpdateRates++;
+
+       // PlayAnimation("EnemySpeed");//, "EnemyJumpSpeed"
     }
     private void CalculatePath()
     {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : Creature
 {
-    public Animator animator; //refrencing the animator
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -14,6 +13,7 @@ public class Player : Creature
     {
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
+        PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
     }
     private void UserInput()
     {
@@ -22,7 +22,6 @@ public class Player : Creature
         if (Input.GetKey(KeyCode.D)) Move(true);
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) Stop();
         if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))) Stop();
-
         if (Input.GetKey(KeyCode.Space)) Jump();
     }
     private void OnDrawGizmos()

@@ -12,6 +12,7 @@ abstract public class Creature : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected SpriteRenderer SRenderer;
     [SerializeField] bool isTouchingFloor;
+    [SerializeField] Animator animator;
 
     [SerializeField] protected bool isInDash = false;
     [SerializeField] protected float DashSpeed;
@@ -61,6 +62,11 @@ abstract public class Creature : MonoBehaviour
     {
         rb.velocity = new Vector2(MoveVelocity * (isRight ? 1 : -1), rb.velocity.y);
         SRenderer.flipX = !isRight;
+    }
+    protected void PlayAnimation(string speedParameter = null, string jumpParameter = null)
+    {
+        if (speedParameter != null) animator.SetFloat(speedParameter, Mathf.Abs(rb.velocity.x));
+        if (jumpParameter != null) animator.SetFloat(jumpParameter, Mathf.Abs(rb.velocity.y));
     }
     /// <summary>
     /// Pathfinding algorithm for enemies
