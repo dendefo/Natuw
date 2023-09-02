@@ -33,6 +33,7 @@ abstract public class Creature : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
     }
+    public float Distance(Creature creature)=> Vector3.Distance(transform.position,creature.transform.position);
 
     protected void Stop()
     {
@@ -76,7 +77,7 @@ abstract public class Creature : MonoBehaviour
     /// <returns></returns>
     public Node Pathfinder(Tilemap level, Vector2Int target)
     {
-        var unitPos = (Vector2Int)(level.WorldToCell(transform.position));
+        var unitPos = (Vector2Int)(level.WorldToCell(transform.position))+Vector2Int.up;
         List<Node> reachable = new()
             {
                 new Node(unitPos,null,Vector2Int.Distance(unitPos,target))
@@ -84,9 +85,10 @@ abstract public class Creature : MonoBehaviour
 
         List<Node> visited = new List<Node>(); //List of Nodes that we already checked
 
-
+        int LoopCount = 0;
         while (reachable.Count != 0) //If reachable is 0 and algothm didn't made return, enemy can't reach the player
         {
+            if (LoopCount > 500) return null;
             Node node = reachable[0];
 
             foreach (Node node1 in reachable)
@@ -110,6 +112,7 @@ abstract public class Creature : MonoBehaviour
             {
                 foreach (int x in new List<int> { -1, 0, 1 }) //For X axis
                 {
+                    LoopCount++;
                     Vector2Int newCoords = new(x, y);
                     newCoords += node.Coor;
                     if (y * y == x * x || visited.Exists(n => n.Coor == newCoords)) continue; //If it is diagonal or 0,0 OR if it is already been checked
