@@ -49,8 +49,9 @@ public class Enemy : Creature
             return;
         }
     }
-    private void OnDrawGizmos()
+    override protected void OnDrawGizmos()
     {
+        base.OnDrawGizmos();
         if (path == null) return;
         for (int i = 1; i < path.Count; i++)
         {

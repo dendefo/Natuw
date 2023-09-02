@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1855006189}
   m_Layer: 6
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,8 +122,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.7538699}
-  m_Size: {x: 0.49883556, y: 1.3151453}
+  m_Offset: {x: 0, y: -0.57}
+  m_Size: {x: 0.49883556, y: 1.3598086}
   m_Direction: 0
 --- !u!114 &4864971097061526855
 MonoBehaviour:
@@ -146,6 +146,7 @@ MonoBehaviour:
   isInDash: 0
   DashSpeed: 0
   DashTime: 0
+  weapon: {fileID: 0}
 --- !u!95 &1855006189
 Animator:
   serializedVersion: 5

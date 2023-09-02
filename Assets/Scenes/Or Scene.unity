@@ -10661,10 +10661,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 274190016077784174, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
 --- !u!1 &519420028
@@ -10853,10 +10849,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 274190016077784174, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
 --- !u!1 &619394800
@@ -11025,10 +11017,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 274190016077784174, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
 --- !u!1 &1324860800
@@ -11063,6 +11051,8 @@ MonoBehaviour:
   TileMap: {fileID: 118101160}
   Player: {fileID: 102621556}
   EnemyList: []
+  isPaused: 0
+  inGameTimer: 0
 --- !u!4 &1324860802
 Transform:
   m_ObjectHideFlags: 0
@@ -11148,7 +11138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 274190016077784146, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9
+      value: -7.59
       objectReference: {fileID: 0}
     - target: {fileID: 274190016077784146, guid: fd6972ce877e03c42b8f3f783b594713, type: 3}
       propertyPath: m_LocalPosition.y

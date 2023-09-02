@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -17,8 +18,10 @@ abstract public class Creature : MonoBehaviour
     [SerializeField] protected bool isInDash = false;
     [SerializeField] protected float DashSpeed;
     [SerializeField] protected float DashTime;
+    [SerializeField] protected RangedWeapon weapon;
     private float DashTimer;
     protected bool isDashReady = false;
+    Creature Target;
     virtual protected void FixedUpdate()
     {
         CalculateJump();
@@ -32,8 +35,26 @@ abstract public class Creature : MonoBehaviour
             isInDash = false;
             rb.velocity = Vector2.zero;
         }
+        if (weapon != null)
+        {
+            Target = weapon.ChoseTarget(SceneManager.Instance.Player==this);
+            Aim(Target);
+        }
     }
-    public float Distance(Creature creature)=> Vector3.Distance(transform.position,creature.transform.position);
+    virtual public void Aim(Creature target)
+    {
+        static void Rotate(Transform toRotate, Vector3 toMove)
+        {
+            var norm = Vector3.Normalize(toRotate.position - toMove);
+            var Acos = Mathf.Acos(norm.y);
+            var z = Acos / Mathf.PI * (toRotate.position.x > toMove.x ? -180 : 180);
+
+            toRotate.localEulerAngles = new Vector3(0, 0, z - 90);
+        }
+        Rotate(weapon.transform, target.transform.position);
+
+    }
+    public float Distance(Creature creature) => Vector3.Distance(transform.position, creature.transform.position);
 
     protected void Stop()
     {
@@ -51,7 +72,7 @@ abstract public class Creature : MonoBehaviour
         else isTouchingFloor = false;
         if (isTouchingFloor && !isInDash) isDashReady = true;
     }
-    protected float CalculateJumpHeight() => (-Mathf.Pow(JumpVelocity, 2)) / (2 *Physics2D.gravity.y*rb.gravityScale);
+    protected float CalculateJumpHeight() => (-Mathf.Pow(JumpVelocity, 2)) / (2 * Physics2D.gravity.y * rb.gravityScale);
     protected void Dash()
     {
         DashTimer = Time.time;
@@ -77,7 +98,7 @@ abstract public class Creature : MonoBehaviour
     /// <returns></returns>
     public Node Pathfinder(Tilemap level, Vector2Int target)
     {
-        var unitPos = (Vector2Int)(level.WorldToCell(transform.position))+Vector2Int.up;
+        var unitPos = (Vector2Int)(level.WorldToCell(transform.position)) + Vector2Int.up;
         List<Node> reachable = new()
             {
                 new Node(unitPos,null,Vector2Int.Distance(unitPos,target))
@@ -134,6 +155,14 @@ abstract public class Creature : MonoBehaviour
         }
 
         return null; //There is no path
+    }
+    virtual protected void OnDrawGizmos()
+    {
+        if (weapon == null) return;
+        if (Target == null) return;
+        Gizmos.color = UnityEngine.Color.blue;
+        Gizmos.DrawLine(Target.transform.position, weapon.transform.position);
+        Gizmos.DrawWireSphere(Target.transform.position, 1);
     }
 }
 public class Node //Representation of map as graph of walkable Nodes, that starts at Actor's node. We search for Target node at that tree

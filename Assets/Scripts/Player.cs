@@ -24,8 +24,9 @@ public class Player : Creature
         if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))) Stop();
         if (Input.GetKey(KeyCode.Space)) Jump();
     }
-    private void OnDrawGizmos()
+    override protected void OnDrawGizmos()
     {
+        base.OnDrawGizmos();
         Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0)*(SRenderer.flipX?-1:1)));
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
