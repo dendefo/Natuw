@@ -148,10 +148,10 @@ abstract public class Creature : MonoBehaviour
     /// <returns></returns>
     public Node Pathfinder(Tilemap level, Vector2Int target)
     {
-        var unitPos = (Vector2Int)(level.WorldToCell(transform.position)) + Vector2Int.up;
+        var unitPos = (Vector2Int)(level.WorldToCell(transform.position));
         List<Node> reachable = new()
             {
-                new Node(unitPos,null,Vector2Int.Distance(unitPos,target))
+                new Node(unitPos,null,Vector2Int.Distance(unitPos,target),isTouchingFloor?0:8,isTouchingFloor)
             }; //Adding List of Nodes that will be used in algorithm as Nodes that actor is possibly can get to and adding starting node (Of Actor)
 
         List<Node> visited = new List<Node>(); //List of Nodes that we already checked
@@ -159,7 +159,7 @@ abstract public class Creature : MonoBehaviour
         int LoopCount = 0;
         while (reachable.Count != 0) //If reachable is 0 and algothm didn't made return, enemy can't reach the player
         {
-            if (LoopCount > 500) return null;
+            if (LoopCount > 1000) return visited[visited.Count-1];
             Node node = reachable[0];
 
             foreach (Node node1 in reachable)
@@ -185,6 +185,18 @@ abstract public class Creature : MonoBehaviour
                 {
                     LoopCount++;
                     Vector2Int newCoords = new(x, y);
+
+                    int newJumpValue = node.JumpValue;
+                    if (newCoords.y == 1) 
+                    { 
+                        newJumpValue++; 
+                        if (newJumpValue % 2 == 1) newJumpValue++; 
+                    }
+                    else if (!node.isGround && newCoords.y != 1) newJumpValue++;
+                    else if (node.isGround && newCoords.y != 1) newJumpValue = 0;
+
+                    if (newJumpValue > 7) continue;
+
                     newCoords += node.Coor;
                     if (y * y == x * x || visited.Exists(n => n.Coor == newCoords)) continue; //If it is diagonal or 0,0 OR if it is already been checked
                                                                                               //It leaves only four directions (0,1)(0,-1)(1,0)(-1,0). No diagonal moving
@@ -194,9 +206,10 @@ abstract public class Creature : MonoBehaviour
 
 
                     if (entity != Tile.ColliderType.None) continue; //If it's not walkable, then continue
-
-                    Node adjacent = new(newCoords, node, Vector2Int.Distance(newCoords, target)); //Create new node to check
+                    
+                    Node adjacent = new(newCoords, node, Vector2Int.Distance(newCoords, target), newJumpValue, level.GetColliderType((Vector3Int)(newCoords+Vector2Int.down))!=Tile.ColliderType.None); //Create new node to check
                     if (reachable.Exists(n => n.Coor == adjacent.Coor)) continue; //If it's already awaits for check then continue
+                    
 
                     reachable.Add(adjacent); // Add to List
                 }
@@ -213,11 +226,15 @@ public class Node //Representation of map as graph of walkable Nodes, that start
     public Vector2Int Coor; //Coordinates of Node
     public Node previous; //Node that linked us to this one. 
     public float Distance;
-    public Node(Vector2Int coor, Node node, float distance)
+    public int JumpValue;
+    public bool isGround;
+    public Node(Vector2Int coor, Node node, float distance, int jumpValue, bool isGround)
     {
         previous = node;
         Coor = coor;
         Distance = distance;
+        JumpValue = jumpValue;
+        this.isGround = isGround;
     }
     static public List<Node> BuildPath(Node to_node) //Gives node that is next to enemy, that he need to move to
     {

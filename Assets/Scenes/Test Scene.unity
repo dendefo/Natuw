@@ -2299,6 +2299,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileMap: {fileID: 118101160}
   Player: {fileID: 102621556}
+  EnemyList: []
+  isPaused: 0
+  inGameTimer: 0
 --- !u!4 &1324860802
 Transform:
   m_ObjectHideFlags: 0
@@ -2321,6 +2324,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 102621556, guid: aac61b8dad7fc264eb7b4465a872049f, type: 3}
+      propertyPath: Attributes.DMG
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 223688728170418625, guid: aac61b8dad7fc264eb7b4465a872049f, type: 3}
       propertyPath: m_Name
       value: Player

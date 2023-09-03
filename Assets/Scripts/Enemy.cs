@@ -15,7 +15,7 @@ public class Enemy : Creature
     {
         if ((int)((1 / Time.fixedDeltaTime) + SceneManager.Instance.EnemyList.IndexOf(this)) % _updateRates == 1)
         {
-            CalculatePath();
+            StartCoroutine(CalculatePath());
             _updateRates = 1;
         }
         base.FixedUpdate();
@@ -38,10 +38,12 @@ public class Enemy : Creature
     #endregion
     #region Movement
 
-    private void CalculatePath()
+    private IEnumerator CalculatePath()
     {
-        if (Vector3.Distance(SceneManager.Instance.Player.transform.position, transform.position) > 25) { _path = null; return; }
+
+        if (Vector3.Distance(SceneManager.Instance.Player.transform.position, transform.position) > 25) { _path = null; yield return null; }
         _path = Node.BuildPath(Pathfinder(SceneManager.Instance.TileMap, (Vector2Int)(SceneManager.Instance.TileMap.WorldToCell(SceneManager.Instance.Player.gameObject.transform.position) + Vector3Int.up)));
+        yield return null;
     }
     private void EnemyMovement()
     {
@@ -56,6 +58,7 @@ public class Enemy : Creature
                 else Move(true);
                 return;
             }
+            if (!_path[i - 1].isGround) Jump();
             if (direction.x == -1) Move(false);
             else if (direction.x == 1) Move(true);
             else if (direction.y == 1) Jump();
