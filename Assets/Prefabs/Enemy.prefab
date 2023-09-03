@@ -137,6 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ede08a0a36a64cd4f952ef5d11e3769a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Attributes:
+    HP: 40
+    DMG: 10
+    AttackSpeed: 0.5
+    BulletFlightSpeed: 0
+    CritChance: 0.01
+    CritDamageMultiplier: 1.2
   MoveVelocity: 5
   JumpVelocity: 20
   rb: {fileID: 274190016077784172}

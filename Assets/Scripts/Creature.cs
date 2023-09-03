@@ -8,20 +8,40 @@ using UnityEngine.Tilemaps;
 
 abstract public class Creature : MonoBehaviour
 {
+    #region Fields
+
+    [Header("Battle")]
+    [SerializeField] protected RangedWeapon weapon;
+    [SerializeField] protected CreatureAttributes Attributes;
+
+    [Header("Movement")]
     [SerializeField] float MoveVelocity;
     [SerializeField] float JumpVelocity;
-    [SerializeField] protected Rigidbody2D rb;
-    [SerializeField] protected SpriteRenderer SRenderer;
-    [SerializeField] bool isTouchingFloor;
-    [SerializeField] Animator animator;
-
-    [SerializeField] protected bool isInDash = false;
     [SerializeField] protected float DashSpeed;
     [SerializeField] protected float DashTime;
-    [SerializeField] protected RangedWeapon weapon;
+    [Header("Components")]
+    [SerializeField] protected Rigidbody2D rb;
+    [SerializeField] protected SpriteRenderer SRenderer;
+    [SerializeField] Animator animator;
+
     private float DashTimer;
+    private float LastShotTime;
+    private Creature Target;
+    private bool isTouchingFloor;
     protected bool isDashReady = false;
-    Creature Target;
+    protected bool isInDash = false;
+
+    #endregion
+    #region UnityFunctions
+    virtual protected void Update()
+    {
+        if (weapon == null) return;
+        if (SceneManager.Instance.inGameTimer - LastShotTime >= Attributes.AttackSpeed)
+        {
+            weapon.Shoot(Attributes.CalculateProjectileDamage(), Attributes.BulletFlightSpeed);
+            LastShotTime = SceneManager.Instance.inGameTimer;
+        }
+    }
     virtual protected void FixedUpdate()
     {
         CalculateJump();
@@ -37,12 +57,24 @@ abstract public class Creature : MonoBehaviour
         }
         if (weapon != null)
         {
-            Target = weapon.ChoseTarget(SceneManager.Instance.Player==this);
+
+            Target = weapon.ChoseTarget(SceneManager.Instance.Player == this);
             Aim(Target);
         }
     }
+    virtual protected void OnDrawGizmos()
+    {
+        if (weapon == null) return;
+        if (Target == null) return;
+        Gizmos.color = UnityEngine.Color.blue;
+        Gizmos.DrawLine(Target.transform.position, weapon.transform.position);
+        Gizmos.DrawWireSphere(Target.transform.position, 1);
+    }
+    #endregion
+    #region BattleFunctions
     virtual public void Aim(Creature target)
     {
+        if (target == null) return;
         static void Rotate(Transform toRotate, Vector3 toMove)
         {
             var norm = Vector3.Normalize(toRotate.position - toMove);
@@ -54,8 +86,18 @@ abstract public class Creature : MonoBehaviour
         Rotate(weapon.transform, target.transform.position);
 
     }
-    public float Distance(Creature creature) => Vector3.Distance(transform.position, creature.transform.position);
-
+    public void GetDamage(float _damage)
+    {
+        Attributes.GetDamage(_damage);
+        Debug.Log(_damage);
+        if (Attributes.HP <= 0) Die();
+    }
+    virtual protected void Die()
+    {
+        Destroy(gameObject);
+    }
+    #endregion
+    #region Movement 
     protected void Stop()
     {
         rb.velocity = new Vector2(0, rb.velocity.y);
@@ -85,11 +127,19 @@ abstract public class Creature : MonoBehaviour
         rb.velocity = new Vector2(MoveVelocity * (isRight ? 1 : -1), rb.velocity.y);
         SRenderer.flipX = !isRight;
     }
+
+    #endregion
+    #region VisualAndSound
+
     protected void PlayAnimation(string speedParameter = null, string jumpParameter = null)
     {
         if (speedParameter != null) animator.SetFloat(speedParameter, Mathf.Abs(rb.velocity.x));
         if (jumpParameter != null) animator.SetFloat(jumpParameter, Mathf.Abs(rb.velocity.y));
     }
+    #endregion
+    #region Misc
+    public float Distance(Creature creature) => Vector3.Distance(transform.position, creature.transform.position);
+
     /// <summary>
     /// Pathfinding algorithm for enemies
     /// </summary>
@@ -156,14 +206,7 @@ abstract public class Creature : MonoBehaviour
 
         return null; //There is no path
     }
-    virtual protected void OnDrawGizmos()
-    {
-        if (weapon == null) return;
-        if (Target == null) return;
-        Gizmos.color = UnityEngine.Color.blue;
-        Gizmos.DrawLine(Target.transform.position, weapon.transform.position);
-        Gizmos.DrawWireSphere(Target.transform.position, 1);
-    }
+    #endregion
 }
 public class Node //Representation of map as graph of walkable Nodes, that starts at Actor's node. We search for Target node at that tree
 {
@@ -186,5 +229,29 @@ public class Node //Representation of map as graph of walkable Nodes, that start
             to_node = to_node.previous;
         } //Making a list of nodes that starts at player Node and ends on Enemy node. It is a shortest way
         return path;
+    }
+}
+
+[System.Serializable]
+public struct CreatureAttributes
+{
+    [Min(0)] public float HP;
+    [Min(0)] public float DMG;
+    [Min(0)] public float AttackSpeed;
+    [Min(0)] public float BulletFlightSpeed;
+    [Range(0, 1)] public float CritChance;
+    [Min(0)] public float CritDamageMultiplier;
+
+    public float CalculateProjectileDamage()
+    {
+        var rand = Random.Range(0, 1.0f);
+        if (rand <= CritChance) return DMG * CritDamageMultiplier;
+        else return DMG;
+    }
+    public void GetDamage(float incomingDamage)
+    {
+        if (incomingDamage < 0) return;
+        HP -= incomingDamage;
+        if (HP < 0) HP = 0;
     }
 }

@@ -132,9 +132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponSprite: {fileID: 2111163066306310951}
   ProjectilePrefab: {fileID: 3738105164554344390, guid: 8dc2c15b1ca54ee479af5eb3d3a84bbe, type: 3}
-  SpeedMultiplier: 10
+  SpeedMultiplier: 1
   DamageMultiplier: 1
-  AttackSpeedMultiplier: 0.4
+  AttackSpeedMultiplier: 1
   ProjectileSpawnPoint: {fileID: 3918585952946899184}
   Target: {fileID: 0}
 --- !u!1 &3479052719809935384

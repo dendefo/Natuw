@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class Player : Creature
 {
+    #region UnityFunctions
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
         UserInput();
     }
-    private void Update()
+    override protected void Update()
     {
-
+        base.Update();
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
     }
+    override protected void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0)*(SRenderer.flipX?-1:1)));
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
+    }
+    #endregion
     private void UserInput()
     {
         if (isInDash) return;
@@ -23,12 +32,5 @@ public class Player : Creature
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) Stop();
         if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))) Stop();
         if (Input.GetKey(KeyCode.Space)) Jump();
-    }
-    override protected void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0)*(SRenderer.flipX?-1:1)));
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
     }
 }

@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class RangedWeapon : MonoBehaviour
 {
-
-    [SerializeField] protected SpriteRenderer WeaponSprite;
-    [SerializeField] protected Projectile ProjectilePrefab;
+    #region Fields
+    [Header("Multipliers")]
     [SerializeField] protected float SpeedMultiplier;
     [SerializeField] protected float DamageMultiplier;
     [SerializeField] protected float AttackSpeedMultiplier;
+    [Header("Visuals")]
+    [SerializeField] protected SpriteRenderer WeaponSprite;
+    [SerializeField] protected Projectile ProjectilePrefab;
     [SerializeField] Transform ProjectileSpawnPoint;
-    [SerializeField] Creature Target;
+    private Creature Target;
+    #endregion
 
-    private void Update()
-    {
-        if (SceneManager.Instance.inGameTimer % (float)AttackSpeedMultiplier <= 0.02) Shoot();
-    }
     virtual public Creature ChoseTarget(bool isLookingForEnemy = true)
     {
         Player player = SceneManager.Instance.Player;
@@ -34,8 +33,9 @@ public class RangedWeapon : MonoBehaviour
         return player;
 
     }
-    virtual public void Shoot()
+    virtual public void Shoot(float damage, float speed)
     {
-        Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot(Target.transform.position,SpeedMultiplier,DamageMultiplier);
+        if (Target==null) return;
+        Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot(Target.transform.position,speed*SpeedMultiplier,damage*DamageMultiplier,Target!= SceneManager.Instance.Player);
     }
 }

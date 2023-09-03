@@ -5,9 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class SceneManager : MonoBehaviour
 {
+    static public SceneManager Instance;
     public Tilemap TileMap;
     public Player Player;
-    static public SceneManager Instance;
     public List<Enemy> EnemyList;
     public bool isPaused;
     public float inGameTimer;
@@ -21,7 +21,6 @@ public class SceneManager : MonoBehaviour
     {
         if (isPaused)
         {
-
             return;
         }
         inGameTimer += Time.deltaTime;
