@@ -14,6 +14,7 @@ public class RangedWeapon : MonoBehaviour
     [SerializeField] protected SpriteRenderer WeaponSprite;
     [SerializeField] protected Projectile ProjectilePrefab;
     [SerializeField] Transform ProjectileSpawnPoint;
+    //[SerializeField] ParticleSystem particleProjectile;
     private Creature Target;
     #endregion
 
