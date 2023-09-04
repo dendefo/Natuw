@@ -15,6 +15,7 @@ public class Player : Creature
         base.Update();
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
+
     }
     override protected void OnDrawGizmos()
     {

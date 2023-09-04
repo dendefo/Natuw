@@ -30,6 +30,9 @@ abstract public class Creature : MonoBehaviour
     private bool isTouchingFloor;
     protected bool isDashReady = false;
     protected bool isInDash = false;
+    MovingPlatform _currentConnectedPlatform = null;
+    PassingThroughPlatform _currentPassingThroughPlatform = null;
+
 
     #endregion
     #region UnityFunctions
@@ -47,7 +50,7 @@ abstract public class Creature : MonoBehaviour
         CalculateJump();
         if (isInDash)
         {
-            rb.velocity = Vector2.right * DashSpeed * (SRenderer.flipX ? -1 : 1);
+            rb.velocity = Vector2.right * DashSpeed * (SRenderer.flipX ? -1 : 1)+(_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
 
         }
         if (isInDash && Time.time - DashTimer > DashTime)
@@ -72,14 +75,25 @@ abstract public class Creature : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag== "TileMap") //Collision with a map
+        if (collision.collider.tag == "TileMap") //Collision with a map
         {
             foreach (var contact in collision.contacts)
             {
-                if (isTouchingFloor) return;
-                if (contact.normal.y>= 0.707) isTouchingFloor = true; 
+                if (isTouchingFloor) break;
+                if (contact.normal.y >= 0.707) isTouchingFloor = true;
                 //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 125 degrees
             }
+        }
+        if (collision.collider.tag == "Platform")
+        {
+            if (collision.contacts[0].normal.y >= 0.707)
+            {
+                isTouchingFloor = true;
+                collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
+                
+            }
+            collision.collider.TryGetComponent<PassingThroughPlatform>(out _currentPassingThroughPlatform);
+
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -96,7 +110,14 @@ abstract public class Creature : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.tag == "TileMap") isTouchingFloor = false;//Collision with a map 
+        if (collision.collider.tag == "TileMap") isTouchingFloor = false; //Collision with a map 
+        if (collision.collider.tag == "Platform")
+        {
+            //Here could be possible bug, but i don't care too much right now
+            isTouchingFloor = false;
+            _currentConnectedPlatform = null;
+            if (((_currentPassingThroughPlatform.effector.colliderMask>>3) & 1)==1) _currentPassingThroughPlatform = null; 
+        }
     }
     #endregion
     #region BattleFunctions
@@ -127,7 +148,7 @@ abstract public class Creature : MonoBehaviour
     #region Movement 
     protected void Stop()
     {
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        rb.velocity = new Vector2(0, rb.velocity.y) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
     }
     protected void Jump()
     {
@@ -152,7 +173,7 @@ abstract public class Creature : MonoBehaviour
     }
     protected void Move(bool isRight)
     {
-        rb.velocity = new Vector2(MoveVelocity * (isRight ? 1 : -1), rb.velocity.y);
+        rb.velocity = new Vector2(MoveVelocity * (isRight ? 1 : -1), rb.velocity.y)+(_currentConnectedPlatform==null?Vector2.zero:_currentConnectedPlatform.rb.velocity);
         SRenderer.flipX = !isRight;
     }
 
@@ -161,8 +182,8 @@ abstract public class Creature : MonoBehaviour
 
     protected void PlayAnimation(string speedParameter = null, string jumpParameter = null)
     {
-        if (speedParameter != null) animator.SetFloat(speedParameter, Mathf.Abs(rb.velocity.x));
-        if (jumpParameter != null) animator.SetFloat(jumpParameter, Mathf.Abs(rb.velocity.y));
+        if (speedParameter != null) animator.SetFloat(speedParameter, Mathf.Abs((rb.velocity - (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity)).x));
+        if (jumpParameter != null) animator.SetFloat(jumpParameter, Mathf.Abs((rb.velocity - (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity)).y));
     }
     #endregion
     #region Misc
@@ -187,7 +208,7 @@ abstract public class Creature : MonoBehaviour
         int LoopCount = 0;
         while (reachable.Count != 0) //If reachable is 0 and algothm didn't made return, enemy can't reach the player
         {
-            if (LoopCount > 1000) return visited[visited.Count-1];
+            if (LoopCount > 1000) return visited[visited.Count - 1];
             Node node = reachable[0];
 
             foreach (Node node1 in reachable)
@@ -215,10 +236,10 @@ abstract public class Creature : MonoBehaviour
                     Vector2Int newCoords = new(x, y);
 
                     int newJumpValue = node.JumpValue;
-                    if (newCoords.y == 1) 
-                    { 
-                        newJumpValue++; 
-                        if (newJumpValue % 2 == 1) newJumpValue++; 
+                    if (newCoords.y == 1)
+                    {
+                        newJumpValue++;
+                        if (newJumpValue % 2 == 1) newJumpValue++;
                     }
                     else if (!node.isGround && newCoords.y != 1) newJumpValue++;
                     else if (node.isGround && newCoords.y != 1) newJumpValue = 0;
@@ -234,10 +255,10 @@ abstract public class Creature : MonoBehaviour
 
 
                     if (entity != Tile.ColliderType.None) continue; //If it's not walkable, then continue
-                    
-                    Node adjacent = new(newCoords, node, Vector2Int.Distance(newCoords, target), newJumpValue, level.GetColliderType((Vector3Int)(newCoords+Vector2Int.down))!=Tile.ColliderType.None); //Create new node to check
+
+                    Node adjacent = new(newCoords, node, Vector2Int.Distance(newCoords, target), newJumpValue, level.GetColliderType((Vector3Int)(newCoords + Vector2Int.down)) != Tile.ColliderType.None); //Create new node to check
                     if (reachable.Exists(n => n.Coor == adjacent.Coor)) continue; //If it's already awaits for check then continue
-                    
+
 
                     reachable.Add(adjacent); // Add to List
                 }

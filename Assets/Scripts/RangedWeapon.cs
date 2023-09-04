@@ -27,6 +27,7 @@ public class RangedWeapon : MonoBehaviour
 
             //God save us from this stupid implementation. This shit is returning the closest enemy. Sometime i'll make it better (and faster)
             Target = SceneManager.Instance.EnemyList.Find(enemy => enemy.Distance(player) == SceneManager.Instance.EnemyList.Min(enemy => enemy.Distance(player)));
+
             return Target;
 
         }
