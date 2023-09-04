@@ -70,6 +70,34 @@ abstract public class Creature : MonoBehaviour
         Gizmos.DrawLine(Target.transform.position, weapon.transform.position);
         Gizmos.DrawWireSphere(Target.transform.position, 1);
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag== "TileMap") //Collision with a map
+        {
+            foreach (var contact in collision.contacts)
+            {
+                if (isTouchingFloor) return;
+                if (contact.normal.y>= 0.707) isTouchingFloor = true; 
+                //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 125 degrees
+            }
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "TileMap") //Collision with a map
+        {
+            isTouchingFloor = false;
+            foreach (var contact in collision.contacts)
+            {
+                if (isTouchingFloor) return;
+                if (contact.normal.y >= 0.707) isTouchingFloor = true;
+            }
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "TileMap") isTouchingFloor = false;//Collision with a map 
+    }
     #endregion
     #region BattleFunctions
     virtual public void Aim(Creature target)
@@ -89,7 +117,6 @@ abstract public class Creature : MonoBehaviour
     public void GetDamage(float _damage)
     {
         Attributes.GetDamage(_damage);
-        Debug.Log(_damage);
         if (Attributes.HP <= 0) Die();
     }
     virtual protected void Die()
@@ -106,12 +133,13 @@ abstract public class Creature : MonoBehaviour
     {
         if (!isTouchingFloor) return;
         rb.velocity = new Vector2(rb.velocity.x, JumpVelocity);
+        isTouchingFloor = false;
 
     }
     protected void CalculateJump()
     {
-        if (rb.velocity.y == 0) isTouchingFloor = true;
-        else isTouchingFloor = false;
+        //if (rb.velocity.y == 0) isTouchingFloor = true;
+        //else isTouchingFloor = false;
         if (isTouchingFloor && !isInDash) isDashReady = true;
     }
     protected float CalculateJumpHeight() => (-Mathf.Pow(JumpVelocity, 2)) / (2 * Physics2D.gravity.y * rb.gravityScale);

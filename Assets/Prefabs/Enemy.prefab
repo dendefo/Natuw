@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: c40146ab750f27643863fa8876acaaeb, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!70 &274190016077784175
 CapsuleCollider2D:
@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ede08a0a36a64cd4f952ef5d11e3769a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
   Attributes:
     HP: 40
     DMG: 10
@@ -146,14 +147,11 @@ MonoBehaviour:
     CritDamageMultiplier: 1.2
   MoveVelocity: 5
   JumpVelocity: 20
-  rb: {fileID: 274190016077784172}
-  SRenderer: {fileID: 274190016077784173}
-  isTouchingFloor: 0
-  animator: {fileID: 1855006189}
-  isInDash: 0
   DashSpeed: 0
   DashTime: 0
-  weapon: {fileID: 0}
+  rb: {fileID: 274190016077784172}
+  SRenderer: {fileID: 274190016077784173}
+  animator: {fileID: 1855006189}
 --- !u!95 &1855006189
 Animator:
   serializedVersion: 5

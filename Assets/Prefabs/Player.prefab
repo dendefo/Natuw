@@ -106,7 +106,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 5
   m_Material: {fileID: 6200000, guid: c40146ab750f27643863fa8876acaaeb, type: 2}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -123,7 +123,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.024259567, y: 0.65691847}
+  m_Offset: {x: -0.024259567, y: -0.18}
   m_Size: {x: 0.66382694, y: 1.3010617}
   m_Direction: 0
 --- !u!114 &102621556
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85554334aab8701479a6b049c47551a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 9108192200106107357}
   Attributes:
     HP: 100
     DMG: 10
@@ -147,14 +148,11 @@ MonoBehaviour:
     CritDamageMultiplier: 1.5
   MoveVelocity: 10
   JumpVelocity: 19
-  rb: {fileID: 223688728170418627}
-  SRenderer: {fileID: 223688728170418626}
-  isTouchingFloor: 0
-  animator: {fileID: 1780990462}
-  isInDash: 0
   DashSpeed: 40
   DashTime: 0.125
-  weapon: {fileID: 9108192200106107357}
+  rb: {fileID: 223688728170418627}
+  SRenderer: {fileID: 223688728170418626}
+  animator: {fileID: 1780990462}
 --- !u!95 &1780990462
 Animator:
   serializedVersion: 5
@@ -196,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2111163067393621885, guid: c8c123e12108e1541b80c2736faac003, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2111163067393621885, guid: c8c123e12108e1541b80c2736faac003, type: 3}
       propertyPath: m_LocalPosition.z
