@@ -67,10 +67,12 @@ public class LevelManager : MonoBehaviour
                 Player.Attributes.UpgradeMovementSpeed();
                 break;
             case UpgradeTypes.DoubleJump:
+                Player.UpgradeDoubleJump();
                 break;
         }
     }
 }
+
 public enum UpgradeTypes{
     MaxHealth,
     DoubleBullets,

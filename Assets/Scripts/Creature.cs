@@ -83,7 +83,7 @@ abstract public class Creature : MonoBehaviour
             foreach (var contact in collision.contacts)
             {
                 if (isTouchingFloor) break;
-                if (contact.normal.y >= 0.707) isTouchingFloor = true;
+                if (contact.normal.y >= 0.707) { isTouchingFloor = true; SecondJumpReady = true; }
                 //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 125 degrees
             }
         }
@@ -92,6 +92,7 @@ abstract public class Creature : MonoBehaviour
             if (collision.contacts[0].normal.y >= 0.707)
             {
                 isTouchingFloor = true;
+                SecondJumpReady = true;
                 collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
 
             }
@@ -107,7 +108,7 @@ abstract public class Creature : MonoBehaviour
             foreach (var contact in collision.contacts)
             {
                 if (isTouchingFloor) return;
-                if (contact.normal.y >= 0.707) isTouchingFloor = true;
+                if (contact.normal.y >= 0.707) { SecondJumpReady = true; isTouchingFloor = true; }
             }
         }
     }
@@ -157,8 +158,9 @@ abstract public class Creature : MonoBehaviour
     }
     protected void StartJump()
     {
-        if (isTouchingFloor)
+        if (isTouchingFloor || (SecondJumpAvalible && SecondJumpReady))
         {
+            SecondJumpReady = false;
             isInJump = true;
             currentJumpMaxHeightPosition = transform.position.y + CalculateJumpHeight();
         }
@@ -180,7 +182,7 @@ abstract public class Creature : MonoBehaviour
     {
         currentJumpMaxHeightPosition = -100000000;
         isInJump = false;
-        rb.velocity = new Vector2(rb.velocity.x,Mathf.Sqrt(rb.velocity.y));
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(rb.velocity.y));
     }
     protected void CalculateJump()
     {
@@ -200,6 +202,10 @@ abstract public class Creature : MonoBehaviour
     {
         rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1), rb.velocity.y) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
         SRenderer.flipX = !isRight;
+    }
+    public void UpgradeDoubleJump()
+    {
+        SecondJumpAvalible = true;
     }
 
     #endregion
