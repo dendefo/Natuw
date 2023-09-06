@@ -12,14 +12,9 @@ abstract public class Creature : MonoBehaviour
     #region Fields
 
     [Header("Battle")]
-    [SerializeField] protected RangedWeapon weapon;
-    [SerializeField] protected CreatureAttributes Attributes;
+    [SerializeField] public RangedWeapon weapon;
+    [SerializeField] public CreatureAttributes Attributes;
 
-    [Header("Movement")]
-    [SerializeField] float MoveVelocity;
-    [SerializeField] float JumpVelocity;
-    [SerializeField] protected float DashSpeed;
-    [SerializeField] protected float DashTime;
     [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected SpriteRenderer SRenderer;
@@ -55,10 +50,10 @@ abstract public class Creature : MonoBehaviour
         CalculateJump();
         if (isInDash)
         {
-            rb.velocity = Vector2.right * DashSpeed * (SRenderer.flipX ? -1 : 1)+(_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
+            rb.velocity = Vector2.right * Attributes.DashSpeed * (SRenderer.flipX ? -1 : 1) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
 
         }
-        if (isInDash && Time.time - DashTimer > DashTime)
+        if (isInDash && Time.time - DashTimer > Attributes.DashTime)
         {
             isInDash = false;
             rb.velocity = Vector2.zero;
@@ -95,7 +90,7 @@ abstract public class Creature : MonoBehaviour
             {
                 isTouchingFloor = true;
                 collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
-                
+
             }
             collision.collider.TryGetComponent<PassingThroughPlatform>(out _currentPassingThroughPlatform);
 
@@ -121,7 +116,7 @@ abstract public class Creature : MonoBehaviour
             //Here could be possible bug, but i don't care too much right now
             isTouchingFloor = false;
             _currentConnectedPlatform = null;
-            if (((_currentPassingThroughPlatform.effector.colliderMask>>3) & 1)==1) _currentPassingThroughPlatform = null; 
+            if (((_currentPassingThroughPlatform.effector.colliderMask >> 3) & 1) == 1) _currentPassingThroughPlatform = null;
         }
     }
     #endregion
@@ -136,10 +131,10 @@ abstract public class Creature : MonoBehaviour
             var z = Acos / Mathf.PI * (toRotate.position.x > toMove.x ? -180 : 180);
 
             toRotate.localEulerAngles = new Vector3(0, 0, z - 90);
-            weapon.WeaponSprite.flipY = Mathf.Abs(z-90) > 90;
+            weapon.WeaponSprite.flipY = Mathf.Abs(z - 90) > 90;
         }
         Rotate(weapon.transform, target.transform.position);
-        
+
 
     }
     public void GetDamage(float _damage)
@@ -160,7 +155,7 @@ abstract public class Creature : MonoBehaviour
     protected void Jump()
     {
         if (!isTouchingFloor) return;
-        rb.velocity = new Vector2(rb.velocity.x, JumpVelocity);
+        rb.velocity = new Vector2(rb.velocity.x, Attributes.JumpVelocity);
         isTouchingFloor = false;
 
     }
@@ -170,7 +165,7 @@ abstract public class Creature : MonoBehaviour
         //else isTouchingFloor = false;
         if (isTouchingFloor && !isInDash) isDashReady = true;
     }
-    protected float CalculateJumpHeight() => (-Mathf.Pow(JumpVelocity, 2)) / (2 * Physics2D.gravity.y * rb.gravityScale);
+    protected float CalculateJumpHeight() => (-Mathf.Pow(Attributes.JumpVelocity, 2)) / (2 * Physics2D.gravity.y * rb.gravityScale);
     protected void Dash()
     {
         DashTimer = Time.time;
@@ -180,7 +175,7 @@ abstract public class Creature : MonoBehaviour
     }
     protected void Move(bool isRight)
     {
-        rb.velocity = new Vector2(MoveVelocity * (isRight ? 1 : -1), rb.velocity.y)+(_currentConnectedPlatform==null?Vector2.zero:_currentConnectedPlatform.rb.velocity);
+        rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1), rb.velocity.y) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
         SRenderer.flipX = !isRight;
     }
 
@@ -326,12 +321,18 @@ public class Node //Representation of map as graph of walkable Nodes, that start
 [System.Serializable]
 public struct CreatureAttributes
 {
+    [Min(0)] public float MaxHP;
     [Min(0)] public float HP;
     [Min(0)] public float DMG;
     [Min(0)] public float AttackSpeed;
     [Min(0)] public float BulletFlightSpeed;
     [Range(0, 1)] public float CritChance;
     [Min(0)] public float CritDamageMultiplier;
+    [Header("Movement")]
+    public float MoveVelocity;
+    public float JumpVelocity;
+    public float DashTime;
+    public float DashSpeed;
 
     public float CalculateProjectileDamage()
     {
@@ -345,4 +346,24 @@ public struct CreatureAttributes
         HP -= incomingDamage;
         if (HP < 0) HP = 0;
     }
+
+    public void UpgradeMaxHealth()
+    {
+        MaxHP *= 1.5f;
+        HP *= 1.5f;
+    }
+    public void UpgradeMovementSpeed()
+    {
+        MoveVelocity *= 1.1f;
+    }
+
+    public void AttackSpeedUpgrade()
+    {
+        AttackSpeed *= 1.25f;
+    }
+    public void DMGUpgrade()
+    {
+        DMG *= 1.25f;
+    }
+
 }

@@ -11,11 +11,23 @@ public class Player : Creature
     }
     protected override void FixedUpdate()
     {
+        if (LevelManager.Instance.isPaused && rb.simulated)
+        {
+            rb.simulated = false;
+            return;
+        }
+        else if(!LevelManager.Instance.isPaused &&!rb.simulated) rb.simulated = true;
         base.FixedUpdate();
         UserInput();
     }
     override protected void Update()
     {
+        if (LevelManager.Instance.isPaused&& rb.simulated)
+        {
+            rb.simulated = false;
+            return;
+        }
+        else if (!LevelManager.Instance.isPaused && !rb.simulated) rb.simulated = true;
         base.Update();
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
@@ -24,7 +36,7 @@ public class Player : Creature
     override protected void OnDrawGizmos()
     {
         base.OnDrawGizmos();
-        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0)*(SRenderer.flipX?-1:1)));
+        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(Attributes.DashSpeed * Attributes.DashTime, 0, 0)*(SRenderer.flipX?-1:1)));
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
     }

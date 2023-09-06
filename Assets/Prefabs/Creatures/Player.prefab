@@ -140,16 +140,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 9108192200106107357}
   Attributes:
+    MaxHP: 100
     HP: 100
     DMG: 10
     AttackSpeed: 0.7
     BulletFlightSpeed: 10
     CritChance: 0.2
     CritDamageMultiplier: 1.5
-  MoveVelocity: 10
-  JumpVelocity: 19
-  DashSpeed: 40
-  DashTime: 0.125
+    MoveVelocity: 10
+    JumpVelocity: 19
+    DashTime: 0.125
+    DashSpeed: 40
   rb: {fileID: 223688728170418627}
   SRenderer: {fileID: 223688728170418626}
   animator: {fileID: 1780990462}

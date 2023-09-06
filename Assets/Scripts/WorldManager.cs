@@ -17,6 +17,13 @@ public class WorldManager : MonoBehaviour
         DontDestroyOnLoad(Instance);
         NextLevel();
     }
+    private void Update()
+    {
+        while (PlayerXP >= CalculateXpForNextLevel())
+        {
+            LevelUp();
+        }
+    }
 
     public void AddXpToPlayer(int XP)
     {
@@ -37,6 +44,11 @@ public class WorldManager : MonoBehaviour
                 return 0;
         }
 
+    }
+    public void LevelUp()
+    {
+        PlayerXP -= CalculateXpForNextLevel();
+        PlayerLevel++;
     }
 
     public void NextLevel()

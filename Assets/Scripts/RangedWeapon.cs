@@ -16,6 +16,7 @@ public class RangedWeapon : MonoBehaviour
     public SpriteRenderer WeaponSprite;
     //[SerializeField] ParticleSystem particleProjectile;
     private Creature Target;
+    public bool isDoubleShooter = false;
     #endregion
 
     virtual public Creature ChoseTarget(bool isLookingForEnemy = true)
@@ -37,8 +38,13 @@ public class RangedWeapon : MonoBehaviour
     }
     virtual public void Shoot(float damage, float speed)
     {
-        if (Target==null) return;
-        Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot(Target.transform.position,speed*SpeedMultiplier,damage*DamageMultiplier,Target!= LevelManager.Instance.Player);
+        if (Target == null) return;
+        if (!isDoubleShooter) Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
+        else
+        {
+            Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position - ProjectilePrefab.transform.localScale, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
+            Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position + ProjectilePrefab.transform.localScale, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
+        }
     }
     public struct WeaponSaveData
     {
@@ -56,11 +62,19 @@ public class RangedWeapon : MonoBehaviour
         data.prefab = ProjectilePrefab;
         return data;
     }
-    public void LoadSaveData(WeaponSaveData data )
+    public void LoadSaveData(WeaponSaveData data)
     {
         SpeedMultiplier = data.Speed;
         DamageMultiplier = data.Damage;
         AttackSpeedMultiplier = data.Attack;
         ProjectilePrefab = data.prefab;
     }
+
+    #region Upgrades
+
+    public void UpgradeDoubleBullets()
+    {
+        isDoubleShooter = true;
+    }
+    #endregion
 }

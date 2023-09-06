@@ -6,6 +6,7 @@ public class Enemy : Creature
 {
     private List<Node> _path;
     private int _updateRates = 1; //Counter of FixedUpdates for better AI performance
+    [SerializeField] private int XpOndeath = 50;
     #region UnityFunctions
     private void Start()
     {
@@ -34,6 +35,10 @@ public class Enemy : Creature
             Gizmos.color = Color.red;
             Gizmos.DrawLine(LevelManager.Instance.TileMap.CellToWorld((Vector3Int)_path[i].Coor), LevelManager.Instance.TileMap.CellToWorld((Vector3Int)_path[i - 1].Coor));
         }
+    }
+    private void OnDestroy()
+    {
+        WorldManager.Instance.PlayerXP += XpOndeath;
     }
     #endregion
     #region Movement
