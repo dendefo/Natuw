@@ -9,11 +9,11 @@ public class Enemy : Creature
     #region UnityFunctions
     private void Start()
     {
-        SceneManager.Instance.EnemyList.Add(this);
+        LevelManager.Instance.EnemyList.Add(this);
     }
     protected override void FixedUpdate()
     {
-        if ((int)((1 / Time.fixedDeltaTime) + SceneManager.Instance.EnemyList.IndexOf(this)) % _updateRates == 1)
+        if ((int)((1 / Time.fixedDeltaTime) + LevelManager.Instance.EnemyList.IndexOf(this)) % _updateRates == 1)
         {
             StartCoroutine(CalculatePath());
             _updateRates = 1;
@@ -32,7 +32,7 @@ public class Enemy : Creature
         for (int i = 1; i < _path.Count; i++)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(SceneManager.Instance.TileMap.CellToWorld((Vector3Int)_path[i].Coor), SceneManager.Instance.TileMap.CellToWorld((Vector3Int)_path[i - 1].Coor));
+            Gizmos.DrawLine(LevelManager.Instance.TileMap.CellToWorld((Vector3Int)_path[i].Coor), LevelManager.Instance.TileMap.CellToWorld((Vector3Int)_path[i - 1].Coor));
         }
     }
     #endregion
@@ -41,8 +41,8 @@ public class Enemy : Creature
     private IEnumerator CalculatePath()
     {
 
-        if (Vector3.Distance(SceneManager.Instance.Player.transform.position, transform.position) > 25) { _path = null; yield return null; }
-        _path = Node.BuildPath(Pathfinder(SceneManager.Instance.TileMap, (Vector2Int)(SceneManager.Instance.TileMap.WorldToCell(SceneManager.Instance.Player.gameObject.transform.position) + Vector3Int.up)));
+        if (Vector3.Distance(LevelManager.Instance.Player.transform.position, transform.position) > 25) { _path = null; yield return null; }
+        _path = Node.BuildPath(Pathfinder(LevelManager.Instance.TileMap, (Vector2Int)(LevelManager.Instance.TileMap.WorldToCell(LevelManager.Instance.Player.gameObject.transform.position) + Vector3Int.up)));
         yield return null;
     }
     private void EnemyMovement()
@@ -70,7 +70,7 @@ public class Enemy : Creature
     #region Battle
     protected override void Die()
     {
-        SceneManager.Instance.EnemyList.Remove(this);
+        LevelManager.Instance.EnemyList.Remove(this);
         base.Die();
     }
     #endregion

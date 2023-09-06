@@ -39,10 +39,10 @@ abstract public class Creature : MonoBehaviour
     virtual protected void Update()
     {
         if (weapon == null) return;
-        if (SceneManager.Instance.inGameTimer - LastShotTime >= Attributes.AttackSpeed)
+        if (LevelManager.Instance.inGameTimer - LastShotTime >= Attributes.AttackSpeed)
         {
             weapon.Shoot(Attributes.CalculateProjectileDamage(), Attributes.BulletFlightSpeed);
-            LastShotTime = SceneManager.Instance.inGameTimer;
+            LastShotTime = LevelManager.Instance.inGameTimer;
         }
     }
     virtual protected void FixedUpdate()
@@ -61,7 +61,7 @@ abstract public class Creature : MonoBehaviour
         if (weapon != null)
         {
 
-            Target = weapon.ChoseTarget(SceneManager.Instance.Player == this);
+            Target = weapon.ChoseTarget(LevelManager.Instance.Player == this);
             Aim(Target);
         }
     }

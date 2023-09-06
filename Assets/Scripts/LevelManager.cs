@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class SceneManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
-    static public SceneManager Instance;
+    static public LevelManager Instance;
     public Tilemap TileMap;
     public Player Player;
     public List<Enemy> EnemyList;
@@ -14,6 +14,10 @@ public class SceneManager : MonoBehaviour
 
     void Start()
     {
+        if (Instance!=null)
+        {
+            Destroy(Instance.gameObject);
+        }
         EnemyList = new();
         Instance = this;
     }

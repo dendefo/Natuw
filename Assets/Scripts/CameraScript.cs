@@ -6,6 +6,6 @@ public class CameraScript : MonoBehaviour
 {
     void Update()
     {
-        transform.position = new Vector3(SceneManager.Instance.Player.transform.position.x, SceneManager.Instance.Player.transform.position.y,transform.position.z);
+        transform.position = new Vector3(LevelManager.Instance.Player.transform.position.x, LevelManager.Instance.Player.transform.position.y,transform.position.z);
     }
 }
