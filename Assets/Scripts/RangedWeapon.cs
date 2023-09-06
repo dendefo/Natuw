@@ -13,6 +13,8 @@ public class RangedWeapon : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] protected Projectile ProjectilePrefab;
     [SerializeField] Transform ProjectileSpawnPoint;
+    [SerializeField] Transform ProjectileSecondSpawnPoint;
+    [SerializeField] Transform ProjectileThirdSpawnPoint;
     public SpriteRenderer WeaponSprite;
     //[SerializeField] ParticleSystem particleProjectile;
     private Creature Target;
@@ -39,12 +41,9 @@ public class RangedWeapon : MonoBehaviour
     virtual public void Shoot(float damage, float speed)
     {
         if (Target == null) return;
-        if (!isDoubleShooter) Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
-        else
-        {
-            Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position - ProjectilePrefab.transform.localScale, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
-            Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position + ProjectilePrefab.transform.localScale, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
-        }
+        if (isDoubleShooter) { Instantiate(ProjectilePrefab, ProjectileSecondSpawnPoint.position, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player); }
+        Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
+       
     }
     public struct WeaponSaveData
     {
@@ -75,6 +74,9 @@ public class RangedWeapon : MonoBehaviour
     public void UpgradeDoubleBullets()
     {
         isDoubleShooter = true;
+        ProjectileSecondSpawnPoint = Instantiate(ProjectileSpawnPoint, this.transform);
+        ProjectileSpawnPoint.Translate(Vector3.Scale(ProjectilePrefab.transform.localScale, Vector3.up), Space.Self);
+        ProjectileSecondSpawnPoint.Translate(Vector3.Scale(ProjectilePrefab.transform.localScale, Vector3.down), Space.Self);
     }
     #endregion
 }

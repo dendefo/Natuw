@@ -382,7 +382,7 @@ public struct CreatureAttributes
 
     public void AttackSpeedUpgrade()
     {
-        AttackSpeed *= 1.25f;
+        AttackSpeed /= 1.25f;
     }
     public void DMGUpgrade()
     {
