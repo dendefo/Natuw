@@ -5,6 +5,10 @@ using UnityEngine;
 public class Player : Creature
 {
     #region UnityFunctions
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

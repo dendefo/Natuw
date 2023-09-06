@@ -11,9 +11,13 @@ public class LevelManager : MonoBehaviour
     public List<Enemy> EnemyList;
     public bool isPaused;
     public float inGameTimer;
+    public PlayerSpawnPoint spawnPoint;
 
-    void Start()
+    void Awake()
     {
+        if (Player == null) { Player = WorldManager.Instance.PlayerReference; }
+        else { WorldManager.Instance.PlayerReference = Player; }
+        Player.transform.position = spawnPoint.transform.position;
         if (Instance!=null)
         {
             Destroy(Instance.gameObject);

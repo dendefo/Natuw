@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static RangedWeapon;
 
 abstract public class Creature : MonoBehaviour
 {
@@ -36,6 +37,10 @@ abstract public class Creature : MonoBehaviour
 
     #endregion
     #region UnityFunctions
+    private void OnLevelWasLoaded(int level)
+    {
+        LastShotTime = 0;
+    }
     virtual protected void Update()
     {
         if (weapon == null) return;
@@ -269,6 +274,24 @@ abstract public class Creature : MonoBehaviour
         }
 
         return null; //There is no path
+    }
+
+    public struct PlayerSaveData
+    {
+        public WeaponSaveData weapon;
+        public CreatureAttributes attributes;
+    }
+    public PlayerSaveData GetPlayerData()
+    {
+        var data = new PlayerSaveData();
+        data.weapon = weapon.GetSaveData();
+        data.attributes = Attributes;
+        return data;
+    }
+    public void LoadPlayerData(PlayerSaveData data)
+    {
+        weapon.LoadSaveData(data.weapon);
+        Attributes = data.attributes;
     }
     #endregion
 }
