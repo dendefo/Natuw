@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7888652929517824444}
   - component: {fileID: 7888652929517824445}
   - component: {fileID: 7888652929517824446}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

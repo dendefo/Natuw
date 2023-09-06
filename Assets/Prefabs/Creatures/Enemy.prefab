@@ -154,6 +154,10 @@ MonoBehaviour:
   rb: {fileID: 274190016077784172}
   SRenderer: {fileID: 274190016077784173}
   animator: {fileID: 1855006189}
+  isTouchingFloor: 0
+  currentJumpMaxHeightPosition: 0
+  isInJump: 0
+  XpOndeath: 50
 --- !u!95 &1855006189
 Animator:
   serializedVersion: 5

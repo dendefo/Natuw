@@ -23,12 +23,15 @@ abstract public class Creature : MonoBehaviour
     private float DashTimer;
     private float LastShotTime;
     private Creature Target;
-    private bool isTouchingFloor;
+    [SerializeField] private bool isTouchingFloor;
     protected bool isDashReady = false;
     protected bool isInDash = false;
     MovingPlatform _currentConnectedPlatform = null;
     PassingThroughPlatform _currentPassingThroughPlatform = null;
-
+    private bool SecondJumpReady = false;
+    private bool SecondJumpAvalible = false;
+    [SerializeField] private float currentJumpMaxHeightPosition;
+    [SerializeField] private bool isInJump;
 
     #endregion
     #region UnityFunctions
@@ -152,12 +155,32 @@ abstract public class Creature : MonoBehaviour
     {
         rb.velocity = new Vector2(0, rb.velocity.y) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
     }
+    protected void StartJump()
+    {
+        if (isTouchingFloor)
+        {
+            isInJump = true;
+            currentJumpMaxHeightPosition = transform.position.y + CalculateJumpHeight();
+        }
+        else isInJump = false;
+    }
     protected void Jump()
     {
-        if (!isTouchingFloor) return;
-        rb.velocity = new Vector2(rb.velocity.x, Attributes.JumpVelocity);
-        isTouchingFloor = false;
+        if (!isInJump) return;
+        if (currentJumpMaxHeightPosition < transform.position.y) { EndJump(); }
+        else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, Attributes.JumpVelocity);
+            isTouchingFloor = false;
+        }
 
+
+    }
+    protected void EndJump()
+    {
+        currentJumpMaxHeightPosition = -100000000;
+        isInJump = false;
+        rb.velocity = new Vector2(rb.velocity.x,Mathf.Sqrt(rb.velocity.y));
     }
     protected void CalculateJump()
     {
