@@ -124,15 +124,17 @@ abstract public class Creature : MonoBehaviour
     virtual public void Aim(Creature target)
     {
         if (target == null) return;
-        static void Rotate(Transform toRotate, Vector3 toMove)
+        void Rotate(Transform toRotate, Vector3 toMove)
         {
             var norm = Vector3.Normalize(toRotate.position - toMove);
             var Acos = Mathf.Acos(norm.y);
             var z = Acos / Mathf.PI * (toRotate.position.x > toMove.x ? -180 : 180);
 
             toRotate.localEulerAngles = new Vector3(0, 0, z - 90);
+            weapon.WeaponSprite.flipY = Mathf.Abs(z-90) > 90;
         }
         Rotate(weapon.transform, target.transform.position);
+        
 
     }
     public void GetDamage(float _damage)

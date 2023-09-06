@@ -20,6 +20,5 @@ public class MovingPlatform : MonoBehaviour
         else rb.velocity = DirectionLeftToRight * speed;
         if (Vector3.Normalize(transform.position - rightBorder).x > 0 && isMovingRight) isMovingRight = false;
         if (Vector3.Normalize(transform.position - leftBorder).x < 0 && !isMovingRight) isMovingRight = true;
-        Debug.Log(Vector3.Normalize(transform.position - rightBorder));
     }
 }
