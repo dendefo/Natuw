@@ -13,11 +13,11 @@ public class Projectile : MonoBehaviour
     {
         rb.velocity = _velocity;
     }
-    public void Shoot(Vector3 position, float speed, float damage,bool isShootedByPlayer = true)
+    public void Shoot(Vector3 direction, float speed, float damage, bool isShootedByPlayer = true)
     {
         _isShootedByPlayer = isShootedByPlayer;
         _damage = damage;
-        _velocity = (Vector2)(Vector3.Normalize(position - transform.position) * speed);
+        _velocity = (Vector2)(direction * speed);
     }
     virtual public void OnCollisionEnter2D(Collision2D collision)
     {

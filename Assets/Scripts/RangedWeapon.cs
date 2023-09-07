@@ -41,8 +41,8 @@ public class RangedWeapon : MonoBehaviour
     virtual public void Shoot(float damage, float speed)
     {
         if (Target == null) return;
-        if (isDoubleShooter) { Instantiate(ProjectilePrefab, ProjectileSecondSpawnPoint.position, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player); }
-        Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot(Target.transform.position, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
+        if (isDoubleShooter) { Instantiate(ProjectilePrefab, ProjectileSecondSpawnPoint.position, transform.rotation).Shoot((Target.transform.position - ProjectileSpawnPoint.transform.position).normalized, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player); }
+        Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot((Target.transform.position - ProjectileSpawnPoint.transform.position).normalized, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
        
     }
     public struct WeaponSaveData

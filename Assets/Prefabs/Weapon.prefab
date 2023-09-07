@@ -133,9 +133,12 @@ MonoBehaviour:
   SpeedMultiplier: 1
   DamageMultiplier: 1
   AttackSpeedMultiplier: 1
-  WeaponSprite: {fileID: 2111163066306310951}
-  ProjectilePrefab: {fileID: 3738105164554344390, guid: 8dc2c15b1ca54ee479af5eb3d3a84bbe, type: 3}
+  ProjectilePrefab: {fileID: 6186162643695624949, guid: 3ea696d1b4d4eb244866c15b9530a66d, type: 3}
   ProjectileSpawnPoint: {fileID: 3918585952946899184}
+  ProjectileSecondSpawnPoint: {fileID: 0}
+  ProjectileThirdSpawnPoint: {fileID: 0}
+  WeaponSprite: {fileID: 2111163066306310951}
+  isDoubleShooter: 0
 --- !u!1 &3479052719809935384
 GameObject:
   m_ObjectHideFlags: 0

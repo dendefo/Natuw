@@ -182,7 +182,7 @@ abstract public class Creature : MonoBehaviour
     {
         currentJumpMaxHeightPosition = -100000000;
         isInJump = false;
-        rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(rb.velocity.y));
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(Mathf.Abs(rb.velocity.y))*((rb.velocity.y>0)?1:-1));
     }
     protected void CalculateJump()
     {

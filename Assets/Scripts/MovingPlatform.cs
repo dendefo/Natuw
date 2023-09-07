@@ -21,4 +21,9 @@ public class MovingPlatform : MonoBehaviour
         if (Vector3.Normalize(transform.position - rightBorder).x > 0 && isMovingRight) isMovingRight = false;
         if (Vector3.Normalize(transform.position - leftBorder).x < 0 && !isMovingRight) isMovingRight = true;
     }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawLine(leftBorder, rightBorder);
+    }
 }
