@@ -34,7 +34,7 @@ public class Player : Creature
         base.Update();
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
-#if UNITY_ANDROID
+#if !UNITY_EDITOR
         if (_isDown) Jump();
 #else
         if (Input.GetKeyDown(KeyCode.Space)) StartJump();
@@ -42,7 +42,7 @@ public class Player : Creature
         if (Input.GetKeyUp(KeyCode.Space)) StartCoroutine(EndJumpDelayed());
 #endif
     }
-#if UNITY_ANDROID
+#if !UNITY_EDITOR
     public void AndroidJump(bool isDown)
     {
         _isDown = isDown;
@@ -66,7 +66,7 @@ public class Player : Creature
     private void UserInput()
     {
         if (isInDash) return;
-#if UNITY_ANDROID
+#if !UNITY_EDITOR
         Debug.Log(WorldManager.Instance.Joystick.Horizontal);
         if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal < -JOYSTICK_ERROR_VALUE) Move(false);
         else if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal > JOYSTICK_ERROR_VALUE) Move(true);

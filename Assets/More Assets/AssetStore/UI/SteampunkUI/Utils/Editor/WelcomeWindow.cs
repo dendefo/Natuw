@@ -1,4 +1,4 @@
-#if  !UNITY_ANDROID
+#if  UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 

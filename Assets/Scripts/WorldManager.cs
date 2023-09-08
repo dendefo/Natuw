@@ -25,7 +25,7 @@ public class WorldManager : MonoBehaviour
     private void Update()
     {
         FPSCounter.text = ((int)(1/Time.deltaTime)).ToString();
-#if UNITY_ANDROID
+#if !UNITY_EDITOR
         foreach (var touch in Input.touches)
         {
             if (touch.position.x > Screen.width / 2) continue;
@@ -81,7 +81,7 @@ public class WorldManager : MonoBehaviour
         LevelScenesNames.Remove(LevelScenesNames[0]);
     }
 
-#if UNITY_ANDROID
+#if !UNITY_EDITOR
     public void JumpButton(bool isDown)
     {
         LevelManager.Instance.Player.AndroidJump(isDown);
