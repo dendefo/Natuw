@@ -1,8 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEditor.Compilation;
-
+#if !UNITY_ANDROID
 // if you want to delete this file delete all Gentleland "Utils" folder 
 // you can then delete GentlelandSettings folder too
 namespace Gentleland.Utils.SteampunkUI
@@ -29,3 +28,4 @@ namespace Gentleland.Utils.SteampunkUI
         }
     }
 }
+#endif

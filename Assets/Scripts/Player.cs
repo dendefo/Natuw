@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : Creature
 {
     const float JOYSTICK_ERROR_VALUE = 0.05f;
+    private bool _isDown = false;
     #region UnityFunctions
     private void Awake()
     {
@@ -34,14 +35,21 @@ public class Player : Creature
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
 #if UNITY_ANDROID
-
+        if (_isDown) Jump();
 #else
         if (Input.GetKeyDown(KeyCode.Space)) StartJump();
         if (Input.GetKey(KeyCode.Space)) Jump();
         if (Input.GetKeyUp(KeyCode.Space)) StartCoroutine(EndJumpDelayed());
 #endif
-
     }
+#if UNITY_ANDROID
+    public void AndroidJump(bool isDown)
+    {
+        _isDown = isDown;
+        if (isDown) { StartJump(); }
+        else StartCoroutine(EndJumpDelayed());
+    }
+#endif
     public IEnumerator EndJumpDelayed()
     {
         yield return new WaitForSeconds(0.05f);

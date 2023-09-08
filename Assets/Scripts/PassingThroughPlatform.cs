@@ -20,6 +20,10 @@ public class PassingThroughPlatform : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
+#if !UNITY_ANDROID
         if (Input.GetKey(KeyCode.S)) { PassPlayerDown(true); StartCoroutine(BlockPassing()); }
+#else
+        if (WorldManager.Instance.Joystick.Vertical<=-0.707f&& WorldManager.Instance.Joystick.gameObject.active) { PassPlayerDown(true); StartCoroutine(BlockPassing()); }
+#endif
     }
 }
