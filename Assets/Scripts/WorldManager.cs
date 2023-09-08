@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
@@ -10,6 +12,7 @@ public class WorldManager : MonoBehaviour
     public int PlayerXP;
     public int PlayerLevel;
     public List<string> LevelScenesNames;
+    public bl_Joystick Joystick;
 
     void Start()
     {
@@ -19,6 +22,24 @@ public class WorldManager : MonoBehaviour
     }
     private void Update()
     {
+        foreach (var touch in Input.touches)
+        {
+            if (touch.position.x > Screen.width / 2) continue;
+
+            var data = new PointerEventData(EventSystem.current);
+            data.pointerId = touch.fingerId;
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                Joystick.gameObject.SetActive(true);
+                Joystick.transform.position = touch.position;
+                Joystick.OnPointerDown(data);
+            }
+            else if (touch.phase == TouchPhase.Moved) Joystick.OnDrag(data);
+            else if (touch.phase == TouchPhase.Ended||touch.phase == TouchPhase.Canceled) Joystick.OnPointerUp(data);
+            
+            
+        }
         while (PlayerXP >= CalculateXpForNextLevel())
         {
             LevelUp();

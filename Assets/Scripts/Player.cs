@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : Creature
 {
+    const float JOYSTICK_ERROR_VALUE = 0.05f;
     #region UnityFunctions
     private void Awake()
     {
@@ -16,14 +17,14 @@ public class Player : Creature
             rb.simulated = false;
             return;
         }
-        else if(!LevelManager.Instance.isPaused &&!rb.simulated) rb.simulated = true;
+        else if (!LevelManager.Instance.isPaused && !rb.simulated) rb.simulated = true;
         base.FixedUpdate();
         UserInput();
     }
     override protected void Update()
     {
 
-        if (LevelManager.Instance.isPaused&& rb.simulated)
+        if (LevelManager.Instance.isPaused && rb.simulated)
         {
             rb.simulated = false;
             return;
@@ -32,10 +33,13 @@ public class Player : Creature
         base.Update();
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
+#if UNITY_ANDROID
 
+#else
         if (Input.GetKeyDown(KeyCode.Space)) StartJump();
         if (Input.GetKey(KeyCode.Space)) Jump();
         if (Input.GetKeyUp(KeyCode.Space)) StartCoroutine(EndJumpDelayed());
+#endif
 
     }
     public IEnumerator EndJumpDelayed()
@@ -46,7 +50,7 @@ public class Player : Creature
     override protected void OnDrawGizmos()
     {
         base.OnDrawGizmos();
-        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(Attributes.DashSpeed * Attributes.DashTime, 0, 0)*(SRenderer.flipX?-1:1)));
+        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(Attributes.DashSpeed * Attributes.DashTime, 0, 0) * (SRenderer.flipX ? -1 : 1)));
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
     }
@@ -54,9 +58,17 @@ public class Player : Creature
     private void UserInput()
     {
         if (isInDash) return;
+#if UNITY_ANDROID
+        Debug.Log(WorldManager.Instance.Joystick.Horizontal);
+        if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal < -JOYSTICK_ERROR_VALUE) Move(false);
+        else if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal > JOYSTICK_ERROR_VALUE) Move(true);
+        else Stop();
+#else
         if (Input.GetKey(KeyCode.A)) Move(false);
         if (Input.GetKey(KeyCode.D)) Move(true);
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) Stop();
         if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))) Stop();
+#endif
+
     }
 }

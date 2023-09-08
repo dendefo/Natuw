@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 
-public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class bl_Joystick : MonoBehaviour
 {
 
     [Header("Settings")]
@@ -95,6 +95,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <param name="data"></param>
     public void OnPointerDown(PointerEventData data)
     {
+
         //Detect if is the default touchID
         if (lastId == -2)
         {
@@ -153,6 +154,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             lastId = -2;
             StopAllCoroutines();
             StartCoroutine(ScaleJoysctick(false));
+            gameObject.SetActive(false);
             if (backImage != null)
             {
                 backImage.CrossFadeColor(NormalColor, Duration, true, true);
