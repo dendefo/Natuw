@@ -1,0 +1,12 @@
+#List-Of-Enemies {
+    height: 100%;
+    width: 40%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#EnemyWindow {
+    height: 100%;
+    width: 100%;
+}
