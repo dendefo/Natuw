@@ -34,7 +34,7 @@ public class Player : Creature
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
 #if !UNITY_EDITOR
-        
+        StartCoroutine(UserInput());
 #else
        StartCoroutine(UserInput(Input.GetKey(KeyCode.A),
             Input.GetKey(KeyCode.D),

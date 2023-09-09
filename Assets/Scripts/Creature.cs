@@ -95,7 +95,6 @@ abstract public class Creature : MonoBehaviour
                 collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
 
             }
-            if (collision.contacts[0].normal.y <= -0.707) isInJump = false;
             collision.collider.TryGetComponent<PassingThroughPlatform>(out _currentPassingThroughPlatform);
 
         }
