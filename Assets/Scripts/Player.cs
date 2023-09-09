@@ -20,7 +20,6 @@ public class Player : Creature
         }
         else if (!LevelManager.Instance.isPaused && !rb.simulated) rb.simulated = true;
         base.FixedUpdate();
-        UserInput();
     }
     override protected void Update()
     {
@@ -35,11 +34,15 @@ public class Player : Creature
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
 #if !UNITY_EDITOR
-        if (_isDown) Jump();
+        
 #else
-        if (Input.GetKeyDown(KeyCode.Space)) StartJump();
-        if (Input.GetKey(KeyCode.Space)) Jump();
-        if (Input.GetKeyUp(KeyCode.Space)) StartCoroutine(EndJumpDelayed());
+       StartCoroutine(UserInput(Input.GetKey(KeyCode.A),
+            Input.GetKey(KeyCode.D),
+            Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D),
+            Input.GetKeyDown(KeyCode.Space),
+            Input.GetKey(KeyCode.Space),
+            Input.GetKeyUp(KeyCode.Space)
+            ));
 #endif
     }
 #if !UNITY_EDITOR
@@ -52,7 +55,7 @@ public class Player : Creature
 #endif
     public IEnumerator EndJumpDelayed()
     {
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.025f);
         EndJump();
     }
     override protected void OnDrawGizmos()
@@ -62,20 +65,24 @@ public class Player : Creature
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
     }
-    #endregion
-    private void UserInput()
+#endregion
+    private IEnumerator UserInput(bool left = false,bool right = false, bool stop = false, bool startJump = false, bool jump = false, bool endjump = false)
     {
-        if (isInDash) return;
+        if (isInDash) yield return null;
+        yield return new WaitForFixedUpdate();
 #if !UNITY_EDITOR
         Debug.Log(WorldManager.Instance.Joystick.Horizontal);
         if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal < -JOYSTICK_ERROR_VALUE) Move(false);
         else if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal > JOYSTICK_ERROR_VALUE) Move(true);
         else Stop();
+        if (_isDown) Jump();
 #else
-        if (Input.GetKey(KeyCode.A)) Move(false);
-        if (Input.GetKey(KeyCode.D)) Move(true);
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) Stop();
-        if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))) Stop();
+        if (left) Move(false);
+        if (right) Move(true);
+        if (stop) Stop();
+        if (startJump) StartJump();
+        if (jump) Jump();
+        if (endjump) StartCoroutine(EndJumpDelayed());
 #endif
 
     }

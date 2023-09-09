@@ -75,6 +75,7 @@ public class bl_Joystick : MonoBehaviour
     void Update()
     {
         DeathArea = CenterReference.position;
+        diff = CenterReference.position.magnitude;
         //If this not free (not touched) then not need continue
         if (!isFree)
             return;

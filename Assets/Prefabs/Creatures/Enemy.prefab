@@ -123,7 +123,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.57}
+  m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.49883556, y: 1.3598086}
   m_Direction: 0
 --- !u!114 &4864971097061526855
@@ -158,6 +158,7 @@ MonoBehaviour:
   currentJumpMaxHeightPosition: 0
   isInJump: 0
   XpOndeath: 50
+  knockbackForce: 10
 --- !u!95 &1855006189
 Animator:
   serializedVersion: 5

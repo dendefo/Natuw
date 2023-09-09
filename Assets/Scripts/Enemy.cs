@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Enemy : Creature
 {
+    
     private List<Node> _path;
     private int _updateRates = 1; //Counter of FixedUpdates for better AI performance
     [SerializeField] private int XpOndeath = 50;
+    [SerializeField] private float knockbackForce;
     #region UnityFunctions
     private void Start()
     {
@@ -39,6 +41,14 @@ public class Enemy : Creature
     private void OnDestroy()
     {
         WorldManager.Instance.PlayerXP += XpOndeath;
+    }
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+        if (collision.gameObject.tag == "Player")
+        {
+            LevelManager.Instance.Player.GetDamage(Attributes.DMG,((Vector2)LevelManager.Instance.Player.transform.position+collision.collider.offset - ((Vector2)transform.position+collision.otherCollider.offset) ).normalized*knockbackForce);
+        }
     }
     #endregion
     #region Movement

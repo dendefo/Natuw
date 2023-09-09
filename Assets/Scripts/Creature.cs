@@ -73,14 +73,16 @@ abstract public class Creature : MonoBehaviour
         Gizmos.DrawLine(Target.transform.position, weapon.transform.position);
         Gizmos.DrawWireSphere(Target.transform.position, 1);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    virtual protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "TileMap") //Collision with a map
         {
             foreach (var contact in collision.contacts)
             {
                 if (isTouchingFloor) break;
+
                 if (contact.normal.y >= 0.707) { isTouchingFloor = true; SecondJumpReady = true; }
+                if (contact.normal.y <= -0.707) isInJump = false;
                 //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 125 degrees
             }
         }
@@ -93,11 +95,12 @@ abstract public class Creature : MonoBehaviour
                 collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
 
             }
+            if (collision.contacts[0].normal.y <= -0.707) isInJump = false;
             collision.collider.TryGetComponent<PassingThroughPlatform>(out _currentPassingThroughPlatform);
 
         }
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    virtual protected void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.tag == "TileMap") //Collision with a map
         {
@@ -106,6 +109,7 @@ abstract public class Creature : MonoBehaviour
             {
                 if (isTouchingFloor) return;
                 if (contact.normal.y >= 0.707) { SecondJumpReady = true; isTouchingFloor = true; }
+                if (contact.normal.y <= -0.707) isInJump = false;
             }
         }
     }
@@ -124,7 +128,7 @@ abstract public class Creature : MonoBehaviour
     #region BattleFunctions
     virtual public void Aim(Creature target)
     {
-        if (target == null) return;
+        if (target == null) {  weapon.transform.rotation = Quaternion.identity; return; }
         void Rotate(Transform toRotate, Vector3 toMove)
         {
             var norm = Vector3.Normalize(toRotate.position - toMove);
@@ -138,10 +142,13 @@ abstract public class Creature : MonoBehaviour
 
 
     }
-    public void GetDamage(float _damage)
+    public void GetDamage(float _damage,Vector2 knockback = new())
     {
         Attributes.GetDamage(_damage);
         if (Attributes.HP <= 0) Die();
+        rb.velocity += knockback;
+        if (knockback != Vector2.zero) Debug.Log(knockback);
+        
     }
     virtual protected void Die()
     {
@@ -159,6 +166,7 @@ abstract public class Creature : MonoBehaviour
         {
             SecondJumpReady = false;
             isInJump = true;
+            
             currentJumpMaxHeightPosition = transform.position.y + CalculateJumpHeight();
         }
         else isInJump = false;
@@ -179,7 +187,7 @@ abstract public class Creature : MonoBehaviour
     {
         currentJumpMaxHeightPosition = -100000000;
         isInJump = false;
-        rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(Mathf.Abs(rb.velocity.y))*((rb.velocity.y>0)?1:-1));
+        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y/2*(rb.velocity.y>0?1:2));
     }
     protected void CalculateJump()
     {
@@ -187,7 +195,7 @@ abstract public class Creature : MonoBehaviour
         //else isTouchingFloor = false;
         if (isTouchingFloor && !isInDash) isDashReady = true;
     }
-    protected float CalculateJumpHeight() => (-Mathf.Pow(Attributes.JumpVelocity, 2)) / (2 * Physics2D.gravity.y * rb.gravityScale);
+    protected float CalculateJumpHeight() => (-Mathf.Pow(Attributes.JumpVelocity, 2)) / (2 * Physics2D.gravity.y * rb.gravityScale/3);
     protected void Dash()
     {
         DashTimer = Time.time;
