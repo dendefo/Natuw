@@ -20,6 +20,7 @@ abstract public class Creature : MonoBehaviour
     private float DashTimer;
     private float LastShotTime;
     private Creature Target;
+    [SerializeField] LineRenderer TargetLine;
     [SerializeField] private bool isTouchingFloor;
     protected bool isDashReady = false;
     protected bool isInDash = false;
@@ -39,6 +40,7 @@ abstract public class Creature : MonoBehaviour
     virtual protected void Update()
     {
         if (weapon == null) return;
+        Aim(Target);
         if (LevelManager.Instance.inGameTimer - LastShotTime >= Attributes.AttackSpeed)
         {
             weapon.Shoot(Attributes.CalculateProjectileDamage(), Attributes.BulletFlightSpeed);
@@ -62,7 +64,6 @@ abstract public class Creature : MonoBehaviour
         {
 
             Target = weapon.ChoseTarget(LevelManager.Instance.Player == this);
-            Aim(Target);
         }
         if (rb.velocity.y < 0) EndJump();
 
@@ -144,6 +145,11 @@ abstract public class Creature : MonoBehaviour
         {
             weapon.transform.rotation = Quaternion.identity;
             weapon.WeaponSprite.flipY = false;
+            if (TargetLine != null)
+            {
+                TargetLine.SetPosition(0, transform.position);
+                TargetLine.SetPosition(1, TargetLine.GetPosition(0));
+            }
             return;
         }
         void Rotate(Transform toRotate, Vector3 toMove)
@@ -156,6 +162,11 @@ abstract public class Creature : MonoBehaviour
             weapon.WeaponSprite.flipY = Mathf.Abs(z - 90) > 90;
         }
         Rotate(weapon.transform, target.transform.position);
+        if (TargetLine != null)
+        {
+            TargetLine.SetPosition(0, transform.position);
+            TargetLine.SetPosition(1, Target.transform.position);
+        }
 
 
     }
