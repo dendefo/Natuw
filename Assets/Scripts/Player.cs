@@ -75,13 +75,11 @@ public class Player : Creature
         if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal < -JOYSTICK_ERROR_VALUE) Move(false);
         else if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal > JOYSTICK_ERROR_VALUE) Move(true);
         else Stop();
-        if (_isDown) Jump();
 #else
         if (left) Move(false);
         if (right) Move(true);
         if (stop) Stop();
         if (startJump) StartJump();
-        if (jump) Jump();
         if (endjump) StartCoroutine(EndJumpDelayed());
 #endif
 

@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 118101160}
   - component: {fileID: 118101159}
   - component: {fileID: 118101161}
+  - component: {fileID: 118101162}
   m_Layer: 8
   m_Name: Tilemap
   m_TagString: TileMap
@@ -10607,13 +10608,32 @@ TilemapCollider2D:
   m_GameObject: {fileID: 118101157}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 9c497a4ce1f356b448c0dd3eca091d35, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
+--- !u!251 &118101162
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118101157}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 0
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 120
 --- !u!1001 &475600429
 PrefabInstance:
   m_ObjectHideFlags: 0

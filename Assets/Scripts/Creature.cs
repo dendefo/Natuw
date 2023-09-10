@@ -64,6 +64,9 @@ abstract public class Creature : MonoBehaviour
             Target = weapon.ChoseTarget(LevelManager.Instance.Player == this);
             Aim(Target);
         }
+        if (rb.velocity.y < 0) EndJump();
+
+
     }
     virtual protected void OnDrawGizmos()
     {
@@ -82,7 +85,7 @@ abstract public class Creature : MonoBehaviour
                 if (isTouchingFloor) break;
 
                 if (contact.normal.y >= 0.707) { isTouchingFloor = true; SecondJumpReady = true; }
-                if (contact.normal.y <= -0.707) isInJump = false;
+                if (contact.normal.y <= -0.707) EndJump();
                 //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 125 degrees
             }
         }
@@ -90,6 +93,7 @@ abstract public class Creature : MonoBehaviour
         {
             if (collision.contacts[0].normal.y >= 0.707)
             {
+                rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
                 isTouchingFloor = true;
                 SecondJumpReady = true;
                 collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
@@ -108,7 +112,15 @@ abstract public class Creature : MonoBehaviour
             {
                 if (isTouchingFloor) return;
                 if (contact.normal.y >= 0.707) { SecondJumpReady = true; isTouchingFloor = true; }
-                if (contact.normal.y <= -0.707) isInJump = false;
+                if (contact.normal.y <= -0.707) EndJump();
+            }
+        }
+        if (collision.collider.tag == "Platform")
+        {
+            if (_currentConnectedPlatform != null && collision.gameObject == _currentConnectedPlatform.gameObject)
+            {
+                var vel = collision.rigidbody.velocity - rb.velocity;
+                if (vel.magnitude >= _currentConnectedPlatform.speed / 2 && vel.magnitude <= _currentConnectedPlatform.speed * 2) { Stop(); }
             }
         }
     }
@@ -118,6 +130,7 @@ abstract public class Creature : MonoBehaviour
         if (collision.collider.tag == "Platform")
         {
             //Here could be possible bug, but i don't care too much right now
+            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
             isTouchingFloor = false;
             _currentConnectedPlatform = null;
             if (((_currentPassingThroughPlatform.effector.colliderMask >> 3) & 1) == 1) _currentPassingThroughPlatform = null;
@@ -127,7 +140,12 @@ abstract public class Creature : MonoBehaviour
     #region BattleFunctions
     virtual public void Aim(Creature target)
     {
-        if (target == null) {  weapon.transform.rotation = Quaternion.identity; return; }
+        if (target == null)
+        {
+            weapon.transform.rotation = Quaternion.identity;
+            weapon.WeaponSprite.flipY = false;
+            return;
+        }
         void Rotate(Transform toRotate, Vector3 toMove)
         {
             var norm = Vector3.Normalize(toRotate.position - toMove);
@@ -141,13 +159,13 @@ abstract public class Creature : MonoBehaviour
 
 
     }
-    public void GetDamage(float _damage,Vector2 knockback = new())
+    public void GetDamage(float _damage, Vector2 knockback = new())
     {
         Attributes.GetDamage(_damage);
         if (Attributes.HP <= 0) Die();
         rb.velocity += knockback;
         if (knockback != Vector2.zero) Debug.Log(knockback);
-        
+
     }
     virtual protected void Die()
     {
@@ -161,12 +179,14 @@ abstract public class Creature : MonoBehaviour
     }
     protected void StartJump()
     {
+        if (isInJump) return;
         if (isTouchingFloor || (SecondJumpAvalible && SecondJumpReady))
         {
+            rb.gravityScale /= 1.5f;
             SecondJumpReady = false;
             isInJump = true;
-            
-            currentJumpMaxHeightPosition = transform.position.y + CalculateJumpHeight();
+            rb.AddForce(Attributes.JumpVelocity * Vector2.up, ForceMode2D.Impulse);
+            if (_currentConnectedPlatform != null) rb.velocity -= _currentConnectedPlatform.rb.velocity;
         }
         else isInJump = false;
     }
@@ -184,9 +204,10 @@ abstract public class Creature : MonoBehaviour
     }
     protected void EndJump()
     {
-        currentJumpMaxHeightPosition = -100000000;
+        if (!isInJump) return;
         isInJump = false;
-        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y/2*(rb.velocity.y>0?1:2));
+        rb.gravityScale *= 1.5f;
+        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 2 * (rb.velocity.y > 0 ? 1 : 2));
     }
     protected void CalculateJump()
     {
@@ -194,8 +215,8 @@ abstract public class Creature : MonoBehaviour
         //else isTouchingFloor = false;
         if (isTouchingFloor && !isInDash) isDashReady = true;
     }
-    protected float CalculateJumpHeight() => (-Mathf.Pow(Attributes.JumpVelocity, 2)) / (2 * Physics2D.gravity.y * rb.gravityScale/3);
-    protected void Dash()
+    protected float CalculateJumpHeight() => (-Mathf.Pow(Attributes.JumpVelocity, 2)) / (2 * Physics2D.gravity.y * rb.gravityScale / 3);
+    public void Dash()
     {
         DashTimer = Time.time;
         isInDash = true;

@@ -8,7 +8,7 @@ public class MovingPlatform : MonoBehaviour
 
     [SerializeField] Vector3 leftBorder;
     [SerializeField] Vector3 rightBorder;
-    [SerializeField] float speed;
+    public float speed;
     [SerializeField] bool isMovingRight;
 
 
