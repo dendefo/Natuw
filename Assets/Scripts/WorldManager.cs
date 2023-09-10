@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.EventSystems;
@@ -21,6 +22,7 @@ public class WorldManager : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(Instance);
+        if (PlayerReference == null) PlayerReference = Instantiate(AssetDatabase.LoadAssetAtPath<Player>("Assets/Prefabs/Creatures/Player.prefab"));
         NextLevel();
     }
     private void Update()

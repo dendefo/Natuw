@@ -5282,9 +5282,10 @@ MonoBehaviour:
   PlayerXP: 0
   PlayerLevel: 0
   LevelScenesNames:
-  - Test Scene
-  - Or Scene
-  - Or Scene
+  - Room1
+  - Room1
+  - Room1
+  - Room1
   Joystick: {fileID: 733809952}
   FPSCounter: {fileID: 10867624}
   DebuggerInput: {fileID: 676884786}
