@@ -29,7 +29,7 @@ public abstract class Ground : Creature
 
                 if (contact.normal.y >= 0.707) { IsTouchingFloor = true; SecondJumpReady = true; }
                 if (contact.normal.y <= -0.707) EndJump();
-                //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 125 degrees
+                //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 135 degrees
             }
         }
         if (collision.collider.CompareTag("Platform"))

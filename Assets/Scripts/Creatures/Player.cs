@@ -8,12 +8,14 @@ public class Player : GroundShooting
     #region Fields
     protected bool isDashReady = false;
     protected bool isInDash = false;
+    private float DashTimer;
+    [SerializeField] private float DashSpeed;
+    [SerializeField] private float DashTime;
 #if !UNITY_EDITOR
     const float JOYSTICK_ERROR_VALUE = 0.05f;
     private bool _isDown = false;
 #endif
-    private float DashTimer;
-#endregion
+    #endregion
     #region Movement
     public void Dash()
     {
@@ -47,10 +49,10 @@ public class Player : GroundShooting
         if (IsTouchingFloor && !isInDash) isDashReady = true;
         if (isInDash)
         {
-            rb.velocity = (SRenderer.flipX ? -1 : 1) * Attributes.DashSpeed * Vector2.right + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
+            rb.velocity = (SRenderer.flipX ? -1 : 1) * DashSpeed * Vector2.right + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
 
         }
-        if (isInDash && Time.time - DashTimer > Attributes.DashTime)
+        if (isInDash && Time.time - DashTimer > DashTime)
         {
             isInDash = false;
             rb.velocity = Vector2.zero;
@@ -58,7 +60,6 @@ public class Player : GroundShooting
     }
     override protected void Update()
     {
-
         if (LevelManager.Instance.isPaused && rb.simulated)
         {
             rb.simulated = false;
@@ -96,11 +97,12 @@ public class Player : GroundShooting
     override protected void OnDrawGizmos()
     {
         base.OnDrawGizmos();
-        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(Attributes.DashSpeed * Attributes.DashTime, 0, 0) * (SRenderer.flipX ? -1 : 1)));
+        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0) * (SRenderer.flipX ? -1 : 1)));
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
     }
 #endregion
+
     private IEnumerator UserInput(bool left = false,bool right = false, bool stop = false, bool startJump = false, bool jump = false, bool endjump = false)
     {
         if (isInDash) yield return null;

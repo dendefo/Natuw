@@ -139,7 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85554334aab8701479a6b049c47551a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 9108192200106107357}
   Attributes:
     MaxHP: 100
     HP: 100
@@ -150,15 +149,15 @@ MonoBehaviour:
     CritDamageMultiplier: 1.5
     MoveVelocity: 7
     JumpVelocity: 20
-    DashTime: 0.125
-    DashSpeed: 40
+  BaseStats: {fileID: 0}
   rb: {fileID: 223688728170418627}
   SRenderer: {fileID: 223688728170418626}
   animator: {fileID: 1780990462}
+  SecondJumpAvalible: 0
+  weapon: {fileID: 9108192200106107357}
   TargetLine: {fileID: 2404362445410832605}
-  isTouchingFloor: 0
-  currentJumpMaxHeightPosition: 0
-  isInJump: 0
+  DashSpeed: 40
+  DashTime: 0.125
 --- !u!95 &1780990462
 Animator:
   serializedVersion: 5

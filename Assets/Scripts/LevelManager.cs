@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     static public LevelManager Instance;
     public Tilemap TileMap;
     public Player Player;
-    public List<Enemy> EnemyList;
+    public List<Creature> EnemyList;
     public bool isPaused;
     public float inGameTimer;
     public PlayerSpawnPoint spawnPoint;

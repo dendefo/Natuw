@@ -8,6 +8,7 @@ abstract public class Creature : MonoBehaviour
 
     [Header("Battle")]
     public CreatureAttributes Attributes;
+    public BaseCreatureStats BaseStats;
 
     [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;
@@ -15,7 +16,12 @@ abstract public class Creature : MonoBehaviour
     [SerializeField] protected Animator animator;
 
     #endregion
-
+    #region UnityFunctions
+    private void Awake()
+    {
+        Attributes = new CreatureAttributes(BaseStats);
+    }
+    #endregion
     #region BattleFunctions
     public void GetDamage(float _damage, Vector2 knockback = new())
     {
@@ -58,9 +64,19 @@ public struct CreatureAttributes
     [Header("Movement")]
     public float MoveVelocity;
     public float JumpVelocity;
-    public float DashTime;
-    public float DashSpeed;
 
+    public CreatureAttributes(BaseCreatureStats creatureStats)
+    {
+        MaxHP = creatureStats.MaxHp * (1 + (WorldManager.Instance.difficulty.EnemyHP * (WorldManager.Instance.CurrentLevel - 1)));
+        HP = MaxHP;
+        DMG = creatureStats.DMG * (1 + (WorldManager.Instance.difficulty.EnemyDamage * (WorldManager.Instance.CurrentLevel - 1)));
+        AttackSpeed = creatureStats.AttackSpeed;
+        BulletFlightSpeed = creatureStats.BulletFlightSpeed * (1 + (WorldManager.Instance.difficulty.BulletSpeed * (WorldManager.Instance.CurrentLevel - 1)));
+        CritChance = creatureStats.CritChance;
+        CritDamageMultiplier = creatureStats.CritDamageMultiplier;
+        MoveVelocity = creatureStats.MoveVelocity * (1 + (WorldManager.Instance.difficulty.EnemySpeed * (WorldManager.Instance.CurrentLevel /5)));
+        JumpVelocity = creatureStats.JumpVelocity;
+    }
     readonly public float CalculateProjectileDamage()
     {
         var rand = Random.Range(0, 1.0f);

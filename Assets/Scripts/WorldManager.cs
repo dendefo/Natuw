@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
 {
+    public DifficultyMultiplyers difficulty;
+    public int CurrentLevel;
     static public WorldManager Instance;
     public Player PlayerReference;
     public int PlayerXP;
@@ -86,8 +88,7 @@ public class WorldManager : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadSceneAsync(LevelScenesNames[0]);
-        LevelScenesNames.Remove(LevelScenesNames[0]);
+        SceneManager.LoadSceneAsync(LevelScenesNames[CurrentLevel++]);
     }
     public void Debugger()
     {
@@ -139,4 +140,12 @@ public class WorldManager : MonoBehaviour
         LevelManager.Instance.Player.Dash();
     }
 #endif
+}
+[System.Serializable]
+public struct DifficultyMultiplyers
+{
+    public float EnemyHP;
+    public float EnemyDamage;
+    public float EnemySpeed;
+    public float BulletSpeed;
 }

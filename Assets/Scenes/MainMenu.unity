@@ -5278,10 +5278,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6ee49dff1f80d499c3a4594a8b938b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty:
+    EnemyHP: 0.025
+    EnemyDamage: 0.015
+    EnemySpeed: 0.02
+    BulletSpeed: 0.005
+  CurrentLevel: 0
   PlayerReference: {fileID: 0}
   PlayerXP: 0
   PlayerLevel: 0
   LevelScenesNames:
+  - Room1
+  - Room1
   - Room1
   - Room1
   - Room1
