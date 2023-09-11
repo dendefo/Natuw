@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Creature
+public class Enemy : Ground
 {
     
     private List<Node> _path;
@@ -73,10 +73,10 @@ public class Enemy : Creature
                 else Move(true);
                 return;
             }
-            if (!_path[i - 1].isGround) Jump();
+            if (!_path[i - 1].isGround) StartJump();
             if (direction.x == -1) Move(false);
             else if (direction.x == 1) Move(true);
-            else if (direction.y == 1) Jump();
+            else if (direction.y == 1) StartJump();
             else continue;
             return;
         }

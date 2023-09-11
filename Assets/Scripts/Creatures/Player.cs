@@ -2,10 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Creature
+public class Player : Ground
 {
+
+    #region Fields
+    protected bool isDashReady = false;
+    protected bool isInDash = false;
     const float JOYSTICK_ERROR_VALUE = 0.05f;
     private bool _isDown = false;
+    private float DashTimer;
+    #endregion
+    #region Movement
+    public void Dash()
+    {
+        DashTimer = Time.time;
+        isInDash = true;
+        isDashReady = false;
+
+    }
+
+    protected void CalculateJump()
+    {
+        //if (rb.velocity.y == 0) isTouchingFloor = true;
+        //else isTouchingFloor = false;
+        
+    }
+    #endregion
     #region UnityFunctions
     private void Awake()
     {
@@ -20,6 +42,17 @@ public class Player : Creature
         }
         else if (!LevelManager.Instance.isPaused && !rb.simulated) rb.simulated = true;
         base.FixedUpdate();
+        if (isTouchingFloor && !isInDash) isDashReady = true;
+        if (isInDash)
+        {
+            rb.velocity = Vector2.right * Attributes.DashSpeed * (SRenderer.flipX ? -1 : 1) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
+
+        }
+        if (isInDash && Time.time - DashTimer > Attributes.DashTime)
+        {
+            isInDash = false;
+            rb.velocity = Vector2.zero;
+        }
     }
     override protected void Update()
     {
