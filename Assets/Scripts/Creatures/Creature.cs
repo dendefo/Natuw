@@ -7,82 +7,16 @@ abstract public class Creature : MonoBehaviour
     #region Fields
 
     [Header("Battle")]
-    [SerializeField] public RangedWeapon weapon;
-    [SerializeField] public CreatureAttributes Attributes;
-    [SerializeField] LineRenderer TargetLine;
+    public CreatureAttributes Attributes;
 
     [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected SpriteRenderer SRenderer;
     [SerializeField] protected Animator animator;
 
-    private float LastShotTime;
-    private Creature Target;
-
-    #endregion
-
-    #region UnityFunctions
-    private void OnLevelWasLoaded(int level)
-    {
-        LastShotTime = 0;
-    }
-    virtual protected void Update()
-    {
-        if (weapon == null) return;
-        Aim(Target);
-        if (LevelManager.Instance.inGameTimer - LastShotTime >= Attributes.AttackSpeed)
-        {
-            weapon.Shoot(Attributes.CalculateProjectileDamage(), Attributes.BulletFlightSpeed);
-            LastShotTime = LevelManager.Instance.inGameTimer;
-        }
-    }
-    virtual protected void FixedUpdate()
-    {
-        if (weapon != null)
-        {
-            Target = weapon.ChoseTarget(LevelManager.Instance.Player == this);
-        }
-    }
-    virtual protected void OnDrawGizmos()
-    {
-        if (weapon == null) return;
-        if (Target == null) return;
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(Target.transform.position, weapon.transform.position);
-        Gizmos.DrawWireSphere(Target.transform.position, 1);
-    }
     #endregion
 
     #region BattleFunctions
-    virtual public void Aim(Creature target)
-    {
-        if (target == null)
-        {
-            weapon.transform.rotation = Quaternion.identity;
-            weapon.WeaponSprite.flipY = false;
-            if (TargetLine == null) return;
-
-            TargetLine.SetPosition(0, transform.position);
-            TargetLine.SetPosition(1, TargetLine.GetPosition(0));
-
-            return;
-        }
-        void Rotate(Transform toRotate, Vector3 toMove)
-        {
-            var norm = Vector3.Normalize(toRotate.position - toMove);
-            var Acos = Mathf.Acos(norm.y);
-            var z = Acos / Mathf.PI * (toRotate.position.x > toMove.x ? -180 : 180);
-
-            toRotate.localEulerAngles = new Vector3(0, 0, z - 90);
-            weapon.WeaponSprite.flipY = Mathf.Abs(z - 90) > 90;
-        }
-
-        Rotate(weapon.transform, target.transform.position);
-        if (TargetLine == null) return;
-        TargetLine.SetPosition(0, transform.position);
-        TargetLine.SetPosition(1, Target.transform.position);
-    }
-
     public void GetDamage(float _damage, Vector2 knockback = new())
     {
         Attributes.GetDamage(_damage);
@@ -127,7 +61,7 @@ public struct CreatureAttributes
     public float DashTime;
     public float DashSpeed;
 
-    public float CalculateProjectileDamage()
+    readonly public float CalculateProjectileDamage()
     {
         var rand = Random.Range(0, 1.0f);
         if (rand <= CritChance) return DMG * CritDamageMultiplier;
@@ -139,7 +73,6 @@ public struct CreatureAttributes
         HP -= incomingDamage;
         if (HP < 0) HP = 0;
     }
-
     public void UpgradeMaxHealth()
     {
         MaxHP *= 1.5f;
@@ -149,7 +82,6 @@ public struct CreatureAttributes
     {
         MoveVelocity *= 1.1f;
     }
-
     public void AttackSpeedUpgrade()
     {
         AttackSpeed /= 1.25f;
@@ -158,5 +90,4 @@ public struct CreatureAttributes
     {
         DMG *= 1.25f;
     }
-
 }

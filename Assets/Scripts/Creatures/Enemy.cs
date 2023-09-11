@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Ground
+public class Enemy : GroundShooting
 {
     
-    private List<Node> _path;
+    private List<PathFindingNode> _path;
     private int _updateRates = 1; //Counter of FixedUpdates for better AI performance
     [SerializeField] private int XpOndeath = 50;
     [SerializeField] private float knockbackForce;
@@ -45,7 +45,7 @@ public class Enemy : Ground
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             LevelManager.Instance.Player.GetDamage(Attributes.DMG,((Vector2)LevelManager.Instance.Player.transform.position+collision.collider.offset - ((Vector2)transform.position+collision.otherCollider.offset) ).normalized*knockbackForce);
         }
@@ -57,7 +57,7 @@ public class Enemy : Ground
     {
 
         if (Vector3.Distance(LevelManager.Instance.Player.transform.position, transform.position) > 25) { _path = null; yield return null; }
-        _path = Node.BuildPath(Pathfinder(LevelManager.Instance.TileMap, (Vector2Int)(LevelManager.Instance.TileMap.WorldToCell(LevelManager.Instance.Player.gameObject.transform.position) + Vector3Int.up)));
+        _path = PathFindingNode.BuildPath(Pathfinder(LevelManager.Instance.TileMap, (Vector2Int)(LevelManager.Instance.TileMap.WorldToCell(LevelManager.Instance.Player.gameObject.transform.position) + Vector3Int.up)));
         yield return null;
     }
     private void EnemyMovement()

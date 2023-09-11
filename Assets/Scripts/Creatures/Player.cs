@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Ground
+public class Player : GroundShooting
 {
 
     #region Fields
     protected bool isDashReady = false;
     protected bool isInDash = false;
+#if !UNITY_EDITOR
     const float JOYSTICK_ERROR_VALUE = 0.05f;
     private bool _isDown = false;
+#endif
     private float DashTimer;
-    #endregion
+#endregion
     #region Movement
     public void Dash()
     {
@@ -42,10 +44,10 @@ public class Player : Ground
         }
         else if (!LevelManager.Instance.isPaused && !rb.simulated) rb.simulated = true;
         base.FixedUpdate();
-        if (isTouchingFloor && !isInDash) isDashReady = true;
+        if (IsTouchingFloor && !isInDash) isDashReady = true;
         if (isInDash)
         {
-            rb.velocity = Vector2.right * Attributes.DashSpeed * (SRenderer.flipX ? -1 : 1) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
+            rb.velocity = (SRenderer.flipX ? -1 : 1) * Attributes.DashSpeed * Vector2.right + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
 
         }
         if (isInDash && Time.time - DashTimer > Attributes.DashTime)

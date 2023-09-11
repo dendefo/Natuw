@@ -9,36 +9,35 @@ public abstract class Ground : Creature
     [SerializeField] private bool SecondJumpAvalible = false;
     private bool isInJump;
     private bool SecondJumpReady = false;
-    protected bool isTouchingFloor { get; private set; }
+    protected bool IsTouchingFloor { get; private set; }
     protected MovingPlatform _currentConnectedPlatform = null;
     protected PassingThroughPlatform _currentPassingThroughPlatform = null;
     #endregion
 
     #region UnityFunctions
-    protected override void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        base.FixedUpdate();
         if (rb.velocity.y < 0) EndJump();
     }
     virtual protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "TileMap") //Collision with a map
+        if (collision.collider.CompareTag("TileMap")) //Collision with a map
         {
             foreach (var contact in collision.contacts)
             {
-                if (isTouchingFloor) break;
+                if (IsTouchingFloor) break;
 
-                if (contact.normal.y >= 0.707) { isTouchingFloor = true; SecondJumpReady = true; }
+                if (contact.normal.y >= 0.707) { IsTouchingFloor = true; SecondJumpReady = true; }
                 if (contact.normal.y <= -0.707) EndJump();
                 //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 125 degrees
             }
         }
-        if (collision.collider.tag == "Platform")
+        if (collision.collider.CompareTag("Platform"))
         {
             if (collision.contacts[0].normal.y >= 0.707)
             {
                 rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
-                isTouchingFloor = true;
+                IsTouchingFloor = true;
                 SecondJumpReady = true;
                 collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
 
@@ -49,17 +48,17 @@ public abstract class Ground : Creature
     }
     virtual protected void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.collider.tag == "TileMap") //Collision with a map
+        if (collision.collider.CompareTag("TileMap")) //Collision with a map
         {
-            isTouchingFloor = false;
+            IsTouchingFloor = false;
             foreach (var contact in collision.contacts)
             {
-                if (isTouchingFloor) return;
-                if (contact.normal.y >= 0.707) { SecondJumpReady = true; isTouchingFloor = true; }
+                if (IsTouchingFloor) return;
+                if (contact.normal.y >= 0.707) { SecondJumpReady = true; IsTouchingFloor = true; }
                 if (contact.normal.y <= -0.707) EndJump();
             }
         }
-        if (collision.collider.tag == "Platform")
+        if (collision.collider.CompareTag("Platform"))
         {
             if (_currentConnectedPlatform != null && collision.gameObject == _currentConnectedPlatform.gameObject)
             {
@@ -70,12 +69,12 @@ public abstract class Ground : Creature
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.tag == "TileMap") isTouchingFloor = false; //Collision with a map 
-        if (collision.collider.tag == "Platform")
+        if (collision.collider.CompareTag("TileMap")) IsTouchingFloor = false; //Collision with a map 
+        if (collision.collider.CompareTag("Platform"))
         {
             //Here could be possible bug, but i don't care too much right now
             rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-            isTouchingFloor = false;
+            IsTouchingFloor = false;
             _currentConnectedPlatform = null;
             if (((_currentPassingThroughPlatform.effector.colliderMask >> 3) & 1) == 1) _currentPassingThroughPlatform = null;
         }
@@ -91,8 +90,9 @@ public abstract class Ground : Creature
     protected void StartJump()
     {
         if (isInJump) return;
-        if (isTouchingFloor || (SecondJumpAvalible && SecondJumpReady))
+        if (IsTouchingFloor || (SecondJumpAvalible && SecondJumpReady))
         {
+            rb.velocity = Vector2.right*rb.velocity;
             rb.gravityScale /= 1.5f;
             SecondJumpReady = false;
             isInJump = true;
@@ -137,23 +137,23 @@ public abstract class Ground : Creature
     /// <param name="level"></param>
     /// <param name="target"></param>
     /// <returns></returns>
-    public Node Pathfinder(Tilemap level, Vector2Int target)
+    public PathFindingNode Pathfinder(Tilemap level, Vector2Int target)
     {
         var unitPos = (Vector2Int)(level.WorldToCell(transform.position));
-        List<Node> reachable = new()
+        List<PathFindingNode> reachable = new()
             {
-                new Node(unitPos,null,Vector2Int.Distance(unitPos,target),isTouchingFloor?0:8,isTouchingFloor)
+                new PathFindingNode(unitPos,null,Vector2Int.Distance(unitPos,target),IsTouchingFloor?0:8,IsTouchingFloor)
             }; //Adding List of Nodes that will be used in algorithm as Nodes that actor is possibly can get to and adding starting node (Of Actor)
 
-        List<Node> visited = new List<Node>(); //List of Nodes that we already checked
+        List<PathFindingNode> visited = new(); //List of Nodes that we already checked
 
         int LoopCount = 0;
         while (reachable.Count != 0) //If reachable is 0 and algothm didn't made return, enemy can't reach the player
         {
-            if (LoopCount > 1000) return visited[visited.Count - 1];
-            Node node = reachable[0];
+            if (LoopCount > 1000) return visited[^1];
+            PathFindingNode node = reachable[0];
 
-            foreach (Node node1 in reachable)
+            foreach (PathFindingNode node1 in reachable)
             {
                 if (node1.Distance < node.Distance) node = node1; //Taking Node with less distance to the target
             }
@@ -198,7 +198,7 @@ public abstract class Ground : Creature
 
                     if (entity != Tile.ColliderType.None) continue; //If it's not walkable, then continue
 
-                    Node adjacent = new(newCoords, node, Vector2Int.Distance(newCoords, target), newJumpValue, level.GetColliderType((Vector3Int)(newCoords + Vector2Int.down)) != Tile.ColliderType.None); //Create new node to check
+                    PathFindingNode adjacent = new(newCoords, node, Vector2Int.Distance(newCoords, target), newJumpValue, level.GetColliderType((Vector3Int)(newCoords + Vector2Int.down)) != Tile.ColliderType.None); //Create new node to check
                     if (reachable.Exists(n => n.Coor == adjacent.Coor)) continue; //If it's already awaits for check then continue
 
 
@@ -212,14 +212,14 @@ public abstract class Ground : Creature
     }
     #endregion
 }
-public class Node //Representation of map as graph of walkable Nodes, that starts at Actor's node. We search for Target node at that tree
+public class PathFindingNode //Representation of map as graph of walkable Nodes, that starts at Actor's node. We search for Target node at that tree
 {
     public Vector2Int Coor; //Coordinates of Node
-    public Node previous; //Node that linked us to this one. 
+    public PathFindingNode previous; //Node that linked us to this one. 
     public float Distance;
     public int JumpValue;
     public bool isGround;
-    public Node(Vector2Int coor, Node node, float distance, int jumpValue, bool isGround)
+    public PathFindingNode(Vector2Int coor, PathFindingNode node, float distance, int jumpValue, bool isGround)
     {
         previous = node;
         Coor = coor;
@@ -227,10 +227,10 @@ public class Node //Representation of map as graph of walkable Nodes, that start
         JumpValue = jumpValue;
         this.isGround = isGround;
     }
-    static public List<Node> BuildPath(Node to_node) //Gives node that is next to enemy, that he need to move to
+    static public List<PathFindingNode> BuildPath(PathFindingNode to_node) //Gives node that is next to enemy, that he need to move to
     {
         if (to_node == null) return null; //If there is no path
-        List<Node> path = new();
+        List<PathFindingNode> path = new();
         while (to_node != null)
         {
             path.Add(to_node);
@@ -239,4 +239,3 @@ public class Node //Representation of map as graph of walkable Nodes, that start
         return path;
     }
 }
-

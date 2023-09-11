@@ -45,10 +45,12 @@ namespace Gentleland.Utils.SteampunkUI
                 {
                     image = AssetDatabase.LoadAssetAtPath<Texture>(AssetDatabase.GUIDToAssetPath(s[0]));
                 }
-                textStyle = new GUIStyle(EditorStyles.label);
-                textStyle.wordWrap = true;
-                textStyle.margin = new RectOffset(20, 20, 20, 20);
-                textStyle.alignment = TextAnchor.UpperLeft;
+                textStyle = new GUIStyle(EditorStyles.label)
+                {
+                    wordWrap = true,
+                    margin = new RectOffset(20, 20, 20, 20),
+                    alignment = TextAnchor.UpperLeft
+                };
                 linkStyle = new GUIStyle(textStyle);
                 linkStyle.hover.textColor = linkStyle.normal.textColor * 0.5f;
                 initialized = true;
