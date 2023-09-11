@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
 {
+    public delegate void Pause(bool isPaused);
+    public event Pause OnPause;
+
     public DifficultyMultiplyers difficulty;
     public int CurrentLevel;
     static public WorldManager Instance;
@@ -19,6 +22,7 @@ public class WorldManager : MonoBehaviour
     public bl_Joystick Joystick;
     public TMPro.TMP_Text FPSCounter;
     [SerializeField] TMPro.TMP_InputField DebuggerInput;
+    [SerializeField] GameObject PauseMenu;
 
     void Start()
     {
@@ -54,6 +58,7 @@ public class WorldManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F1))
         {
+            
             if (Time.timeScale == 0) { Time.timeScale = 1; DebuggerInput.gameObject.SetActive(false); }
             else { Time.timeScale = 0; DebuggerInput.gameObject.SetActive(true); }
         }
@@ -128,6 +133,15 @@ public class WorldManager : MonoBehaviour
                 Debug.Log("Not a command");
                 break;
         }
+    }
+    public void Pausing(bool isPaused)
+    {
+        OnPause(isPaused);
+        PauseMenu.SetActive(isPaused);
+    }
+    public void LevelUpPausing(bool isPaused)
+    {
+        OnPause(isPaused);
     }
 
 #if !UNITY_EDITOR

@@ -45,29 +45,6 @@ public class RangedWeapon : MonoBehaviour
         Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot((Target.transform.position - ProjectileSpawnPoint.transform.position).normalized, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
        
     }
-    public struct WeaponSaveData
-    {
-        public float Speed;
-        public float Damage;
-        public float Attack;
-        public Projectile prefab;
-    }
-    public WeaponSaveData GetSaveData()
-    {
-        var data = new WeaponSaveData();
-        data.Speed = SpeedMultiplier;
-        data.Damage = DamageMultiplier;
-        data.Attack = AttackSpeedMultiplier;
-        data.prefab = ProjectilePrefab;
-        return data;
-    }
-    public void LoadSaveData(WeaponSaveData data)
-    {
-        SpeedMultiplier = data.Speed;
-        DamageMultiplier = data.Damage;
-        AttackSpeedMultiplier = data.Attack;
-        ProjectilePrefab = data.prefab;
-    }
 
     #region Upgrades
 

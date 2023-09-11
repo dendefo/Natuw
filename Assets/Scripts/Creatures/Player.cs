@@ -29,22 +29,17 @@ public class Player : GroundShooting
     {
         //if (rb.velocity.y == 0) isTouchingFloor = true;
         //else isTouchingFloor = false;
-        
+
     }
     #endregion
     #region UnityFunctions
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         DontDestroyOnLoad(gameObject);
     }
     protected override void FixedUpdate()
     {
-        if (LevelManager.Instance.isPaused && rb.simulated)
-        {
-            rb.simulated = false;
-            return;
-        }
-        else if (!LevelManager.Instance.isPaused && !rb.simulated) rb.simulated = true;
         base.FixedUpdate();
         if (IsTouchingFloor && !isInDash) isDashReady = true;
         if (isInDash)
@@ -60,25 +55,20 @@ public class Player : GroundShooting
     }
     override protected void Update()
     {
-        if (LevelManager.Instance.isPaused && rb.simulated)
-        {
-            rb.simulated = false;
-            return;
-        }
-        else if (!LevelManager.Instance.isPaused && !rb.simulated) rb.simulated = true;
+        if (rb.bodyType == RigidbodyType2D.Static) return;
         base.Update();
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
 #if !UNITY_EDITOR
         StartCoroutine(UserInput());
 #else
-       StartCoroutine(UserInput(Input.GetKey(KeyCode.A),
-            Input.GetKey(KeyCode.D),
-            Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D),
-            Input.GetKeyDown(KeyCode.Space),
-            Input.GetKey(KeyCode.Space),
-            Input.GetKeyUp(KeyCode.Space)
-            ));
+        StartCoroutine(UserInput(Input.GetKey(KeyCode.A),
+             Input.GetKey(KeyCode.D),
+             Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D),
+             Input.GetKeyDown(KeyCode.Space),
+             Input.GetKey(KeyCode.Space),
+             Input.GetKeyUp(KeyCode.Space)
+             ));
 #endif
     }
 #if !UNITY_EDITOR
@@ -101,9 +91,9 @@ public class Player : GroundShooting
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
     }
-#endregion
+    #endregion
 
-    private IEnumerator UserInput(bool left = false,bool right = false, bool stop = false, bool startJump = false, bool jump = false, bool endjump = false)
+    private IEnumerator UserInput(bool left = false, bool right = false, bool stop = false, bool startJump = false, bool jump = false, bool endjump = false)
     {
         if (isInDash) yield return null;
         yield return new WaitForFixedUpdate();

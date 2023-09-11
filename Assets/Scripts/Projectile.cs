@@ -9,6 +9,16 @@ public class Projectile : MonoBehaviour
     private float _damage;
     private bool _isShootedByPlayer;
 
+    private void Awake()
+    {
+        WorldManager.Instance.OnPause += Pause;
+    }
+    private void Pause(bool isPaused)
+    {
+        rb.bodyType = isPaused ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
+
+    }
+
     private void FixedUpdate()
     {
         rb.velocity = _velocity;
@@ -34,5 +44,9 @@ public class Projectile : MonoBehaviour
         else if (collision.tag == "Player" && !_isShootedByPlayer) { collision.gameObject.GetComponent<Creature>().GetDamage(_damage); Destroy(gameObject); }
         else if (collision.tag == "Enemy" && !_isShootedByPlayer) return;
         else Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        WorldManager.Instance.OnPause -= Pause;
     }
 }

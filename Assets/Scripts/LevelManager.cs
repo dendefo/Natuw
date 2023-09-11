@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class LevelManager : MonoBehaviour
 {
+
     static public LevelManager Instance;
     public Tilemap TileMap;
     public Player Player;
@@ -28,6 +29,7 @@ public class LevelManager : MonoBehaviour
         Instance = this;
         PlayerLevelAtStart = WorldManager.Instance.PlayerLevel;
     }
+
     private void Update()
     {
         if (isPaused)
@@ -35,9 +37,9 @@ public class LevelManager : MonoBehaviour
             return;
         }
         inGameTimer += Time.deltaTime;
-        if (EnemyList.Count == 0 && WorldManager.Instance.PlayerLevel!= PlayerLevelAtStart) 
+        if (EnemyList.Count == 0 && WorldManager.Instance.PlayerLevel!= PlayerLevelAtStart&&!LevelUpCanvas.active)
         {
-            isPaused = true;
+            WorldManager.Instance.LevelUpPausing(true);
             LevelUpCanvas.SetActive(true);
         }
     }
@@ -48,7 +50,7 @@ public class LevelManager : MonoBehaviour
         UpgradeTypes upgradeType = (UpgradeTypes)num;
 
         LevelUpCanvas.SetActive(false);
-        isPaused = false;
+        WorldManager.Instance.LevelUpPausing(false);
         switch (upgradeType)
         {
             case (UpgradeTypes.MaxHealth):

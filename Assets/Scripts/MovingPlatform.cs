@@ -11,7 +11,15 @@ public class MovingPlatform : MonoBehaviour
     public float speed;
     [SerializeField] bool isMovingRight;
 
-
+    private void Awake()
+    {
+        WorldManager.Instance.OnPause+=Pause;
+    }
+    private void Pause(bool isPaused)
+    {
+        rb.bodyType = isPaused ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
+        
+    }
     private void FixedUpdate()
     {
         var DirectionLeftToRight = Vector3.Normalize(leftBorder - rightBorder);
@@ -25,5 +33,9 @@ public class MovingPlatform : MonoBehaviour
     {
         Gizmos.color = Color.black;
         Gizmos.DrawLine(leftBorder, rightBorder);
+    }
+    private void OnDestroy()
+    {
+        WorldManager.Instance.OnPause -= Pause;
     }
 }

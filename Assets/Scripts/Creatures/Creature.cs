@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 abstract public class Creature : MonoBehaviour
@@ -17,10 +18,18 @@ abstract public class Creature : MonoBehaviour
 
     #endregion
     #region UnityFunctions
-    private void Awake()
+    virtual protected void Awake()
     {
+        WorldManager.Instance.OnPause += Pause;
         Attributes = new CreatureAttributes(BaseStats);
     }
+
+    private void Pause(bool isPaused)
+    {
+        rb.bodyType = isPaused?RigidbodyType2D.Static:RigidbodyType2D.Dynamic;
+        animator.enabled = !isPaused;
+    }
+
     #endregion
     #region BattleFunctions
     public void GetDamage(float _damage, Vector2 knockback = new())
@@ -34,6 +43,7 @@ abstract public class Creature : MonoBehaviour
     virtual protected void Die()
     {
         Destroy(gameObject);
+        WorldManager.Instance.OnPause -= Pause;
     }
     #endregion
 

@@ -16,8 +16,10 @@ public abstract class GroundShooting : Ground
     }
     virtual protected void Update()
     {
+        if (rb.bodyType == RigidbodyType2D.Static) return;
         if (weapon == null) return;
         Aim(Target);
+        if (LevelManager.Instance == null) return;
         if (LevelManager.Instance.inGameTimer - LastShotTime >= Attributes.AttackSpeed)
         {
             weapon.Shoot(Attributes.CalculateProjectileDamage(), Attributes.BulletFlightSpeed);
@@ -28,7 +30,10 @@ public abstract class GroundShooting : Ground
     {
         if (weapon != null)
         {
-            Target = weapon.ChoseTarget(LevelManager.Instance.Player == this);
+            if (LevelManager.Instance != null)
+            {
+                Target = weapon.ChoseTarget(LevelManager.Instance.Player == this);
+            }
         }
         base.FixedUpdate();
     }
