@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D rb;
-    private Vector3 _velocity;
+    [SerializeField] private Vector2 _velocity;
     private float _damage;
     private bool _isShootedByPlayer;
 
