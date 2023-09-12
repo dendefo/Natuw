@@ -64,10 +64,8 @@ MonoBehaviour:
   animator: {fileID: 120659136650568018}
   SecondJumpAvalible: 0
   XpOnDeath: 50
-  knockbackForce: 0
-  LastSeen: {x: 0, y: 0}
-  isAfterPlayer: 0
-  isMovingRight: 0
+  knockbackForce: 5
+  canJump: 0
 --- !u!50 &2178963778833045037
 Rigidbody2D:
   serializedVersion: 4
