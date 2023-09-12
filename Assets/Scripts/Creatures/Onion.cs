@@ -6,11 +6,11 @@ public class Onion : Ground
 {
     [SerializeField] private int XpOnDeath = 50;
     [SerializeField] private float knockbackForce;
+    public bool canJump;
 
-
-    [SerializeField] private Vector2 LastSeen;
-    [SerializeField] private bool isAfterPlayer;
-    [SerializeField] private bool isMovingRight;
+    private Vector2 LastSeen;
+    private bool isAfterPlayer;
+    private bool isMovingRight;
 
 
     #region UnityFunctions

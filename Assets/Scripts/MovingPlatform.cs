@@ -17,7 +17,7 @@ public class MovingPlatform : MonoBehaviour
     }
     private void Pause(bool isPaused)
     {
-        rb.bodyType = isPaused ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
+        rb.bodyType = isPaused ? RigidbodyType2D.Static : RigidbodyType2D.Kinematic;
         
     }
     private void FixedUpdate()
