@@ -1,3 +1,4 @@
+using Assets.Scripts.Creatures;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,72 +11,59 @@ public class LevelManager : MonoBehaviour
     public Tilemap TileMap;
     public Player Player;
     public List<Creature> EnemyList;
-    public bool isPaused;
-    public float inGameTimer;
     public PlayerSpawnPoint spawnPoint;
-    public GameObject LevelUpCanvas;
-    public int PlayerLevelAtStart;
+    public Dictionary<IShooter, float> shooters;
+    bool _isPaused;
+    float _timeWithoutPauses;
 
     void Awake()
     {
+        WorldManager.Instance.OnPause += Pausing;
         if (Player == null) { Player = WorldManager.Instance.PlayerReference; }
         else { WorldManager.Instance.PlayerReference = Player; }
         Player.transform.position = spawnPoint.transform.position;
-        if (Instance!=null)
+        if (Instance != null)
         {
             Destroy(Instance.gameObject);
         }
         EnemyList = new();
+        shooters = new()
+        {
+            { Player, 0 }
+        };
         Instance = this;
-        PlayerLevelAtStart = WorldManager.Instance.PlayerLevel;
     }
-
-    private void Update()
+    private void FixedUpdate()
     {
-        if (isPaused)
+        if (_isPaused) return;
+        _timeWithoutPauses += Time.fixedDeltaTime;
+        List<IShooter> shooted = new();
+        foreach (var shooter in shooters)
         {
-            return;
+
+            Creature creature = ((Creature)shooter.Key);
+            if (!(creature.Angered || creature == Player)) continue;
+            creature.weapon.ChoseTarget(creature == Player);
+            shooter.Key.Aim(creature.weapon.Target, creature.weapon, creature.weapon.TargetLine, creature.transform);
+            if (_timeWithoutPauses - creature.Attributes.AttackSpeed > shooter.Value)
+            {
+                creature.weapon.Shoot(creature.Attributes.DMG, creature.Attributes.BulletFlightSpeed);
+                shooted.Add(shooter.Key);
+            }
         }
-        inGameTimer += Time.deltaTime;
-        if (EnemyList.Count == 0 && WorldManager.Instance.PlayerLevel!= PlayerLevelAtStart&&!LevelUpCanvas.active)
+        foreach (var shooter in shooted)
         {
-            WorldManager.Instance.LevelUpPausing(true);
-            LevelUpCanvas.SetActive(true);
+            shooters[shooter] = _timeWithoutPauses;
         }
     }
-
-    public void Upgrade(int num)
+    private void Pausing(bool isPaused)
     {
-        PlayerLevelAtStart++;
-        UpgradeTypes upgradeType = (UpgradeTypes)num;
-
-        LevelUpCanvas.SetActive(false);
-        WorldManager.Instance.LevelUpPausing(false);
-        switch (upgradeType)
-        {
-            case (UpgradeTypes.MaxHealth):
-                Player.Attributes.UpgradeMaxHealth();
-                break;
-            case UpgradeTypes.DoubleBullets:
-                Player.weapon.UpgradeDoubleBullets();
-                break;
-            case UpgradeTypes.FireRate:
-                Player.Attributes.AttackSpeedUpgrade();
-                break;
-            case UpgradeTypes.Damage:
-                Player.Attributes.DMGUpgrade();
-                break;
-            case UpgradeTypes.MovementSpeed:
-                Player.Attributes.UpgradeMovementSpeed();
-                break;
-            case UpgradeTypes.DoubleJump:
-                Player.UpgradeDoubleJump();
-                break;
-        }
+        _isPaused = isPaused;
     }
 }
 
-public enum UpgradeTypes{
+public enum UpgradeTypes
+{
     MaxHealth,
     DoubleBullets,
     FireRate,

@@ -1,13 +1,13 @@
+using Assets.Scripts.Creatures;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pea : GroundShooting
+public class Pea : Ground, IShooter
 {
     [SerializeField] private int XpOnDeath = 50;
     [SerializeField] private float knockbackForce;
 
-    private bool isAfterPlayer;
     private bool isMovingRight;
 
 
@@ -15,11 +15,12 @@ public class Pea : GroundShooting
     private void Start()
     {
         LevelManager.Instance.EnemyList.Add(this);
+        IShooter.OnCreate(this);
     }
-    override protected void Update()
+    protected void Update()
     {
         LookForPlayer();
-        if (isAfterPlayer) base.Update();
+        if (Angered) Stop();
         else ContinuePatrol();
 
         PlayAnimation("EnemySpeed");
@@ -27,6 +28,7 @@ public class Pea : GroundShooting
     private void OnDestroy()
     {
         WorldManager.Instance.PlayerXP += XpOnDeath;
+        IShooter.Destroy(this);
     }
     override protected void OnCollisionEnter2D(Collision2D collision)
     {
@@ -40,8 +42,8 @@ public class Pea : GroundShooting
         {
             foreach (var contact in collision.contacts)
             {
-                if (contact.normal.x >= 0.707) { isMovingRight = false; isAfterPlayer = false; }
-                else if (contact.normal.x <= -0.707) { isMovingRight = true; isAfterPlayer = false; }
+                if (contact.normal.x >= 0.707) { isMovingRight = false; Angered = false; }
+                else if (contact.normal.x <= -0.707) { isMovingRight = true; Angered = false; }
             }
         }
     }
@@ -53,8 +55,8 @@ public class Pea : GroundShooting
         {
             foreach (var contact in collision.contacts)
             {
-                if (contact.normal.x >= 0.707) { isMovingRight = true; isAfterPlayer = false; }
-                else if (contact.normal.x <= -0.707) { isMovingRight = false; isAfterPlayer = false; }
+                if (contact.normal.x >= 0.707) { isMovingRight = true; Angered = false; }
+                else if (contact.normal.x <= -0.707) { isMovingRight = false; Angered = false; }
             }
         }
     }
@@ -63,11 +65,11 @@ public class Pea : GroundShooting
 
     private void LookForPlayer()
     {
+        Angered = false;
         var player = LevelManager.Instance.Player;
         var hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, 100, layerMask: LayerMask.GetMask("Player", "TileMap"));
         if (hit.rigidbody == null) { return; }
-        if (hit.rigidbody.CompareTag("Player")) { isAfterPlayer = true; }
-        else isAfterPlayer = false;
+        if (hit.rigidbody.CompareTag("Player")) { Angered = true; }
 
     }
     private void ContinuePatrol()

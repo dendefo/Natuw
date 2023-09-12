@@ -3,30 +3,32 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-abstract public class Creature : MonoBehaviour
+abstract public class Creature : MonoBehaviour, IPausable
 {
     #region Fields
 
     [Header("Battle")]
     public CreatureAttributes Attributes;
     public BaseCreatureStats BaseStats;
+    public RangedWeapon weapon;
 
     [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected SpriteRenderer SRenderer;
     [SerializeField] protected Animator animator;
+    public bool Angered;
 
     #endregion
     #region UnityFunctions
     virtual protected void Awake()
     {
-        WorldManager.Instance.OnPause += Pause;
+        WorldManager.Instance.OnPause += Pausing;
         Attributes = new CreatureAttributes(BaseStats);
     }
 
-    private void Pause(bool isPaused)
+    public void Pausing(bool isPaused)
     {
-        rb.bodyType = isPaused?RigidbodyType2D.Static:RigidbodyType2D.Dynamic;
+        rb.bodyType = isPaused ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
         animator.enabled = !isPaused;
     }
 
@@ -43,7 +45,7 @@ abstract public class Creature : MonoBehaviour
     virtual protected void Die()
     {
         Destroy(gameObject);
-        WorldManager.Instance.OnPause -= Pause;
+        WorldManager.Instance.OnPause -= Pausing;
     }
     #endregion
 
@@ -84,7 +86,7 @@ public struct CreatureAttributes
         BulletFlightSpeed = creatureStats.BulletFlightSpeed * (1 + (WorldManager.Instance.difficulty.BulletSpeed * (WorldManager.Instance.CurrentLevel - 1)));
         CritChance = creatureStats.CritChance;
         CritDamageMultiplier = creatureStats.CritDamageMultiplier;
-        MoveVelocity = creatureStats.MoveVelocity * (1 + (WorldManager.Instance.difficulty.EnemySpeed * (WorldManager.Instance.CurrentLevel /5)));
+        MoveVelocity = creatureStats.MoveVelocity * (1 + (WorldManager.Instance.difficulty.EnemySpeed * (WorldManager.Instance.CurrentLevel / 5)));
         JumpVelocity = creatureStats.JumpVelocity;
     }
     readonly public float CalculateProjectileDamage()

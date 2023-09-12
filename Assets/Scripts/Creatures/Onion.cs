@@ -1,3 +1,4 @@
+using Assets.Scripts.Creatures;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,6 @@ public class Onion : Ground
     public bool canJump;
 
     private Vector2 LastSeen;
-    private bool isAfterPlayer;
     private bool isMovingRight;
 
 
@@ -21,8 +21,8 @@ public class Onion : Ground
     private void Update()
     {
         LookForPlayer();
-        if (isAfterPlayer&&Mathf.Abs((LastSeen-(Vector2)transform.position).x)<0.5) isAfterPlayer = false;
-        if (isAfterPlayer) Move(LastSeen.x > transform.position.x);
+        if (Angered&&Mathf.Abs((LastSeen-(Vector2)transform.position).x)<0.5) Angered = false;
+        if (Angered) Move(LastSeen.x > transform.position.x);
         else ContinuePatrol();
 
         PlayAnimation("EnemySpeed");
@@ -43,8 +43,8 @@ public class Onion : Ground
         {
             foreach (var contact in collision.contacts)
             {
-                if (contact.normal.x >= 0.707) { isMovingRight = false; isAfterPlayer = false; }
-                else if (contact.normal.x <= -0.707) { isMovingRight = true; isAfterPlayer = false; }
+                if (contact.normal.x >= 0.707) { isMovingRight = false; Angered = false; }
+                else if (contact.normal.x <= -0.707) { isMovingRight = true; Angered = false; }
             }
         }
     }
@@ -56,8 +56,8 @@ public class Onion : Ground
         {
             foreach (var contact in collision.contacts)
             {
-                if (contact.normal.x >= 0.707) { isMovingRight = true; isAfterPlayer = false; }
-                else if (contact.normal.x <= -0.707) { isMovingRight = false; isAfterPlayer = false; }
+                if (contact.normal.x >= 0.707) { isMovingRight = true; Angered = false; }
+                else if (contact.normal.x <= -0.707) { isMovingRight = false; Angered = false; }
                 }
         }
     }
@@ -71,7 +71,7 @@ public class Onion : Ground
         var hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized,100,layerMask : LayerMask.GetMask("Player","TileMap"));
         if (hit.rigidbody == null) { Debug.Log("Player is unreachable"); return; }
         Debug.Log(hit.rigidbody.tag);
-        if (hit.rigidbody.CompareTag("Player")) { LastSeen = hit.point; isAfterPlayer = true; }
+        if (hit.rigidbody.CompareTag("Player")) { LastSeen = hit.point; Angered = true; }
 
     }
     private void ContinuePatrol() 

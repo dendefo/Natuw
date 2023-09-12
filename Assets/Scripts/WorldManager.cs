@@ -23,9 +23,11 @@ public class WorldManager : MonoBehaviour
     public TMPro.TMP_Text FPSCounter;
     [SerializeField] TMPro.TMP_InputField DebuggerInput;
     [SerializeField] GameObject PauseMenu;
+    [SerializeField] GameObject LevelUpCanvas;
 
     void Start()
     {
+        if (Instance != null) Destroy(Instance.gameObject);
         Instance = this;
         DontDestroyOnLoad(Instance);
         if (PlayerReference == null) PlayerReference = Instantiate(AssetDatabase.LoadAssetAtPath<Player>("Assets/Prefabs/Creatures/Player.prefab"));
@@ -52,13 +54,14 @@ public class WorldManager : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended||touch.phase == TouchPhase.Canceled) Joystick.OnPointerUp(data);
         }
 #endif
-        while (PlayerXP >= CalculateXpForNextLevel())
+        if (PlayerXP >= CalculateXpForNextLevel() && LevelManager.Instance.EnemyList.Count == 0 && !LevelUpCanvas.active)
         {
+            LevelUpPausing(true);
             LevelUp();
         }
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            
+
             if (Time.timeScale == 0) { Time.timeScale = 1; DebuggerInput.gameObject.SetActive(false); }
             else { Time.timeScale = 0; DebuggerInput.gameObject.SetActive(true); }
         }
@@ -100,34 +103,28 @@ public class WorldManager : MonoBehaviour
         switch (DebuggerInput.text.ToLower())
         {
             case "upgrade_health":
-                LevelManager.Instance.Upgrade((int)UpgradeTypes.MaxHealth);
+                Upgrade((int)UpgradeTypes.MaxHealth);
                 DebuggerInput.text = "";
-                LevelManager.Instance.PlayerLevelAtStart--;
                 break;
             case "upgrade_double_jump":
-                LevelManager.Instance.Upgrade((int)UpgradeTypes.DoubleJump);
+                Upgrade((int)UpgradeTypes.DoubleJump);
                 DebuggerInput.text = "";
-                LevelManager.Instance.PlayerLevelAtStart--;
                 break;
             case "upgrade_attack_speed":
-                LevelManager.Instance.Upgrade((int)UpgradeTypes.FireRate);
+                Upgrade((int)UpgradeTypes.FireRate);
                 DebuggerInput.text = "";
-                LevelManager.Instance.PlayerLevelAtStart--;
                 break;
             case "upgrade_damage":
-                LevelManager.Instance.Upgrade((int)UpgradeTypes.Damage);
+                Upgrade((int)UpgradeTypes.Damage);
                 DebuggerInput.text = "";
-                LevelManager.Instance.PlayerLevelAtStart--;
                 break;
             case "upgrade_movement":
-                LevelManager.Instance.Upgrade((int)UpgradeTypes.MovementSpeed);
+                Upgrade((int)UpgradeTypes.MovementSpeed);
                 DebuggerInput.text = "";
-                LevelManager.Instance.PlayerLevelAtStart--;
                 break;
             case "upgrade_double_bullets":
-                LevelManager.Instance.Upgrade((int)UpgradeTypes.DoubleBullets);
+                Upgrade((int)UpgradeTypes.DoubleBullets);
                 DebuggerInput.text = "";
-                LevelManager.Instance.PlayerLevelAtStart--;
                 break;
             default:
                 Debug.Log("Not a command");
@@ -142,6 +139,37 @@ public class WorldManager : MonoBehaviour
     public void LevelUpPausing(bool isPaused)
     {
         OnPause(isPaused);
+        LevelUpCanvas.SetActive(isPaused);
+    }
+    public void Upgrade(int num)
+    {
+        UpgradeTypes upgradeType = (UpgradeTypes)num;
+        LevelUpPausing(false);
+        switch (upgradeType)
+        {
+            case (UpgradeTypes.MaxHealth):
+                PlayerReference.Attributes.UpgradeMaxHealth();
+                break;
+            case UpgradeTypes.DoubleBullets:
+                PlayerReference.weapon.UpgradeDoubleBullets();
+                break;
+            case UpgradeTypes.FireRate:
+                PlayerReference.Attributes.AttackSpeedUpgrade();
+                break;
+            case UpgradeTypes.Damage:
+                PlayerReference.Attributes.DMGUpgrade();
+                break;
+            case UpgradeTypes.MovementSpeed:
+                PlayerReference.Attributes.UpgradeMovementSpeed();
+                break;
+            case UpgradeTypes.DoubleJump:
+                PlayerReference.UpgradeDoubleJump();
+                break;
+        }
+    }
+    private void OnDestroy()
+    {
+        Destroy(PlayerReference.gameObject);
     }
 
 #if !UNITY_EDITOR

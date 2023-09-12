@@ -1,8 +1,9 @@
+using Assets.Scripts.Creatures;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : GroundShooting
+public class Player : Ground, IShooter
 {
 
     #region Fields
@@ -11,6 +12,7 @@ public class Player : GroundShooting
     private float DashTimer;
     [SerializeField] private float DashSpeed;
     [SerializeField] private float DashTime;
+
 #if !UNITY_EDITOR
     const float JOYSTICK_ERROR_VALUE = 0.05f;
     private bool _isDown = false;
@@ -53,10 +55,9 @@ public class Player : GroundShooting
             rb.velocity = Vector2.zero;
         }
     }
-    override protected void Update()
+    protected void Update()
     {
         if (rb.bodyType == RigidbodyType2D.Static) return;
-        base.Update();
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
 #if !UNITY_EDITOR
@@ -84,9 +85,8 @@ public class Player : GroundShooting
         yield return new WaitForSeconds(0.025f);
         EndJump();
     }
-    override protected void OnDrawGizmos()
+    protected void OnDrawGizmos()
     {
-        base.OnDrawGizmos();
         Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0) * (SRenderer.flipX ? -1 : 1)));
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));

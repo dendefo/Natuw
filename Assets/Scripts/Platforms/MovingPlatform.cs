@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class MovingPlatform : MonoBehaviour, IPausable
 {
     public Rigidbody2D rb;
 
@@ -13,12 +13,12 @@ public class MovingPlatform : MonoBehaviour
 
     private void Awake()
     {
-        WorldManager.Instance.OnPause+=Pause;
+        WorldManager.Instance.OnPause += Pausing;
     }
-    private void Pause(bool isPaused)
+    public void Pausing(bool isPaused)
     {
         rb.bodyType = isPaused ? RigidbodyType2D.Static : RigidbodyType2D.Kinematic;
-        
+
     }
     private void FixedUpdate()
     {
@@ -36,6 +36,6 @@ public class MovingPlatform : MonoBehaviour
     }
     private void OnDestroy()
     {
-        WorldManager.Instance.OnPause -= Pause;
+        WorldManager.Instance.OnPause -= Pausing;
     }
 }

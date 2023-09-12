@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2111163067393621885}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2111163066306310951
 SpriteRenderer:
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2111163067393621885}
   - component: {fileID: 1283600015482011744}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: WeaponForEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 633057080579808627}
   - {fileID: 2111163066306310950}
   - {fileID: 3918585952946899184}
   m_Father: {fileID: 0}
@@ -140,7 +139,7 @@ MonoBehaviour:
   ProjectileThirdSpawnPoint: {fileID: 0}
   WeaponSprite: {fileID: 2111163066306310951}
   Target: {fileID: 0}
-  TargetLine: {fileID: 2570058707714452693}
+  TargetLine: {fileID: 0}
   isDoubleShooter: 0
 --- !u!1 &3479052719809935384
 GameObject:
@@ -171,72 +170,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2111163067393621885}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &6702948581272119881
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2111163067393621885}
-    m_Modifications:
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -14.54664
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -12.0906725
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.57608676
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7060016462107960822, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-      propertyPath: m_Name
-      value: TargetLine
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
---- !u!4 &633057080579808627 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6182521133941634874, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-  m_PrefabInstance: {fileID: 6702948581272119881}
-  m_PrefabAsset: {fileID: 0}
---- !u!120 &2570058707714452693 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 9128522664864302748, guid: c643eedf881bb86448db2001fdbb9824, type: 3}
-  m_PrefabInstance: {fileID: 6702948581272119881}
-  m_PrefabAsset: {fileID: 0}

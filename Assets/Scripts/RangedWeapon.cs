@@ -17,7 +17,8 @@ public class RangedWeapon : MonoBehaviour
     [SerializeField] Transform ProjectileThirdSpawnPoint;
     public SpriteRenderer WeaponSprite;
     //[SerializeField] ParticleSystem particleProjectile;
-    private Creature Target;
+    public Creature Target;
+    public LineRenderer TargetLine;
     public bool isDoubleShooter = false;
     #endregion
 

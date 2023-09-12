@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : GroundShooting
+public class Enemy : Ground
 {
     
     private List<PathFindingNode> _path;
@@ -28,9 +28,8 @@ public class Enemy : GroundShooting
 
         PlayAnimation("EnemySpeed");//, "EnemyJumpSpeed"
     }
-    override protected void OnDrawGizmos()
+    protected void OnDrawGizmos()
     {
-        base.OnDrawGizmos();
         if (_path == null) return;
         for (int i = 1; i < _path.Count; i++)
         {
