@@ -15,7 +15,6 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        WorldManager.Instance.OnPause += Pausing;
         if (Player == null) { Player = WorldManager.Instance.PlayerReference; }
         else { WorldManager.Instance.PlayerReference = Player; }
         Player.transform.position = spawnPoint.transform.position;
@@ -26,19 +25,4 @@ public class LevelManager : MonoBehaviour
         EnemyList = new();
         Instance = this;
     }
-    
-    private void Pausing(bool isPaused)
-    {
-
-    }
-}
-
-public enum UpgradeTypes
-{
-    MaxHealth,
-    DoubleBullets,
-    FireRate,
-    Damage,
-    MovementSpeed,
-    DoubleJump
 }

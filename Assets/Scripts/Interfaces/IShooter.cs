@@ -6,9 +6,12 @@ namespace Assets.Scripts.Creatures
 {
     public interface IShooter
     {
-        protected static void OnEnable(IShooter shooter)
+        /// <summary>
+        /// Must to implement in OnEnable
+        /// </summary>
+        public void Enabling()
         {
-            WorldManager.Instance.WeaponUpdate += shooter.OnWeaponUpdate;
+            WorldManager.Instance.WeaponUpdate += OnWeaponUpdate;
         }
         virtual public void Aim(Creature target,RangedWeapon weapon, LineRenderer TargetLine, Transform transform)
         {
@@ -40,10 +43,14 @@ namespace Assets.Scripts.Creatures
             TargetLine.SetPosition(1, target.transform.position);
         }
 
+
         abstract protected void OnWeaponUpdate(float timeStamp);
-        protected static void OnDisable(IShooter shooter)
+        /// <summary>
+        /// Must to implement in OnDisable
+        /// </summary>
+        public void Disabling()
         {
-            WorldManager.Instance.WeaponUpdate -= shooter.OnWeaponUpdate;
+            WorldManager.Instance.WeaponUpdate -= OnWeaponUpdate;
         }
     }
 }

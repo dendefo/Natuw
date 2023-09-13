@@ -205,3 +205,14 @@ public struct DifficultyMultiplyers
     public float EnemySpeed;
     public float BulletSpeed;
 }
+
+
+public enum UpgradeTypes
+{
+    MaxHealth,
+    DoubleBullets,
+    FireRate,
+    Damage,
+    MovementSpeed,
+    DoubleJump
+}

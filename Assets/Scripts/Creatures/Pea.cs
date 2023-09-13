@@ -16,10 +16,7 @@ public class Pea : Ground, IShooter
     {
         LevelManager.Instance.EnemyList.Add(this);
     }
-    private void OnEnable()
-    {
-        IShooter.OnEnable(this);
-    }
+    private void OnEnable() => ((IShooter)this).Enabling();
     protected void Update()
     {
         LookForPlayer();
@@ -34,10 +31,7 @@ public class Pea : Ground, IShooter
         PlayAnimation("EnemySpeed");
 
     }
-    private void OnDisable()
-    {
-        IShooter.OnDisable(this);
-    }
+    private void OnDisable() => ((IShooter)this).Disabling();
     private void OnDestroy()
     {
         WorldManager.Instance.PlayerXP += XpOnDeath;

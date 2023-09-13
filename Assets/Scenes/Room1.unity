@@ -2608,6 +2608,8 @@ MonoBehaviour:
     width: 28.1
     height: 13.01
   cam: {fileID: 476063599}
+  XOffset: 0
+  YOffset: -0.3
   CameraSpeed: 0.05
 --- !u!114 &476063597
 MonoBehaviour:
