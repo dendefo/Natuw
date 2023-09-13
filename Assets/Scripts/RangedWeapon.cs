@@ -24,6 +24,7 @@ public class RangedWeapon : MonoBehaviour
 
     virtual public Creature ChoseTarget(bool isLookingForEnemy = true)
     {
+        if (LevelManager.Instance == null) return null;
         Player player = LevelManager.Instance.Player;
         if (isLookingForEnemy)
         {

@@ -40,6 +40,10 @@ public class Player : Ground, IShooter
         base.Awake();
         DontDestroyOnLoad(gameObject);
     }
+    private void OnEnable()
+    {
+        IShooter.OnEnable(this);
+    }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -57,6 +61,9 @@ public class Player : Ground, IShooter
     }
     protected void Update()
     {
+        weapon.ChoseTarget();
+        ((IShooter)this).Aim(weapon.Target, weapon, weapon.TargetLine, transform);
+
         if (rb.bodyType == RigidbodyType2D.Static) return;
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
         PlayAnimation("PlayerSpeed", "PlayerJumpSpeed");
@@ -71,6 +78,10 @@ public class Player : Ground, IShooter
              Input.GetKeyUp(KeyCode.Space)
              ));
 #endif
+    }
+    private void OnDisable()
+    {
+        IShooter.OnDisable(this);
     }
 #if !UNITY_EDITOR
     public void AndroidJump(bool isDown)
@@ -110,5 +121,13 @@ public class Player : Ground, IShooter
         if (endjump) StartCoroutine(EndJumpDelayed());
 #endif
 
+    }
+
+    void IShooter.OnWeaponUpdate(float timeStamp)
+    {
+        if (((int)(timeStamp * 50)) % ((int)(Attributes.AttackSpeed * 50)) == 0)
+        {
+            weapon.Shoot(Attributes.DMG, Attributes.BulletFlightSpeed);
+        }
     }
 }

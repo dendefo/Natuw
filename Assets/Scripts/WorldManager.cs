@@ -12,6 +12,9 @@ public class WorldManager : MonoBehaviour
     public delegate void Pause(bool isPaused);
     public event Pause OnPause;
 
+    public delegate void WeaponUpdateHandler(float time);
+    public event WeaponUpdateHandler WeaponUpdate;
+
     public DifficultyMultiplyers difficulty;
     public int CurrentLevel;
     static public WorldManager Instance;
@@ -24,6 +27,9 @@ public class WorldManager : MonoBehaviour
     [SerializeField] TMPro.TMP_InputField DebuggerInput;
     [SerializeField] GameObject PauseMenu;
     [SerializeField] GameObject LevelUpCanvas;
+
+    bool _isPaused;
+    float _timeWithoutPauses;
 
     void Start()
     {
@@ -66,6 +72,12 @@ public class WorldManager : MonoBehaviour
             else { Time.timeScale = 0; DebuggerInput.gameObject.SetActive(true); }
         }
 
+    }
+    private void FixedUpdate()
+    {
+        if (_isPaused) return;
+        _timeWithoutPauses += Time.fixedDeltaTime;
+        if (((int)(_timeWithoutPauses * 50)) % ((int)(0.04 * 50)) == 0) WeaponUpdate.Invoke(_timeWithoutPauses);
     }
 
     public void AddXpToPlayer(int XP)

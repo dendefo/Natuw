@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHp: 100
   DMG: 10
-  AttackSpeed: 0.7
+  AttackSpeed: 0.72
   BulletFlightSpeed: 10
   CritChance: 0.2
   CritDamageMultiplier: 1.5

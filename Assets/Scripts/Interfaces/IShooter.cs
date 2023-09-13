@@ -6,9 +6,9 @@ namespace Assets.Scripts.Creatures
 {
     public interface IShooter
     {
-        protected static void OnCreate(IShooter shooter)
+        protected static void OnEnable(IShooter shooter)
         {
-            LevelManager.Instance.shooters.Add(shooter,0);
+            WorldManager.Instance.WeaponUpdate += shooter.OnWeaponUpdate;
         }
         virtual public void Aim(Creature target,RangedWeapon weapon, LineRenderer TargetLine, Transform transform)
         {
@@ -39,9 +39,11 @@ namespace Assets.Scripts.Creatures
             TargetLine.SetPosition(0, transform.position);
             TargetLine.SetPosition(1, target.transform.position);
         }
-        protected static void  Destroy(IShooter shooter)
+
+        abstract protected void OnWeaponUpdate(float timeStamp);
+        protected static void OnDisable(IShooter shooter)
         {
-            LevelManager.Instance.shooters.Remove(shooter);
+            WorldManager.Instance.WeaponUpdate -= shooter.OnWeaponUpdate;
         }
     }
 }
