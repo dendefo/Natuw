@@ -15,8 +15,8 @@ MonoBehaviour:
   MaxHp: 100
   DMG: 10
   AttackSpeed: 0.72
-  BulletFlightSpeed: 10
+  BulletFlightSpeed: 20
   CritChance: 0.2
   CritDamageMultiplier: 1.5
-  MoveVelocity: 7
+  MoveVelocity: 6
   JumpVelocity: 20
