@@ -13,6 +13,8 @@ public class WorldManager : MonoBehaviour
     public event Pause OnPause;
 
     public delegate void WeaponUpdateHandler(float time);
+
+
     public event WeaponUpdateHandler WeaponUpdate;
 
     public DifficultyMultiplyers difficulty;
@@ -77,7 +79,7 @@ public class WorldManager : MonoBehaviour
     {
         if (_isPaused) return;
         _timeWithoutPauses += Time.fixedDeltaTime;
-        if (((int)(_timeWithoutPauses * 50)) % ((int)(0.04 * 50)) == 0) WeaponUpdate.Invoke(_timeWithoutPauses);
+        if (((int)(_timeWithoutPauses * 50)) % ((int)(0.04 * 50)) == 0) WeaponUpdate?.Invoke(_timeWithoutPauses);
     }
 
     public void AddXpToPlayer(int XP)
