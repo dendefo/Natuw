@@ -22,8 +22,15 @@ abstract public class Creature : MonoBehaviour, IPausable
     #region UnityFunctions
     virtual protected void Awake()
     {
-        WorldManager.Instance.OnPause += Pausing;
         Attributes = new CreatureAttributes(BaseStats);
+    }
+    virtual protected void OnEnable()
+    {
+        WorldManager.Instance.OnPause += Pausing;
+    }
+    virtual protected void OnDisable()
+    {
+        WorldManager.Instance.OnPause -= Pausing;
     }
 
     public void Pausing(bool isPaused)
@@ -45,7 +52,6 @@ abstract public class Creature : MonoBehaviour, IPausable
     virtual protected void Die()
     {
         Destroy(gameObject);
-        WorldManager.Instance.OnPause -= Pausing;
     }
     #endregion
 
