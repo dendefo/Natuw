@@ -113,7 +113,8 @@ public abstract class Ground : Creature
     protected void Move(bool isRight)
     {
         rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1)+ (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity).x, rb.velocity.y);
-        SRenderer.flipX = !isRight;
+        if (SRenderer != null) SRenderer.flipX = !isRight;
+        else transform.GetChild(0).eulerAngles = new Vector3(0,isRight?0:180, 0);
     }
     public void UpgradeDoubleJump()
     {
