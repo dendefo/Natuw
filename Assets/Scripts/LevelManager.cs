@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 
 public class LevelManager : MonoBehaviour
 {
+    public delegate void LevelClearedEventHandler();
+    public event LevelClearedEventHandler LevelCleared;
 
     static public LevelManager Instance;
     public Tilemap TileMap;
@@ -24,5 +26,9 @@ public class LevelManager : MonoBehaviour
         }
         EnemyList = new();
         Instance = this;
+    }
+    private void Update()
+    {
+        if (EnemyList.Count == 0) { LevelCleared?.Invoke(); Debug.Log("Cleared"); }
     }
 }

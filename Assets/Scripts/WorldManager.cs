@@ -37,8 +37,8 @@ public class WorldManager : MonoBehaviour
         if (Instance != null) Destroy(Instance.gameObject);
         Instance = this;
         DontDestroyOnLoad(Instance);
-        if (PlayerReference == null) PlayerReference = Instantiate(Resources.Load<Player>("Player"));
         NextLevel();
+        if (PlayerReference == null) PlayerReference = Instantiate(Resources.Load<Player>("Player"));
     }
     private void Update()
     {
@@ -109,7 +109,8 @@ public class WorldManager : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadSceneAsync(LevelScenesNames[CurrentLevel++]);
+        if (LevelScenesNames.Count == CurrentLevel) SceneManager.LoadSceneAsync("MainMenu");
+        else SceneManager.LoadSceneAsync(LevelScenesNames[CurrentLevel++]);
     }
     public void Debugger()
     {
