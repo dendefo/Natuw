@@ -97,7 +97,7 @@ public abstract class Ground : Creature
             SecondJumpReady = false;
             isInJump = true;
             rb.AddForce(Attributes.JumpVelocity * Vector2.up, ForceMode2D.Impulse);
-            if (_currentConnectedPlatform != null) rb.velocity -= _currentConnectedPlatform.rb.velocity;
+            if (_currentConnectedPlatform != null) rb.velocity = new Vector2(rb.velocity.x - _currentConnectedPlatform.rb.velocity.x,rb.velocity.y);
         }
         else isInJump = false;
     }
@@ -112,7 +112,7 @@ public abstract class Ground : Creature
 
     protected void Move(bool isRight)
     {
-        rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1), rb.velocity.y) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
+        rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1)+ (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity).x, rb.velocity.y);
         SRenderer.flipX = !isRight;
     }
     public void UpgradeDoubleJump()

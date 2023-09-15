@@ -16,7 +16,7 @@ public class Pea : Ground, IShooter
     {
         LevelManager.Instance.EnemyList.Add(this);
     }
-    protected override void OnEnable() => ((IShooter)this).Enabling();
+    protected override void OnEnable() { base.OnEnable(); ((IShooter)this).Enabling(); }
     protected void Update()
     {
         LookForPlayer();
@@ -24,14 +24,14 @@ public class Pea : Ground, IShooter
         {
             Stop();
             weapon.ChoseTarget(false);
-            ((IShooter)this).Aim(weapon.Target,weapon,weapon.TargetLine,transform);
+            ((IShooter)this).Aim(weapon.Target, weapon, weapon.TargetLine, transform);
         }
         else ContinuePatrol();
 
         PlayAnimation("EnemySpeed");
 
     }
-    protected override void OnDisable() => ((IShooter)this).Disabling();
+    protected override void OnDisable() { base.OnDisable(); ((IShooter)this).Disabling(); }
     private void OnDestroy()
     {
         WorldManager.Instance.PlayerXP += XpOnDeath;
@@ -96,7 +96,7 @@ public class Pea : Ground, IShooter
     {
         if (((int)(timeStamp * 50)) % ((int)(Attributes.AttackSpeed * 50)) == 0)
         {
-            weapon.Shoot(Attributes.DMG,Attributes.BulletFlightSpeed);
+            weapon.Shoot(Attributes.DMG, Attributes.BulletFlightSpeed);
         }
     }
     #endregion

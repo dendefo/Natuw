@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.EventSystems;
@@ -38,7 +37,7 @@ public class WorldManager : MonoBehaviour
         if (Instance != null) Destroy(Instance.gameObject);
         Instance = this;
         DontDestroyOnLoad(Instance);
-        if (PlayerReference == null) PlayerReference = Instantiate(AssetDatabase.LoadAssetAtPath<Player>("Assets/Prefabs/Creatures/Player.prefab"));
+        if (PlayerReference == null) PlayerReference = Instantiate(Resources.Load<Player>("Player"));
         NextLevel();
     }
     private void Update()
@@ -148,11 +147,13 @@ public class WorldManager : MonoBehaviour
     public void Pausing(bool isPaused)
     {
         OnPause(isPaused);
+        _isPaused = isPaused;
         PauseMenu.SetActive(isPaused);
     }
     public void LevelUpPausing(bool isPaused)
     {
         OnPause(isPaused);
+        _isPaused = isPaused;
         LevelUpCanvas.SetActive(isPaused);
     }
     public void Upgrade(int num)

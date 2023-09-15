@@ -136,6 +136,8 @@ MonoBehaviour:
   AttackSpeedMultiplier: 1
   ProjectilePrefab: {fileID: 6186162643695624949, guid: 3ea696d1b4d4eb244866c15b9530a66d, type: 3}
   ProjectileSpawnPoint: {fileID: 3918585952946899184}
+  Upgrades:
+  - {fileID: 11400000, guid: f91f87b3becfd51459f7f28acc777a76, type: 2}
   ProjectileSecondSpawnPoint: {fileID: 0}
   ProjectileThirdSpawnPoint: {fileID: 0}
   WeaponSprite: {fileID: 2111163066306310951}
@@ -166,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3479052719809935384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1.16, y: 0.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

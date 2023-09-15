@@ -40,7 +40,11 @@ public class Player : Ground, IShooter
         base.Awake();
         DontDestroyOnLoad(gameObject);
     }
-    protected override void OnEnable() => ((IShooter)this).Enabling();
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        ((IShooter)this).Enabling();
+    }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -76,7 +80,11 @@ public class Player : Ground, IShooter
              ));
 #endif
     }
-    protected override void OnDisable() => ((IShooter)this).Disabling();
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        ((IShooter)this).Disabling();
+    }
 
 #if !UNITY_EDITOR
     public void AndroidJump(bool isDown)

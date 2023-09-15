@@ -26,12 +26,12 @@ public class MovingPlatform : MonoBehaviour, IPausable
         var DirectionRightToLeft = Vector3.Normalize(rightBorder - leftBorder);
         if (isMovingRight) rb.velocity = DirectionRightToLeft * speed;
         else rb.velocity = DirectionLeftToRight * speed;
-        if (Vector3.Normalize(transform.position - rightBorder).x > 0 && isMovingRight) isMovingRight = false;
-        if (Vector3.Normalize(transform.position - leftBorder).x < 0 && !isMovingRight) isMovingRight = true;
+        if (Vector2.Distance(transform.position, rightBorder) < 1 && isMovingRight) isMovingRight = false;
+        if (Vector2.Distance(transform.position, leftBorder) < 1 && !isMovingRight) isMovingRight = true;
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.black;
+        Gizmos.color = Color.blue;
         Gizmos.DrawLine(leftBorder, rightBorder);
     }
     private void OnDestroy()

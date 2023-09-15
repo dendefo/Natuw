@@ -135,6 +135,8 @@ MonoBehaviour:
   AttackSpeedMultiplier: 1
   ProjectilePrefab: {fileID: 6186162643695624949, guid: 3ea696d1b4d4eb244866c15b9530a66d, type: 3}
   ProjectileSpawnPoint: {fileID: 3918585952946899184}
+  Upgrades:
+  - {fileID: 11400000, guid: f91f87b3becfd51459f7f28acc777a76, type: 2}
   ProjectileSecondSpawnPoint: {fileID: 0}
   ProjectileThirdSpawnPoint: {fileID: 0}
   WeaponSprite: {fileID: 2111163066306310951}

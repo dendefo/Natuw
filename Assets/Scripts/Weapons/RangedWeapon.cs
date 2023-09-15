@@ -1,7 +1,11 @@
+using Assets.Scripts.Weapons;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class RangedWeapon : MonoBehaviour
 {
@@ -11,8 +15,10 @@ public class RangedWeapon : MonoBehaviour
     [SerializeField] protected float DamageMultiplier;
     [SerializeField] protected float AttackSpeedMultiplier;
     [Header("Visuals")]
-    [SerializeField] protected Projectile ProjectilePrefab;
-    [SerializeField] Transform ProjectileSpawnPoint;
+    public Projectile ProjectilePrefab;
+    public Transform ProjectileSpawnPoint;
+    public List<WeaponUpgrade> Upgrades =  new();
+
     [SerializeField] Transform ProjectileSecondSpawnPoint;
     [SerializeField] Transform ProjectileThirdSpawnPoint;
     public SpriteRenderer WeaponSprite;
@@ -43,13 +49,22 @@ public class RangedWeapon : MonoBehaviour
     virtual public void Shoot(float damage, float speed)
     {
         if (Target == null) return;
-        if (isDoubleShooter) { Instantiate(ProjectilePrefab, ProjectileSecondSpawnPoint.position, transform.rotation).Shoot((Target.transform.position - ProjectileSpawnPoint.transform.position).normalized, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player); }
-        Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, transform.rotation).Shoot((Target.transform.position - ProjectileSpawnPoint.transform.position).normalized, speed * SpeedMultiplier, damage * DamageMultiplier, Target != LevelManager.Instance.Player);
-       
+        foreach (WeaponUpgrade upgrade in Upgrades)
+        {
+            upgrade.Activate(this, damage * DamageMultiplier, speed * SpeedMultiplier);
+        }
     }
 
     #region Upgrades
-
+    public void AddUpgrade(WeaponUpgrade upgrade)
+    {
+        if (upgrade == null) return;
+        if (upgrade.upgradeType == UpgradeType.ForwardShooter)
+        {
+            Upgrades.RemoveAll(x => x.upgradeType == UpgradeType.ForwardShooter);
+        }
+        Upgrades.Add(upgrade);
+    }
     public void UpgradeDoubleBullets()
     {
         isDoubleShooter = true;

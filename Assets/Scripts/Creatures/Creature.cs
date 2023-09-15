@@ -37,7 +37,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     {
         rb.bodyType = isPaused ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
         animator.enabled = !isPaused;
-    }
+    }   
 
     #endregion
     #region BattleFunctions
