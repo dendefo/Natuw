@@ -112,39 +112,39 @@ public class WorldManager : MonoBehaviour
         if (LevelScenesNames.Count == CurrentLevel) SceneManager.LoadSceneAsync("MainMenu");
         else SceneManager.LoadSceneAsync(LevelScenesNames[CurrentLevel++]);
     }
-    public void Debugger()
-    {
-        switch (DebuggerInput.text.ToLower())
-        {
-            case "upgrade_health":
-                Upgrade((int)UpgradeTypes.MaxHealth);
-                DebuggerInput.text = "";
-                break;
-            case "upgrade_double_jump":
-                Upgrade((int)UpgradeTypes.DoubleJump);
-                DebuggerInput.text = "";
-                break;
-            case "upgrade_attack_speed":
-                Upgrade((int)UpgradeTypes.FireRate);
-                DebuggerInput.text = "";
-                break;
-            case "upgrade_damage":
-                Upgrade((int)UpgradeTypes.Damage);
-                DebuggerInput.text = "";
-                break;
-            case "upgrade_movement":
-                Upgrade((int)UpgradeTypes.MovementSpeed);
-                DebuggerInput.text = "";
-                break;
-            case "upgrade_double_bullets":
-                Upgrade((int)UpgradeTypes.DoubleBullets);
-                DebuggerInput.text = "";
-                break;
-            default:
-                Debug.Log("Not a command");
-                break;
-        }
-    }
+    //public void Debugger()
+    //{
+    //    switch (DebuggerInput.text.ToLower())
+    //    {
+    //        case "upgrade_health":
+    //            Upgrade((int)UpgradeTypes.MaxHealth);
+    //            DebuggerInput.text = "";
+    //            break;
+    //        case "upgrade_double_jump":
+    //            Upgrade((int)UpgradeTypes.DoubleJump);
+    //            DebuggerInput.text = "";
+    //            break;
+    //        case "upgrade_attack_speed":
+    //            Upgrade((int)UpgradeTypes.FireRate);
+    //            DebuggerInput.text = "";
+    //            break;
+    //        case "upgrade_damage":
+    //            Upgrade((int)UpgradeTypes.Damage);
+    //            DebuggerInput.text = "";
+    //            break;
+    //        case "upgrade_movement":
+    //            Upgrade((int)UpgradeTypes.MovementSpeed);
+    //            DebuggerInput.text = "";
+    //            break;
+    //        case "upgrade_double_bullets":
+    //            Upgrade((int)UpgradeTypes.DoubleBullets);
+    //            DebuggerInput.text = "";
+    //            break;
+    //        default:
+    //            Debug.Log("Not a command");
+    //            break;
+    //    }
+    //}
     public void Pausing(bool isPaused)
     {
         OnPause(isPaused);
@@ -157,31 +157,10 @@ public class WorldManager : MonoBehaviour
         _isPaused = isPaused;
         LevelUpCanvas.SetActive(isPaused);
     }
-    public void Upgrade(int num)
+    public void Upgrade(LevelUpgrades upgrade)
     {
-        UpgradeTypes upgradeType = (UpgradeTypes)num;
         LevelUpPausing(false);
-        switch (upgradeType)
-        {
-            case (UpgradeTypes.MaxHealth):
-                PlayerReference.Attributes.UpgradeMaxHealth();
-                break;
-            case UpgradeTypes.DoubleBullets:
-                PlayerReference.weapon.UpgradeDoubleBullets();
-                break;
-            case UpgradeTypes.FireRate:
-                PlayerReference.Attributes.AttackSpeedUpgrade();
-                break;
-            case UpgradeTypes.Damage:
-                PlayerReference.Attributes.DMGUpgrade();
-                break;
-            case UpgradeTypes.MovementSpeed:
-                PlayerReference.Attributes.UpgradeMovementSpeed();
-                break;
-            case UpgradeTypes.DoubleJump:
-                PlayerReference.UpgradeDoubleJump();
-                break;
-        }
+        upgrade.Apply(PlayerReference);
     }
     private void OnDestroy()
     {
@@ -206,15 +185,4 @@ public struct DifficultyMultiplyers
     public float EnemyDamage;
     public float EnemySpeed;
     public float BulletSpeed;
-}
-
-
-public enum UpgradeTypes
-{
-    MaxHealth,
-    DoubleBullets,
-    FireRate,
-    Damage,
-    MovementSpeed,
-    DoubleJump
 }

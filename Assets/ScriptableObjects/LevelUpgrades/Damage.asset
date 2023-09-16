@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c95c65460b605244f924a8e1f829fdac, type: 3}
-  m_Name: DoubleShooting
+  m_Script: {fileID: 11500000, guid: 99ecdf894936c0347b01cd37551936b4, type: 3}
+  m_Name: Damage
   m_EditorClassIdentifier: 
-  IsWeaponUpgrade: 1
-  WeaponUpgrade: {fileID: 11400000, guid: 8160351c0dea1e64687f43de405c983a, type: 2}
-  UpgradeIcon: {fileID: 0}
-  UpgradeName: Double Shhoting
+  UpgradeIcon: {fileID: 5740775765791094921, guid: 252d1f9f9eb6dfe46873735361f596d6, type: 3}
+  UpgradeName: Damage
   UpgradeDescription: 
+  UpgradeType: 2
+  Multiplier: 1.25

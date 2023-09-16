@@ -1650,6 +1650,7 @@ GameObject:
   - component: {fileID: 252311075}
   - component: {fileID: 252311074}
   - component: {fileID: 252311073}
+  - component: {fileID: 252311076}
   m_Layer: 5
   m_Name: ThisBottonRight
   m_TagString: Untagged
@@ -1722,10 +1723,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1058580758}
-        m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
-        m_MethodName: Upgrade
-        m_Mode: 3
+      - m_Target: {fileID: 252311076}
+        m_TargetAssemblyTypeName: RewardButton, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1772,6 +1773,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252311071}
   m_CullTransparentMesh: 1
+--- !u!114 &252311076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252311071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ac888c74a441b4998a7234646a91a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Upgrade: {fileID: 11400000, guid: 16920790b068ba448bbe442c46c0e130, type: 2}
+  Sprite: {fileID: 252311074}
+  Name: {fileID: 1032058115}
 --- !u!1 &294991795
 GameObject:
   m_ObjectHideFlags: 0
@@ -7280,6 +7296,7 @@ GameObject:
   - component: {fileID: 1059825640}
   - component: {fileID: 1059825639}
   - component: {fileID: 1059825638}
+  - component: {fileID: 1059825641}
   m_Layer: 5
   m_Name: ThisBottonMiddle
   m_TagString: Untagged
@@ -7352,10 +7369,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1058580758}
-        m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
-        m_MethodName: Upgrade
-        m_Mode: 3
+      - m_Target: {fileID: 1059825641}
+        m_TargetAssemblyTypeName: RewardButton, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7402,6 +7419,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059825636}
   m_CullTransparentMesh: 1
+--- !u!114 &1059825641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059825636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ac888c74a441b4998a7234646a91a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Upgrade: {fileID: 11400000, guid: e33f32c42f1b72840a128034aff43997, type: 2}
+  Sprite: {fileID: 1059825639}
+  Name: {fileID: 1748359765}
 --- !u!1 &1059930513
 GameObject:
   m_ObjectHideFlags: 0
@@ -15519,6 +15551,7 @@ GameObject:
   - component: {fileID: 1574687324}
   - component: {fileID: 1574687323}
   - component: {fileID: 1574687322}
+  - component: {fileID: 1574687325}
   m_Layer: 5
   m_Name: ThisBottonLeft
   m_TagString: Untagged
@@ -15591,10 +15624,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1058580758}
-        m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
-        m_MethodName: Upgrade
-        m_Mode: 3
+      - m_Target: {fileID: 1574687325}
+        m_TargetAssemblyTypeName: RewardButton, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -15641,6 +15674,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574687320}
   m_CullTransparentMesh: 1
+--- !u!114 &1574687325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574687320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ac888c74a441b4998a7234646a91a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Upgrade: {fileID: 11400000, guid: f46663d49ec1f5d48b826a8e04b2a9dd, type: 2}
+  Sprite: {fileID: 1574687323}
+  Name: {fileID: 497186559}
 --- !u!1 &1632874186
 GameObject:
   m_ObjectHideFlags: 0

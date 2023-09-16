@@ -107,21 +107,24 @@ public struct CreatureAttributes
         HP -= incomingDamage;
         if (HP < 0) HP = 0;
     }
-    public void UpgradeMaxHealth()
+    public void UpgradeMaxHealth(float multi)
     {
-        MaxHP *= 1.5f;
-        HP *= 1.5f;
+        MaxHP *= multi;
+        HP *= multi;
     }
-    public void UpgradeMovementSpeed()
+    public void UpgradeMovementSpeed(float multi)
     {
-        MoveVelocity *= 1.1f;
+        MoveVelocity *= multi;
     }
-    public void AttackSpeedUpgrade()
+    public void AttackSpeedUpgrade(float multi)
     {
-        AttackSpeed /= 1.25f;
+        AttackSpeed /= multi;
+        int divRest = (((int)(AttackSpeed * 50)) % 2);
+        if (divRest != 0) AttackSpeed = ((((int)(AttackSpeed * 50)) % 2) - divRest)/50;
+        Debug.Log(AttackSpeed);
     }
-    public void DMGUpgrade()
+    public void DMGUpgrade(float multi)
     {
-        DMG *= 1.25f;
+        DMG *= multi;
     }
 }
