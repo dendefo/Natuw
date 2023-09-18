@@ -7226,9 +7226,9 @@ MonoBehaviour:
   PlayerXP: 0
   PlayerLevel: 0
   LevelScenesNames:
-  - Room1-1
-  - Room1-1
-  - Room1-1
+  - Room1-2
+  - Room1-2
+  - Room1-3
   - Room1-1
   - Room1-1
   Joystick: {fileID: 733809952}

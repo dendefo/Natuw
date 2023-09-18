@@ -35,7 +35,7 @@ public class Player : Ground, IShooter
     }
     #endregion
     #region UnityFunctions
-    protected override void Awake()
+    override protected void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);

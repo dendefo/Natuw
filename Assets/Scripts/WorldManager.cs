@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Android;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
@@ -12,8 +9,6 @@ public class WorldManager : MonoBehaviour
     public event Pause OnPause;
 
     public delegate void WeaponUpdateHandler(float time);
-
-
     public event WeaponUpdateHandler WeaponUpdate;
 
     public DifficultyMultiplyers difficulty;

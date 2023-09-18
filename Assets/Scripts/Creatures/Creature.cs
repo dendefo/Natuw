@@ -18,6 +18,8 @@ abstract public class Creature : MonoBehaviour, IPausable
     [SerializeField] protected Animator animator;
     public bool Angered;
 
+
+
     #endregion
     #region UnityFunctions
     virtual protected void Awake()
@@ -47,6 +49,7 @@ abstract public class Creature : MonoBehaviour, IPausable
         if (Attributes.HP <= 0) Die();
         rb.velocity += knockback;
         if (knockback != Vector2.zero) Debug.Log(knockback);
+
 
     }
     virtual protected void Die()
