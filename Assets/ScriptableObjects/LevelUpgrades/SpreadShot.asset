@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5904de39cbc974883354a21562208e, type: 3}
   m_Name: SpreadShot
   m_EditorClassIdentifier: 
-  UpgradeIcon: {fileID: 0}
-  UpgradeName: 
+  UpgradeIcon: {fileID: 1771120098912506795, guid: 252d1f9f9eb6dfe46873735361f596d6, type: 3}
+  UpgradeName: Side Proj
   UpgradeDescription: 
   upgradeType: 1
   AngleDistance: 45

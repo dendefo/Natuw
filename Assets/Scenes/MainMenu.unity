@@ -7226,7 +7226,7 @@ MonoBehaviour:
   PlayerXP: 0
   PlayerLevel: 0
   LevelScenesNames:
-  - Room1-2
+  - Room1-1
   - Room1-2
   - Room1-3
   - Room1-1
@@ -7236,6 +7236,18 @@ MonoBehaviour:
   DebuggerInput: {fileID: 676884786}
   PauseMenu: {fileID: 418763455}
   LevelUpCanvas: {fileID: 2006411452}
+  PossibleLevelUpgrades:
+  - {fileID: 11400000, guid: f775b70a41c44734397852dc0e8a30ce, type: 2}
+  - {fileID: 11400000, guid: e33f32c42f1b72840a128034aff43997, type: 2}
+  - {fileID: 11400000, guid: 8160351c0dea1e64687f43de405c983a, type: 2}
+  - {fileID: 11400000, guid: f46663d49ec1f5d48b826a8e04b2a9dd, type: 2}
+  - {fileID: 11400000, guid: 16920790b068ba448bbe442c46c0e130, type: 2}
+  - {fileID: 11400000, guid: db33ee8c23e9d5f48920bbdde868fb55, type: 2}
+  - {fileID: 11400000, guid: b222727ce82e36647b248929f2073efd, type: 2}
+  RewardButtons:
+  - {fileID: 1574687325}
+  - {fileID: 1059825641}
+  - {fileID: 252311076}
 --- !u!4 &1058580759
 Transform:
   m_ObjectHideFlags: 0

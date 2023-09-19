@@ -15,7 +15,7 @@ namespace Assets.Scripts.Weapons
 
         public override void Apply(Player player)
         {
-            player.weapon.Upgrades.Add(this);
+            player.weapon.AddUpgrade(this);
         }
     }
 }

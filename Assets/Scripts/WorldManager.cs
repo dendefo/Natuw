@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,9 @@ public class WorldManager : MonoBehaviour
     [SerializeField] TMPro.TMP_InputField DebuggerInput;
     [SerializeField] GameObject PauseMenu;
     [SerializeField] GameObject LevelUpCanvas;
+
+    [SerializeField] List<LevelUpgrades> PossibleLevelUpgrades;
+    [SerializeField] List<RewardButton> RewardButtons;
 
     bool _isPaused;
     float _timeWithoutPauses;
@@ -149,9 +153,20 @@ public class WorldManager : MonoBehaviour
     }
     public void LevelUpPausing(bool isPaused)
     {
+        if (PossibleLevelUpgrades.Count < 3) return;
+
+        int[] ints = new int[] { Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count) };
+        while (ints.Count() != ints.Distinct().Count())
+        {
+            ints = new int[] { Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count) };
+        }
+        RewardButtons[0].Upgrade = PossibleLevelUpgrades[ints[0]];
+        RewardButtons[1].Upgrade = PossibleLevelUpgrades[ints[1]];
+        RewardButtons[2].Upgrade = PossibleLevelUpgrades[ints[2]];
+        LevelUpCanvas.SetActive(isPaused);
         OnPause(isPaused);
         _isPaused = isPaused;
-        LevelUpCanvas.SetActive(isPaused);
+
     }
     public void Upgrade(LevelUpgrades upgrade)
     {

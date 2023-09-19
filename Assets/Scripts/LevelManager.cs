@@ -29,6 +29,6 @@ public class LevelManager : MonoBehaviour
     }
     private void Update()
     {
-        if (EnemyList.Count == 0) { LevelCleared?.Invoke(); Debug.Log("Cleared"); }
+        if (EnemyList.Count == 0) { LevelCleared?.Invoke(); }
     }
 }
