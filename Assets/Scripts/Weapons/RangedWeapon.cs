@@ -3,9 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class RangedWeapon : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class RangedWeapon : MonoBehaviour
     [SerializeField] protected float AttackSpeedMultiplier;
     [Header("Visuals")]
     public Projectile ProjectilePrefab;
-    public Transform ProjectileSpawnPoint;
+    public Vector3 ProjectileSpawnPoint;
     public List<WeaponUpgrade> Upgrades =  new();
 
     [SerializeField] Transform ProjectileSecondSpawnPoint;
@@ -64,13 +62,6 @@ public class RangedWeapon : MonoBehaviour
             Upgrades.RemoveAll(x => x.upgradeType == UpgradeType.ForwardShooter);
         }
         Upgrades.Add(upgrade);
-    }
-    public void UpgradeDoubleBullets()
-    {
-        isDoubleShooter = true;
-        ProjectileSecondSpawnPoint = Instantiate(ProjectileSpawnPoint, this.transform);
-        ProjectileSpawnPoint.Translate(Vector3.Scale(ProjectilePrefab.transform.localScale, Vector3.up), Space.Self);
-        ProjectileSecondSpawnPoint.Translate(Vector3.Scale(ProjectilePrefab.transform.localScale, Vector3.down), Space.Self);
     }
     #endregion
 }

@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.Weapons
 {
-    [CreateAssetMenu(fileName = "Double Upgrade", menuName = "QuarterGames/Upgrades/Double Upgrade")]
-    internal class TwoProjUpgrade : WeaponUpgrade
+    [CreateAssetMenu(fileName = "Double Upgrade", menuName = "QuarterGames/Upgrades/SpreadShot Upgrade")]
+    internal class SpreadShotUpgrade : WeaponUpgrade
     {
         [SerializeField] float AngleDistance;
         public override void Activate(RangedWeapon weapon, float damage, float speed)
@@ -18,14 +18,13 @@ namespace Assets.Scripts.Weapons
             Vector3 FirstProjSpawnPoint = (rotation1 * weapon.ProjectileSpawnPoint);
             Vector3 SecondProjSpawnPoint = (rotation2 * weapon.ProjectileSpawnPoint);
             Vector3 WeaponPos = weapon.transform.position;
-            Vector3 TargetPos = weapon.Target.transform.position;
 
             var proj = Instantiate(weapon.ProjectilePrefab, WeaponPos + FirstProjSpawnPoint, rotation1);
-            var direction = (TargetPos + FirstProjSpawnPoint - (WeaponPos + FirstProjSpawnPoint)).normalized;
+            var direction = ((WeaponPos + FirstProjSpawnPoint) - WeaponPos).normalized;
             proj.Shoot(direction, speed, damage, weapon.Target != LevelManager.Instance.Player);
 
             var proj2 = Instantiate(weapon.ProjectilePrefab, WeaponPos + SecondProjSpawnPoint, rotation2);
-            var direction2 = (TargetPos + SecondProjSpawnPoint - (WeaponPos + SecondProjSpawnPoint)).normalized;
+            var direction2 = ((WeaponPos + SecondProjSpawnPoint) - WeaponPos).normalized;
             proj2.Shoot(direction2, speed, damage, weapon.Target != LevelManager.Instance.Player);
         }
     }

@@ -154,7 +154,7 @@ MonoBehaviour:
   SRenderer: {fileID: 223688728170418626}
   animator: {fileID: 1780990462}
   Angered: 0
-  SecondJumpAvalible: 0
+  SecondJumpAvalible: 1
   DashSpeed: 40
   DashTime: 0.125
 --- !u!95 &1780990462

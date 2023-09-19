@@ -94,7 +94,7 @@ public abstract class Ground : Creature
         {
             rb.velocity = Vector2.right*rb.velocity;
             rb.gravityScale /= 1.5f;
-            SecondJumpReady = false;
+            if (!IsTouchingFloor) SecondJumpReady = false;
             isInJump = true;
             rb.AddForce(Attributes.JumpVelocity * Vector2.up, ForceMode2D.Impulse);
             if (_currentConnectedPlatform != null) rb.velocity = new Vector2(rb.velocity.x - _currentConnectedPlatform.rb.velocity.x,rb.velocity.y);

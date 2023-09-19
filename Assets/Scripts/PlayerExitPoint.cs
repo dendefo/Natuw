@@ -7,6 +7,7 @@ public class PlayerExitPoint : MonoBehaviour
     [SerializeField] SpriteRenderer SR;
     [SerializeField] Collider2D Trigger;
     [SerializeField] Sprite SecondSprite;
+    [SerializeField] ParticleSystem particles;
     private void OnEnable()
     {
         LevelManager.Instance.LevelCleared += OnLevelCleared;
@@ -16,6 +17,7 @@ public class PlayerExitPoint : MonoBehaviour
     {
         SR.sprite = SecondSprite;
         Trigger.enabled = true;
+        particles.gameObject.SetActive(true);
     }
 
     private void OnDisable()

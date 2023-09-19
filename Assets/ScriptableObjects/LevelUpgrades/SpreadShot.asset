@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 313fac6a119e2644eab886631f7abf55, type: 3}
-  m_Name: Double Upgrade
+  m_Script: {fileID: 11500000, guid: 5a5904de39cbc974883354a21562208e, type: 3}
+  m_Name: SpreadShot
   m_EditorClassIdentifier: 
   UpgradeIcon: {fileID: 0}
   UpgradeName: 
   UpgradeDescription: 
-  upgradeType: 0
-  AngleDistance: 22
+  upgradeType: 1
+  AngleDistance: 45
