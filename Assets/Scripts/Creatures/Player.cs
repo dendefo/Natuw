@@ -12,6 +12,8 @@ public class Player : Ground, IShooter
     private float DashTimer;
     [SerializeField] private float DashSpeed;
     [SerializeField] private float DashTime;
+    [SerializeField] Transform WeaponSolverTarget;
+    [SerializeField] Transform WeaponSolver;
 
 #if !UNITY_EDITOR
     const float JOYSTICK_ERROR_VALUE = 0.05f;
@@ -51,7 +53,7 @@ public class Player : Ground, IShooter
         if (IsTouchingFloor && !isInDash) isDashReady = true;
         if (isInDash)
         {
-            rb.velocity = (transform.GetChild(0).eulerAngles.y!=0 ? -1 : 1) * DashSpeed * Vector2.right + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
+            rb.velocity = (transform.GetChild(0).eulerAngles.y != 0 ? -1 : 1) * DashSpeed * Vector2.right + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
 
         }
         if (isInDash && Time.time - DashTimer > DashTime)
@@ -63,7 +65,6 @@ public class Player : Ground, IShooter
     protected void Update()
     {
         weapon.ChoseTarget();
-        ((IShooter)this).Aim(weapon.Target, weapon, weapon.TargetLine, transform);
 
         if (rb.bodyType == RigidbodyType2D.Static) return;
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashReady) Dash();
@@ -79,6 +80,7 @@ public class Player : Ground, IShooter
              Input.GetKeyUp(KeyCode.Space)
              ));
 #endif
+        ((IShooter)this).Aim(weapon.Target, weapon, weapon.TargetLine, transform);
     }
     protected override void OnDisable()
     {
@@ -137,5 +139,22 @@ public class Player : Ground, IShooter
         {
             weapon.Shoot(Attributes.DMG, Attributes.BulletFlightSpeed);
         }
+    }
+
+    void IShooter.Aim(Creature target, RangedWeapon weapon, LineRenderer TargetLine, Transform transform)
+    {
+        if (target == null) WeaponSolverTarget.localPosition = new Vector3(4.5f,1,0);
+        else WeaponSolverTarget.position = target.transform.position;
+
+        if (TargetLine == null|| target==null) return;
+        TargetLine.SetPosition(0, transform.position);
+        TargetLine.SetPosition(1, target.transform.position);
+    }
+    
+    private void OnAnimatorIK(int layerIndex)
+    {
+        Debug.Log("lol");
+        if (WeaponSolverTarget.position.x < WeaponSolver.position.x) transform.GetChild(0).eulerAngles = new Vector3(0, 180, 0);
+        else transform.GetChild(0).eulerAngles = new Vector3(0, 0, 0);
     }
 }
