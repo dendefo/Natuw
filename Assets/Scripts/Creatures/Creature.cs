@@ -122,9 +122,9 @@ public struct CreatureAttributes
     public void AttackSpeedUpgrade(float multi)
     {
         AttackSpeed /= multi;
-        int divRest = (((int)(AttackSpeed * 50)) % 2);
-        if (divRest != 0) AttackSpeed = ((((int)(AttackSpeed * 50)) % 2) - divRest)/50;
-        Debug.Log(AttackSpeed);
+        int divRest = (Mathf.RoundToInt(AttackSpeed * 100f)) % 4;
+        if (divRest != 0) AttackSpeed = (Mathf.RoundToInt(AttackSpeed * 100f) - divRest) / 100f;
+        else AttackSpeed = Mathf.RoundToInt(AttackSpeed * 100f) / 100f;
     }
     public void DMGUpgrade(float multi)
     {
