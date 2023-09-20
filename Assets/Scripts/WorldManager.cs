@@ -34,6 +34,7 @@ public class WorldManager : MonoBehaviour
 
     void Start()
     {
+        Analytics.SendAnalytics();
         if (Instance != null) Destroy(Instance.gameObject);
         Instance = this;
         DontDestroyOnLoad(Instance);

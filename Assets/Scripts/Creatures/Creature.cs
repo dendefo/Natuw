@@ -48,7 +48,6 @@ abstract public class Creature : MonoBehaviour, IPausable
         Attributes.GetDamage(_damage);
         if (Attributes.HP <= 0) Die();
         rb.velocity += knockback;
-        if (knockback != Vector2.zero) Debug.Log(knockback);
 
 
     }

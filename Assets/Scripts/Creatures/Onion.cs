@@ -67,10 +67,9 @@ public class Onion : Ground
     private void LookForPlayer()
     {
         var player = LevelManager.Instance.Player;
-        if (player.transform.position.y - 1 > transform.position.y) { Debug.Log("player is too high"); return; } 
+        if (player.transform.position.y - 1 > transform.position.y) {  return; } 
         var hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized,100,layerMask : LayerMask.GetMask("Player","TileMap"));
         if (hit.rigidbody == null) { Debug.Log("Player is unreachable"); return; }
-        Debug.Log(hit.rigidbody.tag);
         if (hit.rigidbody.CompareTag("Player")) { LastSeen = hit.point; Angered = true; }
 
     }
