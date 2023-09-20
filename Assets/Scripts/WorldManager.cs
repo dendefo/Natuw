@@ -30,11 +30,10 @@ public class WorldManager : MonoBehaviour
     [SerializeField] List<RewardButton> RewardButtons;
 
     bool _isPaused;
-    float _timeWithoutPauses;
+    public float _timeWithoutPauses;
 
     void Start()
     {
-        Analytics.SendAnalytics();
         if (Instance != null) Destroy(Instance.gameObject);
         Instance = this;
         DontDestroyOnLoad(Instance);
@@ -110,7 +109,7 @@ public class WorldManager : MonoBehaviour
 
     public void NextLevel()
     {
-        if (LevelScenesNames.Count == CurrentLevel) SceneManager.LoadSceneAsync("MainMenu");
+        if (LevelScenesNames.Count == CurrentLevel) { SceneManager.LoadSceneAsync("MainMenu"); Analytics.PlayerFinishedRun(); }
         else SceneManager.LoadSceneAsync(LevelScenesNames[CurrentLevel++]);
     }
     //public void Debugger()
@@ -171,6 +170,13 @@ public class WorldManager : MonoBehaviour
     }
     public void Upgrade(LevelUpgrades upgrade)
     {
+        List<LevelUpgrades> upgrades = new List<LevelUpgrades>(3);
+        upgrades.Add(upgrade);
+        var a = RewardButtons.Where(x => x.Upgrade != upgrade).ToList();
+        upgrades.Add(a[0].Upgrade);
+        upgrades.Add(a[1].Upgrade);
+        Analytics.PlayerPickedUpgrade(upgrades);
+
         LevelUpPausing(false);
         upgrade.Apply(PlayerReference);
     }

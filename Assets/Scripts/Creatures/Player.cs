@@ -51,7 +51,7 @@ public class Player : Ground, IShooter
         if (IsTouchingFloor && !isInDash) isDashReady = true;
         if (isInDash)
         {
-            rb.velocity = (SRenderer.flipX ? -1 : 1) * DashSpeed * Vector2.right + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
+            rb.velocity = (transform.GetChild(0).eulerAngles.y!=0 ? -1 : 1) * DashSpeed * Vector2.right + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
 
         }
         if (isInDash && Time.time - DashTimer > DashTime)
@@ -84,6 +84,11 @@ public class Player : Ground, IShooter
     {
         base.OnDisable();
         ((IShooter)this).Disabling();
+    }
+    protected override void Die()
+    {
+        Analytics.PlayerDied();
+        base.Die();
     }
 
 #if !UNITY_EDITOR
