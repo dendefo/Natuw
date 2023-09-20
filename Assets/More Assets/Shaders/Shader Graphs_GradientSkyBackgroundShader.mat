@@ -41,12 +41,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BottomOrigin: -0.62
-    - _BottomSpread: 0.48
+    - _BottomOrigin: -0.5
+    - _BottomSpread: 0.57
     - _Origin: -0.4
     - _Spread: 0.4
-    - _TopOrigin: 0.14
-    - _TopSpread: 0.25
+    - _TopOrigin: 0.21
+    - _TopSpread: 0.21
     m_Colors:
     - _BottomColor: {r: 0.03908806, g: 0.7735849, b: 0.032111038, a: 0}
     - _MiddleColor: {r: 0.7924528, g: 0.41416872, b: 0.6605049, a: 0}
