@@ -145,16 +145,12 @@ public class Player : Ground, IShooter
     {
         if (target == null) WeaponSolverTarget.localPosition = new Vector3(4.5f,1,0);
         else WeaponSolverTarget.position = target.transform.position;
+        if (WeaponSolverTarget.position.x < WeaponSolver.position.x) transform.GetChild(0).eulerAngles = new Vector3(0, 180, 0);
+        else transform.GetChild(0).eulerAngles = new Vector3(0, 0, 0);
 
         if (TargetLine == null|| target==null) return;
         TargetLine.SetPosition(0, transform.position);
         TargetLine.SetPosition(1, target.transform.position);
     }
     
-    private void OnAnimatorIK(int layerIndex)
-    {
-        Debug.Log("lol");
-        if (WeaponSolverTarget.position.x < WeaponSolver.position.x) transform.GetChild(0).eulerAngles = new Vector3(0, 180, 0);
-        else transform.GetChild(0).eulerAngles = new Vector3(0, 0, 0);
-    }
 }
