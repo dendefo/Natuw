@@ -152,13 +152,15 @@ public class Player : Ground, IShooter
 
     void IShooter.Aim(Creature target, RangedWeapon weapon, LineRenderer TargetLine, Transform transform)
     {
-        if (target.transform.position.x < WeaponSolver.position.x) transform.GetChild(0).eulerAngles = new Vector3(0, 180, 0);
-        else transform.GetChild(0).eulerAngles = new Vector3(0, 0, 0);
-
+        if (target != null)
+        {
+            if (target.transform.position.x < WeaponSolver.position.x) transform.GetChild(0).eulerAngles = new Vector3(0, 180, 0);
+            else transform.GetChild(0).eulerAngles = new Vector3(0, 0, 0);
+        }
         if (target == null) WeaponSolverTarget.localPosition = new Vector3(4.5f, 1, 0);
         else WeaponSolverTarget.position = target.transform.position;
 
-        if (TargetLine == null || target == null) return;
+        if (TargetLine == null && target == null) return;
         else if (TargetLine != null && target == null)
         {
             TargetLine.SetPosition(0, WeaponSolver.position);
