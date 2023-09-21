@@ -13,10 +13,15 @@ namespace Assets.Scripts.Weapons
         [SerializeField] float AngleDistance;
         public override void Activate(RangedWeapon weapon, float damage, float speed)
         {
+            Vector3 isRight = new(1, 1, 1);
+            if ((weapon.transform.rotation * weapon.ProjectileSpawnPoint).x < 0)
+            {
+                isRight = new(-1, 1, 1);
+            }
             Quaternion rotation1 = Quaternion.Euler(0f, 0f, weapon.transform.eulerAngles.z + (AngleDistance / 2));
             Quaternion rotation2 = Quaternion.Euler(0f, 0f, weapon.transform.eulerAngles.z - (AngleDistance / 2));
-            Vector3 FirstProjSpawnPoint = (rotation1 * weapon.ProjectileSpawnPoint);
-            Vector3 SecondProjSpawnPoint = (rotation2 * weapon.ProjectileSpawnPoint);
+            Vector3 FirstProjSpawnPoint = Vector3.Scale(rotation1 * weapon.ProjectileSpawnPoint, isRight);
+            Vector3 SecondProjSpawnPoint = Vector3.Scale(rotation2 * weapon.ProjectileSpawnPoint, isRight);
             Vector3 WeaponPos = weapon.transform.position;
 
             var proj = Instantiate(weapon.ProjectilePrefab, WeaponPos + FirstProjSpawnPoint, rotation1);

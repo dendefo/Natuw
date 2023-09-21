@@ -96,7 +96,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.024259567, y: 0.76}
-  m_Size: {x: 0.66382694, y: 1.64}
+  m_Size: {x: 0.66382694, y: 1.54}
   m_Direction: 0
 --- !u!114 &102621556
 MonoBehaviour:
@@ -167,13 +167,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537648778098289357}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.05898042, w: 0.9982591}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.33, y: 0.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7766922669835210371}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.381}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2549212704563513939
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2549212704563513939}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.046130378, w: 0.9989354}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.47, y: 0.39, z: 0}
   m_LocalScale: {x: 3.2, y: 3.2, z: 3.2}
   m_ConstrainProportionsScale: 0
@@ -381,12 +381,20 @@ PrefabInstance:
       value: 0.6617344
       objectReference: {fileID: 0}
     - target: {fileID: -485990856666115531, guid: f5597531bb8c78540ad1a1021d96f9b6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -485990856666115531, guid: f5597531bb8c78540ad1a1021d96f9b6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -485990856666115531, guid: f5597531bb8c78540ad1a1021d96f9b6, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.74973845
       objectReference: {fileID: 0}
     - target: {fileID: -485990856666115531, guid: f5597531bb8c78540ad1a1021d96f9b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -113.838
+      value: -95.984
       objectReference: {fileID: 0}
     - target: {fileID: 1770433945857213737, guid: f5597531bb8c78540ad1a1021d96f9b6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -533,7 +541,7 @@ MonoBehaviour:
   DamageMultiplier: 1
   AttackSpeedMultiplier: 1
   ProjectilePrefab: {fileID: 6186162643695624949, guid: 3ea696d1b4d4eb244866c15b9530a66d, type: 3}
-  ProjectileSpawnPoint: {x: 1.15, y: 0, z: 0}
+  ProjectileSpawnPoint: {x: 1.5, y: 0.3, z: 0}
   Upgrades:
   - {fileID: 11400000, guid: f91f87b3becfd51459f7f28acc777a76, type: 2}
   ProjectileSecondSpawnPoint: {fileID: 0}

@@ -2251,9 +2251,9 @@ MonoBehaviour:
   Boundries:
     serializedVersion: 2
     x: -15
-    y: -10
+    y: -5.9
     width: 30
-    height: 20
+    height: 16.2
   cam: {fileID: 476063599}
   XOffset: 0
   YOffset: -0.3
@@ -24953,6 +24953,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3384761332323997798, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384761332323997798, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
+      propertyPath: m_Points.Array.data[0].x
+      value: -7.623913
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384761332323997798, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
+      propertyPath: m_Points.Array.data[0].y
+      value: 0.7199408
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384761332323997798, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
+      propertyPath: m_Points.Array.data[1].x
+      value: 7.4280996
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384761332323997798, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
+      propertyPath: m_Points.Array.data[1].y
+      value: 0.7199408
+      objectReference: {fileID: 0}
     - target: {fileID: 4033446394666935235, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.654
@@ -24991,7 +25011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8694125303743898757, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.22000006
+      value: -0.119
       objectReference: {fileID: 0}
     - target: {fileID: 8694125303743898757, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_LocalPosition.z
@@ -25707,6 +25727,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3384761332323997798, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384761332323997798, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
+      propertyPath: m_Points.Array.data[1].x
+      value: 8.250902
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384761332323997798, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
+      propertyPath: m_Points.Array.data[1].y
+      value: 0.6589107
+      objectReference: {fileID: 0}
     - target: {fileID: 4033446394666935235, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.654
@@ -25745,7 +25777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8694125303743898757, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.22
+      value: -0.118
       objectReference: {fileID: 0}
     - target: {fileID: 8694125303743898757, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_LocalPosition.z

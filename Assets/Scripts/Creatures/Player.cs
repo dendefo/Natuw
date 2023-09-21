@@ -53,7 +53,15 @@ public class Player : Ground, IShooter
         if (IsTouchingFloor && !isInDash) isDashReady = true;
         if (isInDash)
         {
-            rb.velocity = (transform.GetChild(0).eulerAngles.y != 0 ? -1 : 1) * DashSpeed * Vector2.right + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
+            int direction = transform.GetChild(0).eulerAngles.y != 0 ? -1 : 1;
+#if !UNITY_EDITOR
+            if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal < -JOYSTICK_ERROR_VALUE) direction = -1;
+            else if (WorldManager.Instance.Joystick.gameObject.active && WorldManager.Instance.Joystick.Horizontal > JOYSTICK_ERROR_VALUE) direction = 1;
+#else
+            if (Input.GetKey(KeyCode.D)) direction = 1;
+            else if (Input.GetKey(KeyCode.A)) direction = -1;
+#endif
+            rb.velocity = (direction * DashSpeed * Vector2.right + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity));
 
         }
         if (isInDash && Time.time - DashTimer > DashTime)
@@ -80,7 +88,6 @@ public class Player : Ground, IShooter
              Input.GetKeyUp(KeyCode.Space)
              ));
 #endif
-        ((IShooter)this).Aim(weapon.Target, weapon, weapon.TargetLine, transform);
     }
     protected override void OnDisable()
     {
@@ -131,6 +138,8 @@ public class Player : Ground, IShooter
         if (endjump) StartCoroutine(EndJumpDelayed());
 #endif
 
+        ((IShooter)this).Aim(weapon.Target, weapon, weapon.TargetLine, transform);
+
     }
 
     void IShooter.OnWeaponUpdate(float timeStamp)
@@ -143,14 +152,21 @@ public class Player : Ground, IShooter
 
     void IShooter.Aim(Creature target, RangedWeapon weapon, LineRenderer TargetLine, Transform transform)
     {
-        if (target == null) WeaponSolverTarget.localPosition = new Vector3(4.5f,1,0);
-        else WeaponSolverTarget.position = target.transform.position;
-        if (WeaponSolverTarget.position.x < WeaponSolver.position.x) transform.GetChild(0).eulerAngles = new Vector3(0, 180, 0);
+        if (target.transform.position.x < WeaponSolver.position.x) transform.GetChild(0).eulerAngles = new Vector3(0, 180, 0);
         else transform.GetChild(0).eulerAngles = new Vector3(0, 0, 0);
 
-        if (TargetLine == null|| target==null) return;
-        TargetLine.SetPosition(0, transform.position);
+        if (target == null) WeaponSolverTarget.localPosition = new Vector3(4.5f, 1, 0);
+        else WeaponSolverTarget.position = target.transform.position;
+
+        if (TargetLine == null || target == null) return;
+        else if (TargetLine != null && target == null)
+        {
+            TargetLine.SetPosition(0, WeaponSolver.position);
+            TargetLine.SetPosition(1, WeaponSolver.position);
+            return;
+        }
+        TargetLine.SetPosition(0, WeaponSolver.position);
         TargetLine.SetPosition(1, target.transform.position);
     }
-    
+
 }
