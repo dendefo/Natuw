@@ -10278,7 +10278,7 @@ GameObject:
   - component: {fileID: 1058580759}
   - component: {fileID: 1058580758}
   m_Layer: 0
-  m_Name: WorldManager
+  m_Name: WolrdManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11640,7 +11640,7 @@ GameObject:
   - component: {fileID: 1213997233}
   - component: {fileID: 1213997232}
   m_Layer: 0
-  m_Name: WorldManager (2)
+  m_Name: TutorialManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

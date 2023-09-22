@@ -540,7 +540,7 @@ MonoBehaviour:
   SpeedMultiplier: 1
   DamageMultiplier: 1
   AttackSpeedMultiplier: 1
-  ProjectilePrefab: {fileID: 6186162643695624949, guid: 3ea696d1b4d4eb244866c15b9530a66d, type: 3}
+  ProjectilePrefab: {fileID: 6186162643695624949, guid: e94c9b9d776469c46b7ce074a939a06c, type: 3}
   ProjectileSpawnPoint: {x: 1.5, y: 0.3, z: 0}
   Upgrades:
   - {fileID: 11400000, guid: f91f87b3becfd51459f7f28acc777a76, type: 2}

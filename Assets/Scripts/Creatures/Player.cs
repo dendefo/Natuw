@@ -143,7 +143,15 @@ public class Player : Ground, IShooter
         ((IShooter)this).Aim(weapon.Target, weapon, weapon.TargetLine, transform);
 
     }
-
+    protected override void Move(bool isRight)
+    {
+        if ((isRight && transform.GetChild(0).eulerAngles.y != 0) || (!isRight && transform.GetChild(0).eulerAngles.y == 0))
+        {
+            animator.SetFloat("MovingDirection", -1);
+        }
+        else animator.SetFloat("MovingDirection", 1);
+        base.Move(isRight);
+    }
     void IShooter.OnWeaponUpdate(float timeStamp)
     {
         if (Attributes.HP == 0) return;

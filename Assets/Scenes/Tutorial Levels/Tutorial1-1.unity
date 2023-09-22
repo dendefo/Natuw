@@ -1517,9 +1517,9 @@ MonoBehaviour:
   Boundries:
     serializedVersion: 2
     x: -15
-    y: -10
+    y: -4.93
     width: 30
-    height: 20
+    height: 15.6
   cam: {fileID: 476063599}
   XOffset: 0
   YOffset: -0.3
