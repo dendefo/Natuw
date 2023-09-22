@@ -3578,7 +3578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pick an UwUpgrade
+  m_text: Pick an Upgrade
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4d9e2c7919505b4e948fa20ab905244, type: 2}
   m_sharedMaterial: {fileID: 758139554299221205, guid: d4d9e2c7919505b4e948fa20ab905244, type: 2}
@@ -8349,7 +8349,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1007178388}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 226616426}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: ToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1007178388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9175,6 +9187,7 @@ MonoBehaviour:
   DebuggerInput: {fileID: 676884786}
   PauseMenu: {fileID: 418763455}
   LevelUpCanvas: {fileID: 2006411452}
+  DeathCanvas: {fileID: 1934317916}
   PossibleLevelUpgrades:
   - {fileID: 11400000, guid: f775b70a41c44734397852dc0e8a30ce, type: 2}
   - {fileID: 11400000, guid: e33f32c42f1b72840a128034aff43997, type: 2}
@@ -11330,6 +11343,7 @@ MonoBehaviour:
   DebuggerInput: {fileID: 364840019}
   PauseMenu: {fileID: 666916687}
   LevelUpCanvas: {fileID: 976973989}
+  DeathCanvas: {fileID: 0}
   PossibleLevelUpgrades:
   - {fileID: 11400000, guid: f775b70a41c44734397852dc0e8a30ce, type: 2}
   - {fileID: 11400000, guid: e33f32c42f1b72840a128034aff43997, type: 2}

@@ -15,7 +15,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected SpriteRenderer SRenderer;
-    [SerializeField] protected Animator animator;
+    [SerializeField] public Animator animator;
     public bool Angered;
 
 
@@ -53,7 +53,15 @@ abstract public class Creature : MonoBehaviour, IPausable
     }
     virtual protected void Die()
     {
-        Destroy(gameObject);
+        animator.SetTrigger("Die");
+        rb.bodyType = RigidbodyType2D.Static;
+        List<Collider2D> results = new();
+        rb.GetAttachedColliders(results);
+        foreach (Collider2D collider in results)
+        {
+            collider.enabled = false;
+        }
+        //Destroy(gameObject);
     }
     #endregion
 

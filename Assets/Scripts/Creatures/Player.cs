@@ -49,6 +49,7 @@ public class Player : Ground, IShooter
     }
     protected override void FixedUpdate()
     {
+        if (Attributes.HP == 0) return;
         base.FixedUpdate();
         if (IsTouchingFloor && !isInDash) isDashReady = true;
         if (isInDash)
@@ -72,6 +73,7 @@ public class Player : Ground, IShooter
     }
     protected void Update()
     {
+        if (Attributes.HP == 0) return;
         weapon.ChoseTarget();
 
         if (rb.bodyType == RigidbodyType2D.Static) return;
@@ -97,9 +99,9 @@ public class Player : Ground, IShooter
     protected override void Die()
     {
         Analytics.PlayerDied();
+        WorldManager.Instance.DeathPausing();
         base.Die();
     }
-
 #if !UNITY_EDITOR
     public void AndroidJump(bool isDown)
     {
@@ -115,7 +117,7 @@ public class Player : Ground, IShooter
     }
     protected void OnDrawGizmos()
     {
-        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0) * (SRenderer.flipX ? -1 : 1)));
+        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(DashSpeed * DashTime, 0, 0) * (transform.GetChild(0).eulerAngles.y == 0 ? 1 : -1)));
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
     }
@@ -144,6 +146,7 @@ public class Player : Ground, IShooter
 
     void IShooter.OnWeaponUpdate(float timeStamp)
     {
+        if (Attributes.HP == 0) return;
         if (((int)(timeStamp * 50)) % ((int)(Attributes.AttackSpeed * 50)) == 0)
         {
             weapon.Shoot(Attributes.DMG, Attributes.BulletFlightSpeed);

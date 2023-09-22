@@ -30,9 +30,9 @@ public static class Analytics
         {
             AnalyticsService.Instance.CustomData(eventName, paramss);            
         }
-        catch (Exception e)
+        catch (ServicesInitializationException e)
         {
-            Debug.LogException(e);
+            Debug.Log("Analytics isn't initialized");
         }
     }
 

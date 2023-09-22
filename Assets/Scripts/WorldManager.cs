@@ -25,6 +25,7 @@ public class WorldManager : MonoBehaviour
     [SerializeField] TMPro.TMP_InputField DebuggerInput;
     [SerializeField] GameObject PauseMenu;
     [SerializeField] GameObject LevelUpCanvas;
+    [SerializeField] GameObject DeathCanvas;
 
     [SerializeField] List<LevelUpgrades> PossibleLevelUpgrades;
     [SerializeField] List<RewardButton> RewardButtons;
@@ -168,6 +169,13 @@ public class WorldManager : MonoBehaviour
         _isPaused = isPaused;
 
     }
+    public void DeathPausing()
+    {
+        OnPause(true);
+        _isPaused = true;
+        DeathCanvas.SetActive(true);
+        PlayerReference.animator.enabled = true;
+    }
     public void Upgrade(LevelUpgrades upgrade)
     {
         List<LevelUpgrades> upgrades = new List<LevelUpgrades>(3);
@@ -182,6 +190,7 @@ public class WorldManager : MonoBehaviour
     }
     private void OnDestroy()
     {
+        if (PlayerReference == null) return;
         Destroy(PlayerReference.gameObject);
     }
 
