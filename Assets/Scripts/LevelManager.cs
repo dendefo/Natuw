@@ -1,4 +1,5 @@
 using Assets.Scripts.Creatures;
+using Assets.Scripts.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class LevelManager : MonoBehaviour
     static public LevelManager Instance;
     public Tilemap TileMap;
     public Player Player;
-    public List<Creature> EnemyList;
+    public List<IEnemy> EnemyList;
     public PlayerSpawnPoint spawnPoint;
 
     void Awake()
@@ -30,5 +31,19 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         if (EnemyList.Count == 0) { LevelCleared?.Invoke(); }
+    }
+    private void OnEnable()
+    {
+        IEnemy.Death += OnEnemyDeath;
+    }
+
+    private void OnEnemyDeath(IEnemy enemy)
+    {
+        EnemyList.Remove(enemy);
+        WorldManager.Instance.AddXpToPlayer(enemy.XPOnDeath);
+    }
+    private void OnDisable()
+    {
+        IEnemy.Death -= OnEnemyDeath;
     }
 }

@@ -1,3 +1,4 @@
+using Assets.Scripts.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -25,6 +26,10 @@ abstract public class Creature : MonoBehaviour, IPausable
     virtual protected void Awake()
     {
         Attributes = new CreatureAttributes(BaseStats);
+        if (this is IEnemy)
+        {
+            (this as IEnemy).XPOnDeath = BaseStats.XPOnDeath;
+        }
     }
     virtual protected void OnEnable()
     {

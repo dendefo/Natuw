@@ -11,6 +11,7 @@ public class BaseCreatureStats : ScriptableObject
     [Min(0)] public float BulletFlightSpeed;
     [Range(0, 1)] public float CritChance;
     [Min(0)] public float CritDamageMultiplier;
+    public int XPOnDeath;
 
     [Header("Movement")]
     public float MoveVelocity;

@@ -12,15 +12,15 @@ public class Enemy : Ground
     #region UnityFunctions
     private void Start()
     {
-        LevelManager.Instance.EnemyList.Add(this);
+        //LevelManager.Instance.EnemyList.Add(this);
     }
     protected override void FixedUpdate()
     {
-        if ((int)((1 / Time.fixedDeltaTime) + LevelManager.Instance.EnemyList.IndexOf(this)) % _updateRates == 1)
-        {
-            StartCoroutine(CalculatePath());
-            _updateRates = 1;
-        }
+        //if ((int)((1 / Time.fixedDeltaTime) + LevelManager.Instance.EnemyList.IndexOf(this)) % _updateRates == 1)
+        //{
+        //    StartCoroutine(CalculatePath());
+        //    _updateRates = 1;
+        //}
         base.FixedUpdate();
 
         EnemyMovement();
@@ -84,7 +84,7 @@ public class Enemy : Ground
     #region Battle
     protected override void Die()
     {
-        LevelManager.Instance.EnemyList.Remove(this);
+        //LevelManager.Instance.EnemyList.Remove(this);
         base.Die();
     }
     #endregion

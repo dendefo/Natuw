@@ -35,7 +35,7 @@ public class RangedWeapon : MonoBehaviour
             if (LevelManager.Instance.EnemyList.Count == 0) { Target = null; return Target; }
 
             //God save us from this stupid implementation. This shit is returning the closest enemy. Sometime i'll make it better (and faster)
-            Target = LevelManager.Instance.EnemyList.Find(enemy => enemy.Distance(player) == LevelManager.Instance.EnemyList.Min(enemy => enemy.Distance(player)));
+            Target = (Creature)LevelManager.Instance.EnemyList.Find(enemy => ((Creature)enemy).Distance(player) == LevelManager.Instance.EnemyList.Min(enemy => ((Creature)enemy).Distance(player)));
 
             return Target;
 

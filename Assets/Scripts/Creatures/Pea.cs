@@ -1,14 +1,17 @@
 using Assets.Scripts.Creatures;
+using Assets.Scripts.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pea : Ground, IShooter
+public class Pea : Ground, IShooter, IEnemy
 {
     [SerializeField] private int XpOnDeath = 50;
     [SerializeField] private float knockbackForce;
 
     private bool isMovingRight;
+
+    public int XPOnDeath { get; set; }
 
 
     #region UnityFunctions
@@ -16,7 +19,7 @@ public class Pea : Ground, IShooter
     {
         LevelManager.Instance.EnemyList.Add(this);
     }
-    protected override void OnEnable() { base.OnEnable(); ((IShooter)this).Enabling(); }
+    protected override void OnEnable() { base.OnEnable(); (this as IShooter).Enabling(); }
     protected void Update()
     {
         LookForPlayer();
@@ -31,11 +34,7 @@ public class Pea : Ground, IShooter
         PlayAnimation("EnemySpeed");
 
     }
-    protected override void OnDisable() { base.OnDisable(); ((IShooter)this).Disabling(); }
-    private void OnDestroy()
-    {
-        WorldManager.Instance.PlayerXP += XpOnDeath;
-    }
+    protected override void OnDisable() { base.OnDisable(); (this as IShooter).Disabling(); }
     override protected void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
@@ -88,7 +87,7 @@ public class Pea : Ground, IShooter
     #region Battle
     protected override void Die()
     {
-        LevelManager.Instance.EnemyList.Remove(this);
+        ((IEnemy)this).InvokeDeath(this);
         base.Die();
     }
 

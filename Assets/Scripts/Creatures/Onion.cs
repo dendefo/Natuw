@@ -1,9 +1,10 @@
 using Assets.Scripts.Creatures;
+using Assets.Scripts.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Onion : Ground
+public class Onion : Ground, IEnemy
 {
     [SerializeField] private int XpOnDeath = 50;
     [SerializeField] private float knockbackForce;
@@ -11,6 +12,8 @@ public class Onion : Ground
 
     private Vector2 LastSeen;
     private bool isMovingRight;
+
+    public int XPOnDeath { get; set; }
 
 
     #region UnityFunctions
@@ -21,15 +24,11 @@ public class Onion : Ground
     private void Update()
     {
         LookForPlayer();
-        if (Angered&&Mathf.Abs((LastSeen-(Vector2)transform.position).x)<0.5) Angered = false;
+        if (Angered && Mathf.Abs((LastSeen - (Vector2)transform.position).x) < 0.5) Angered = false;
         if (Angered) Move(LastSeen.x > transform.position.x);
         else ContinuePatrol();
 
         PlayAnimation("EnemySpeed");
-    }
-    private void OnDestroy()
-    {
-        WorldManager.Instance.PlayerXP += XpOnDeath;
     }
     override protected void OnCollisionEnter2D(Collision2D collision)
     {
@@ -58,7 +57,7 @@ public class Onion : Ground
             {
                 if (contact.normal.x >= 0.707) { isMovingRight = true; Angered = false; }
                 else if (contact.normal.x <= -0.707) { isMovingRight = false; Angered = false; }
-                }
+            }
         }
     }
     #endregion
@@ -67,13 +66,13 @@ public class Onion : Ground
     private void LookForPlayer()
     {
         var player = LevelManager.Instance.Player;
-        if (player.transform.position.y - 1 > transform.position.y) {  return; } 
-        var hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized,100,layerMask : LayerMask.GetMask("Player","TileMap"));
-        if (hit.rigidbody == null) { Debug.Log("Player is unreachable"); return; }
+        if (player.transform.position.y - 1 > transform.position.y) { return; }
+        var hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, 100, layerMask: LayerMask.GetMask("Player", "TileMap"));
+        if (hit.rigidbody == null) {  return; }
         if (hit.rigidbody.CompareTag("Player")) { LastSeen = hit.point; Angered = true; }
 
     }
-    private void ContinuePatrol() 
+    private void ContinuePatrol()
     {
         Move(isMovingRight);
     }
@@ -83,7 +82,7 @@ public class Onion : Ground
     #region Battle
     protected override void Die()
     {
-        LevelManager.Instance.EnemyList.Remove(this);
+        ((IEnemy)this).InvokeDeath(this);
         base.Die();
     }
     #endregion
