@@ -15,6 +15,8 @@ public class Player : Ground, IShooter
     [SerializeField] Transform WeaponSolverTarget;
     [SerializeField] Transform WeaponSolver;
 
+    [SerializeField] SpecialAbility specialAbility;
+
 #if !UNITY_EDITOR
     const float JOYSTICK_ERROR_VALUE = 0.05f;
     private bool _isDown = false;
@@ -46,7 +48,14 @@ public class Player : Ground, IShooter
     {
         base.OnEnable();
         ((IShooter)this).Enabling();
+        specialAbility.AbilityReady += OnAbilityReady;
     }
+
+    private void OnAbilityReady(SpecialAbility ability, bool isReady)
+    {
+        
+    }
+
     protected override void FixedUpdate()
     {
         if (Attributes.HP == 0) return;
@@ -95,6 +104,7 @@ public class Player : Ground, IShooter
     {
         base.OnDisable();
         ((IShooter)this).Disabling();
+        specialAbility.AbilityReady -= OnAbilityReady;
     }
     protected override void Die()
     {

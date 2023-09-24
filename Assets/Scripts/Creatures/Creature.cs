@@ -19,7 +19,8 @@ abstract public class Creature : MonoBehaviour, IPausable
     [SerializeField] public Animator animator;
     public bool Angered;
 
-
+    public delegate void GotDamageEventHandler(Creature creature);
+    public static event GotDamageEventHandler GotDamage;
 
     #endregion
     #region UnityFunctions
@@ -51,10 +52,9 @@ abstract public class Creature : MonoBehaviour, IPausable
     public void GetDamage(float _damage, Vector2 knockback = new())
     {
         Attributes.GetDamage(_damage);
+        GotDamage?.Invoke(this);
         if (Attributes.HP <= 0) Die();
         rb.velocity += knockback;
-
-
     }
     virtual protected void Die()
     {
@@ -66,7 +66,6 @@ abstract public class Creature : MonoBehaviour, IPausable
         {
             collider.enabled = false;
         }
-        //Destroy(gameObject);
     }
     #endregion
 
