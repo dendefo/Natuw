@@ -110,7 +110,12 @@ public class WorldManager : MonoBehaviour
 
     public void NextLevel()
     {
-        if (LevelScenesNames.Count == CurrentLevel) { SceneManager.LoadSceneAsync("MainMenu"); Analytics.PlayerFinishedRun(); }
+        if (LevelScenesNames.Count == CurrentLevel)
+        {
+            SceneManager.LoadSceneAsync("MainMenu");
+            Analytics.PlayerFinishedRun(); 
+            Destroy(gameObject);
+        }
         else SceneManager.LoadSceneAsync(LevelScenesNames[CurrentLevel++]);
     }
     //public void Debugger()

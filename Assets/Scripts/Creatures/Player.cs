@@ -2,6 +2,7 @@ using Assets.Scripts.Creatures;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Player : Ground, IShooter
 {
@@ -16,6 +17,7 @@ public class Player : Ground, IShooter
     [SerializeField] Transform WeaponSolver;
 
     [SerializeField] SpecialAbility specialAbility;
+    [SerializeField] Light2D Glow;
 
 #if !UNITY_EDITOR
     const float JOYSTICK_ERROR_VALUE = 0.05f;
@@ -53,7 +55,7 @@ public class Player : Ground, IShooter
 
     private void OnAbilityReady(SpecialAbility ability, bool isReady)
     {
-        
+        Glow.enabled = isReady;
     }
 
     protected override void FixedUpdate()
