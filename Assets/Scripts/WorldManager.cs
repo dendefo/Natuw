@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class WorldManager : MonoBehaviour
 {
@@ -17,23 +18,22 @@ public class WorldManager : MonoBehaviour
     public int CurrentLevel;
     static public WorldManager Instance;
     public Player PlayerReference;
-    public int PlayerXP;
-    public int PlayerLevel;
+
     public List<string> LevelScenesNames;
     public bl_Joystick Joystick;
-    public TMPro.TMP_Text FPSCounter;
-    [SerializeField] TMPro.TMP_InputField DebuggerInput;
-    [SerializeField] GameObject PauseMenu;
-    [SerializeField] GameObject LevelUpCanvas;
-    [SerializeField] GameObject DeathCanvas;
 
-    [SerializeField] List<LevelUpgrades> PossibleLevelUpgrades;
-    [SerializeField] List<RewardButton> RewardButtons;
+    public HudManager hudManager;
+    public RewardSystem RewardManager;
+
+    public TMPro.TMP_Text FPSCounter;
+
+    [SerializeField] TMPro.TMP_InputField DebuggerInput;
+    [SerializeField] GameObject DeathCanvas;
 
     bool _isPaused;
     public float _timeWithoutPauses;
 
-    void Start()
+    void Awake()
     {
         if (Instance != null) Destroy(Instance.gameObject);
         Instance = this;
@@ -62,11 +62,6 @@ public class WorldManager : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended||touch.phase == TouchPhase.Canceled) Joystick.OnPointerUp(data);
         }
 #endif
-        if (PlayerXP >= CalculateXpForNextLevel() && LevelManager.Instance.EnemyList.Count == 0 && !LevelUpCanvas.active)
-        {
-            LevelUpPausing(true);
-            LevelUp();
-        }
         if (Input.GetKeyDown(KeyCode.F1))
         {
 
@@ -82,42 +77,17 @@ public class WorldManager : MonoBehaviour
         if (((int)(_timeWithoutPauses * 50)) % ((int)(0.04 * 50)) == 0) WeaponUpdate?.Invoke(_timeWithoutPauses);
     }
 
-    public void AddXpToPlayer(int XP)
-    {
-        PlayerXP += XP;
-    }
-    public int CalculateXpForNextLevel()
-    {
-
-        switch (PlayerLevel)
-        {
-            case >= 0 and <= 1:
-                return (PlayerLevel + 1) * 50;
-            case >= 2 and <= 18:
-                return 100 + (PlayerLevel - 1) * 20;
-            case >= 19:
-                return 440 + (PlayerLevel - 18) * 25;
-            case < 0:
-                return 0;
-        }
-
-    }
-    public void LevelUp()
-    {
-        PlayerXP -= CalculateXpForNextLevel();
-        PlayerLevel++;
-    }
-
     public void NextLevel()
     {
         if (LevelScenesNames.Count == CurrentLevel)
         {
             SceneManager.LoadSceneAsync("MainMenu");
-            Analytics.PlayerFinishedRun(); 
+            Analytics.PlayerFinishedRun();
             Destroy(gameObject);
         }
         else SceneManager.LoadSceneAsync(LevelScenesNames[CurrentLevel++]);
     }
+
     //public void Debugger()
     //{
     //    switch (DebuggerInput.text.ToLower())
@@ -151,51 +121,30 @@ public class WorldManager : MonoBehaviour
     //            break;
     //    }
     //}
+    #region Pauses
     public void Pausing(bool isPaused)
     {
         OnPause(isPaused);
         _isPaused = isPaused;
-        PauseMenu.SetActive(isPaused);
+        hudManager.PauseMenuActive(isPaused);
     }
     public void LevelUpPausing(bool isPaused)
     {
-        if (PossibleLevelUpgrades.Count < 3) return;
-
-        int[] ints = new int[] { Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count) };
-        while (ints.Count() != ints.Distinct().Count())
-        {
-            ints = new int[] { Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count) };
-        }
-        RewardButtons[0].Upgrade = PossibleLevelUpgrades[ints[0]];
-        RewardButtons[1].Upgrade = PossibleLevelUpgrades[ints[1]];
-        RewardButtons[2].Upgrade = PossibleLevelUpgrades[ints[2]];
-        LevelUpCanvas.SetActive(isPaused);
         OnPause(isPaused);
         _isPaused = isPaused;
-
     }
     public void DeathPausing()
     {
         OnPause(true);
         _isPaused = true;
-        DeathCanvas.SetActive(true);
+        hudManager.DeathMenu();
         PlayerReference.animator.enabled = true;
     }
-    public void Upgrade(LevelUpgrades upgrade)
-    {
-        List<LevelUpgrades> upgrades = new List<LevelUpgrades>(3);
-        upgrades.Add(upgrade);
-        var a = RewardButtons.Where(x => x.Upgrade != upgrade).ToList();
-        upgrades.Add(a[0].Upgrade);
-        upgrades.Add(a[1].Upgrade);
-        Analytics.PlayerPickedUpgrade(upgrades);
+    #endregion
 
-        LevelUpPausing(false);
-        upgrade.Apply(PlayerReference);
-    }
     private void OnDestroy()
     {
-        if (PlayerReference == null) return;
+        if (PlayerReference.gameObject == null) return;
         Destroy(PlayerReference.gameObject);
     }
 

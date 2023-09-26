@@ -8,6 +8,7 @@ public class RewardButton : MonoBehaviour
     public LevelUpgrades Upgrade;
     [SerializeField] Image Sprite;
     [SerializeField] TMPro.TMP_Text Name;
+    [SerializeField] RewardSystem rewardManager;
 
     void OnEnable()
     {
@@ -17,6 +18,6 @@ public class RewardButton : MonoBehaviour
 
     public void Click()
     {
-        WorldManager.Instance.Upgrade(Upgrade);
+        rewardManager.Upgrade(Upgrade);
     }
 }

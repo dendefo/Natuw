@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour
     private void OnEnemyDeath(IEnemy enemy)
     {
         EnemyList.Remove(enemy);
-        WorldManager.Instance.AddXpToPlayer(enemy.XPOnDeath);
+        WorldManager.Instance.RewardManager.OnEnemyDeath(enemy);
     }
     private void OnDisable()
     {

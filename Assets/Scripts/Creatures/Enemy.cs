@@ -39,7 +39,7 @@ public class Enemy : Ground
     }
     private void OnDestroy()
     {
-        WorldManager.Instance.PlayerXP += XpOndeath;
+        //WorldManager.Instance.PlayerXP += XpOndeath;
     }
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
