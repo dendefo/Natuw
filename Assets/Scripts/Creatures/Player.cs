@@ -56,6 +56,7 @@ public class Player : Ground, IShooter
     private void OnAbilityReady(SpecialAbility ability, bool isReady)
     {
         Glow.enabled = isReady;
+        if (isReady) ability.Activate();
     }
 
     protected override void FixedUpdate()

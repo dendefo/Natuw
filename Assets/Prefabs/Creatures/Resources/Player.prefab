@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 223688728170418624}
   - component: {fileID: 102621556}
   - component: {fileID: 4334737665485336354}
+  - component: {fileID: 1143955224653907525}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -132,7 +133,8 @@ MonoBehaviour:
   DashTime: 0.125
   WeaponSolverTarget: {fileID: 3845711437004956412}
   WeaponSolver: {fileID: 6328697672445585017}
-  specialAbility: {fileID: 0}
+  specialAbility: {fileID: 1143955224653907525}
+  Glow: {fileID: 3417814929896144788}
 --- !u!210 &4334737665485336354
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -145,6 +147,22 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_SortAtRoot: 0
+--- !u!114 &1143955224653907525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223688728170418625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7eabb0ce8d3c24c9f1d798760a4faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEnemyHitIncrement: 5
+  OnPlayerHitDiscrement: 5
+  ReadyPercentage: 0
+  ability: {fileID: 1695137947539423190, guid: e94f06c410f270b4fa0d5e1d8ed3f12b, type: 3}
 --- !u!1 &1537648778098289357
 GameObject:
   m_ObjectHideFlags: 0

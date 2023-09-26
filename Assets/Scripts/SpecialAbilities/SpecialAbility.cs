@@ -3,21 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class SpecialAbility : MonoBehaviour
+public class SpecialAbility : MonoBehaviour
 {
-    [SerializeField] private int ReadyPercentage;
+    [SerializeField] int OnEnemyHitIncrement;
+    [SerializeField] int OnPlayerHitDiscrement;
+    [SerializeField] int ReadyPercentage;
+
+    [SerializeField] AbilityScript ability;
     
     public delegate void AbilityReadyEventHandler(SpecialAbility ability,bool isReady);
     public event AbilityReadyEventHandler AbilityReady;
     private void OnEnable()
     {
         Creature.GotDamage += OnCreature_GotDamage;
+        Debug.Log("Activated");
+
     }
 
     private void OnCreature_GotDamage(Creature creature)
     {
-        if (creature is IEnemy) AddPercentage(5);
-        else if (creature is Player) RemovePercentage(5);
+        if (creature is IEnemy) AddPercentage(OnEnemyHitIncrement);
+        else if (creature is Player) RemovePercentage(OnPlayerHitDiscrement);
     }
 
     private void OnDisable()
@@ -38,14 +44,16 @@ abstract public class SpecialAbility : MonoBehaviour
     private void RemovePercentage(int amount)
     {
         ReadyPercentage -= amount;
+        AbilityReady?.Invoke(this, false);
         if (ReadyPercentage <= 0)
         {
             ReadyPercentage = 0;
-            AbilityReady?.Invoke(this, false);
         }
     }
     public void Activate()
     {
-
+        Instantiate(ability);
+        ReadyPercentage = 0;
+        RemovePercentage(100);
     }
 }
