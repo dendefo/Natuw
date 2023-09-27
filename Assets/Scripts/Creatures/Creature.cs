@@ -17,6 +17,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected SpriteRenderer SRenderer;
     [SerializeField] public Animator animator;
+    [SerializeField] SpriteRenderer[] sprites;
     public bool Angered;
 
     public delegate void GotDamageEventHandler(Creature creature);
@@ -31,6 +32,9 @@ abstract public class Creature : MonoBehaviour, IPausable
         {
             (this as IEnemy).XPOnDeath = BaseStats.XPOnDeath;
         }
+
+        sprites = GetComponentsInChildren<SpriteRenderer>();
+
     }
     virtual protected void OnEnable()
     {
@@ -55,6 +59,8 @@ abstract public class Creature : MonoBehaviour, IPausable
         GotDamage?.Invoke(this);
         if (Attributes.HP <= 0) Die();
         rb.velocity += knockback;
+        StartCoroutine(DamageLerp());
+        
     }
     virtual protected void Die()
     {
@@ -71,6 +77,21 @@ abstract public class Creature : MonoBehaviour, IPausable
 
     #region VisualAndSound
 
+    private IEnumerator DamageLerp()
+    {
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            sprite.color = new Color(231,89,89);
+        }
+        for (int i = 0; i < 25;i++)
+        {
+            foreach (SpriteRenderer sprite in sprites)
+            {
+                sprite.color = Color.Lerp(sprite.color,Color.white,i/25);
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
     protected virtual void PlayAnimation(string speedParameter = null, string jumpParameter = null)
     {
         if (speedParameter != null) animator.SetFloat(speedParameter, Mathf.Abs(rb.velocity.x));

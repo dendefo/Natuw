@@ -81,9 +81,9 @@ public class WorldManager : MonoBehaviour
     {
         if (LevelScenesNames.Count == CurrentLevel)
         {
-            SceneManager.LoadSceneAsync("MainMenu");
+            OnPause?.Invoke(true);
             Analytics.PlayerFinishedRun();
-            Destroy(gameObject);
+            hudManager.WinMenu();
         }
         else SceneManager.LoadSceneAsync(LevelScenesNames[CurrentLevel++]);
     }

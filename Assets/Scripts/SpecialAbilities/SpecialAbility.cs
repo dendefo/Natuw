@@ -52,7 +52,7 @@ public class SpecialAbility : MonoBehaviour
     }
     public void Activate()
     {
-        Instantiate(ability,WorldManager.Instance.transform.position,Quaternion.identity);
+        Instantiate(ability,WorldManager.Instance.PlayerReference.transform.position,Quaternion.identity);
         ReadyPercentage = 0;
         RemovePercentage(100);
     }

@@ -11,6 +11,7 @@ public class HudManager : MonoBehaviour
 
     [SerializeField] GameObject PauseMenu;
     [SerializeField] GameObject DeathCanvas;
+    [SerializeField] GameObject WinCanvas;
 
     public void UpdateLevel(int PlayerLevel, int PlayerXP, int XpToNextLevel)
     {
@@ -26,6 +27,11 @@ public class HudManager : MonoBehaviour
     public void DeathMenu()
     {
         DeathCanvas.SetActive(true);
+    }
+
+    public void WinMenu()
+    {
+        WinCanvas.SetActive(true);
     }
 
 }
