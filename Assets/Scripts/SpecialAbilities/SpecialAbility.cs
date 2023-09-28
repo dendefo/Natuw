@@ -2,6 +2,7 @@ using Assets.Scripts.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpecialAbility : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class SpecialAbility : MonoBehaviour
     [SerializeField] int ReadyPercentage;
 
     [SerializeField] AbilityScript ability;
+    [SerializeField] Image ReadyBar;
     
     public delegate void AbilityReadyEventHandler(SpecialAbility ability,bool isReady);
     public event AbilityReadyEventHandler AbilityReady;
@@ -39,6 +41,7 @@ public class SpecialAbility : MonoBehaviour
             ReadyPercentage = 100;
             AbilityReady?.Invoke(this, true);
         }
+        ReadyBar.fillAmount = ReadyPercentage / 100.0f;
     }
 
     private void RemovePercentage(int amount)
@@ -49,6 +52,7 @@ public class SpecialAbility : MonoBehaviour
         {
             ReadyPercentage = 0;
         }
+        ReadyBar.fillAmount = ReadyPercentage / 100.0f;
     }
     public void Activate()
     {

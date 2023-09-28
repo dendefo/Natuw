@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 abstract public class Creature : MonoBehaviour, IPausable
 {
@@ -18,6 +19,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     [SerializeField] protected SpriteRenderer SRenderer;
     [SerializeField] public Animator animator;
     [SerializeField] SpriteRenderer[] sprites;
+    [SerializeField] protected Image HpBar;
     public bool Angered;
 
     public delegate void GotDamageEventHandler(Creature creature);
@@ -56,6 +58,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     public void GetDamage(float _damage, Vector2 knockback = new())
     {
         Attributes.GetDamage(_damage);
+        HpBar.fillAmount = Attributes.HP / Attributes.MaxHP;
         GotDamage?.Invoke(this);
         if (Attributes.HP <= 0) Die();
         rb.velocity += knockback;
