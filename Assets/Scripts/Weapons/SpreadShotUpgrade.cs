@@ -24,13 +24,11 @@ namespace Assets.Scripts.Weapons
             Vector3 SecondProjSpawnPoint = Vector3.Scale(rotation2 * weapon.ProjectileSpawnPoint, isRight);
             Vector3 WeaponPos = weapon.transform.position;
 
-            var proj = Instantiate(weapon.ProjectilePrefab, WeaponPos + FirstProjSpawnPoint, rotation1);
             var direction = ((WeaponPos + FirstProjSpawnPoint) - WeaponPos).normalized;
-            proj.Shoot(direction, speed, damage, weapon.Target != LevelManager.Instance.Player);
-
-            var proj2 = Instantiate(weapon.ProjectilePrefab, WeaponPos + SecondProjSpawnPoint, rotation2);
             var direction2 = ((WeaponPos + SecondProjSpawnPoint) - WeaponPos).normalized;
-            proj2.Shoot(direction2, speed, damage, weapon.Target != LevelManager.Instance.Player);
+            
+            Shoot(weapon, damage, speed, WeaponPos + FirstProjSpawnPoint, rotation1, direction);
+            Shoot(weapon, damage, speed, WeaponPos + SecondProjSpawnPoint, rotation2, direction2);
         }
     }
 }
