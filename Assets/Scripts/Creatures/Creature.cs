@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 abstract public class Creature : MonoBehaviour, IPausable
 {
@@ -17,6 +18,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected SpriteRenderer SRenderer;
+    [SerializeField] private Color DamageColor = new Color(231 / 255.0f, 89 / 255.0f, 89 / 255.0f);
     [SerializeField] public Animator animator;
     [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] protected Image HpBar;
@@ -51,7 +53,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     {
         rb.bodyType = isPaused ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
         animator.enabled = !isPaused;
-    }   
+    }
 
     #endregion
     #region BattleFunctions
@@ -62,8 +64,10 @@ abstract public class Creature : MonoBehaviour, IPausable
         GotDamage?.Invoke(this);
         if (Attributes.HP <= 0) Die();
         rb.velocity += knockback;
-        StartCoroutine(DamageLerp());
-        
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            sprite.DOColor(DamageColor, 0.5f).From().ChangeEndValue(Color.white);
+        }
     }
     virtual protected void Die()
     {
@@ -71,6 +75,7 @@ abstract public class Creature : MonoBehaviour, IPausable
         rb.bodyType = RigidbodyType2D.Static;
         List<Collider2D> results = new();
         rb.GetAttachedColliders(results);
+
         foreach (Collider2D collider in results)
         {
             collider.enabled = false;
@@ -80,21 +85,6 @@ abstract public class Creature : MonoBehaviour, IPausable
 
     #region VisualAndSound
 
-    private IEnumerator DamageLerp()
-    {
-        foreach (SpriteRenderer sprite in sprites)
-        {
-            sprite.color = new Color(231,89,89);
-        }
-        for (int i = 0; i < 25;i++)
-        {
-            foreach (SpriteRenderer sprite in sprites)
-            {
-                sprite.color = Color.Lerp(sprite.color,Color.white,i/25);
-            }
-            yield return new WaitForFixedUpdate();
-        }
-    }
     protected virtual void PlayAnimation(string speedParameter = null, string jumpParameter = null)
     {
         if (speedParameter != null) animator.SetFloat(speedParameter, Mathf.Abs(rb.velocity.x));
