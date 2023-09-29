@@ -19,5 +19,5 @@ MonoBehaviour:
   CritChance: 0
   CritDamageMultiplier: 0
   XPOnDeath: 50
-  MoveVelocity: 7
+  MoveVelocity: 6
   JumpVelocity: 0
