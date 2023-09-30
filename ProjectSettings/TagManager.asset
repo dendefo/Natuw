@@ -51,3 +51,6 @@ TagManager:
   - name: TileMap
     uniqueID: 2852531267
     locked: 0
+  - name: Praticles
+    uniqueID: 1033040985
+    locked: 0
