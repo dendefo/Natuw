@@ -30,6 +30,7 @@ public class WorldManager : MonoBehaviour
 
     [SerializeField] TMPro.TMP_InputField DebuggerInput;
     [SerializeField] GameObject DeathCanvas;
+    [SerializeField] TMPro.TMP_Text PausingCount;
 
     bool _isPaused;
     public float _timeWithoutPauses;
@@ -125,9 +126,29 @@ public class WorldManager : MonoBehaviour
     #region Pauses
     public void Pausing(bool isPaused)
     {
-        OnPause(isPaused);
-        _isPaused = isPaused;
+        if (isPaused)
+        {
+            OnPause(isPaused);
+            _isPaused = isPaused;
+        }
+        else
+        {
+            StartCoroutine(UnpausingCount());
+        }
         hudManager.PauseMenuActive(isPaused);
+    }
+    private IEnumerator UnpausingCount()
+    {
+        PausingCount.gameObject.SetActive(true);
+        for (int i = 3; i >= 0; i--)
+        {
+            PausingCount.text = i.ToString();
+            PausingCount.transform.DOPunchScale(Vector3.one / 2, 1);
+            yield return new WaitForSeconds(1);
+        }
+        PausingCount.gameObject.SetActive(false);
+        OnPause(false);
+        _isPaused = false;
     }
     public void LevelUpPausing(bool isPaused)
     {

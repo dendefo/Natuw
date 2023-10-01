@@ -12,6 +12,8 @@ public abstract class Ground : Creature
     protected bool IsTouchingFloor { get; private set; }
     protected MovingPlatform _currentConnectedPlatform = null;
     protected PassingThroughPlatform _currentPassingThroughPlatform = null;
+
+    [SerializeField] protected ParticleSystem DustParticles;
     #endregion
 
     #region UnityFunctions
@@ -27,7 +29,13 @@ public abstract class Ground : Creature
             {
                 if (IsTouchingFloor) break;
 
-                if (contact.normal.y >= 0.707) { IsTouchingFloor = true; SecondJumpReady = true; }
+                if (contact.normal.y >= 0.707)
+                {
+                    IsTouchingFloor = true; 
+                    SecondJumpReady = true;
+                    animator.SetBool("InAir", false);
+                    DustParticles.gameObject.SetActive(true);
+                }
                 if (contact.normal.y <= -0.707) EndJump();
                 //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 135 degrees
             }
@@ -36,6 +44,8 @@ public abstract class Ground : Creature
         {
             if (collision.contacts[0].normal.y >= 0.707)
             {
+                animator.SetBool("InAir", false);
+                DustParticles.gameObject.SetActive(true);
                 rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
                 IsTouchingFloor = true;
                 SecondJumpReady = true;
@@ -78,6 +88,7 @@ public abstract class Ground : Creature
             _currentConnectedPlatform = null;
             if (((_currentPassingThroughPlatform.effector.colliderMask >> 3) & 1) == 1) _currentPassingThroughPlatform = null;
         }
+        DustParticles.gameObject.SetActive(false);
     }
 
     #endregion
@@ -92,14 +103,15 @@ public abstract class Ground : Creature
         if (isInJump) return;
         if (IsTouchingFloor || (SecondJumpAvalible && SecondJumpReady))
         {
-            rb.velocity = Vector2.right*rb.velocity;
+            rb.velocity = Vector2.right * rb.velocity;
             rb.gravityScale /= 1.5f;
             if (!IsTouchingFloor) SecondJumpReady = false;
             isInJump = true;
             rb.AddForce(Attributes.JumpVelocity * Vector2.up, ForceMode2D.Impulse);
-            if (_currentConnectedPlatform != null) rb.velocity = new Vector2(rb.velocity.x - _currentConnectedPlatform.rb.velocity.x,rb.velocity.y);
+            if (_currentConnectedPlatform != null) rb.velocity = new Vector2(rb.velocity.x - _currentConnectedPlatform.rb.velocity.x, rb.velocity.y);
         }
         else isInJump = false;
+        animator.SetBool("InAir", true);
     }
     protected void EndJump()
     {
@@ -112,9 +124,9 @@ public abstract class Ground : Creature
 
     protected virtual void Move(bool isRight)
     {
-        rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1)+ (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity).x, rb.velocity.y);
+        rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity).x, rb.velocity.y);
         if (SRenderer != null) SRenderer.flipX = !isRight;
-        else transform.GetChild(0).eulerAngles = new Vector3(0,isRight?0:180, 0);
+        else transform.GetChild(0).eulerAngles = new Vector3(0, isRight ? 0 : 180, 0);
     }
     public void UpgradeDoubleJump()
     {
