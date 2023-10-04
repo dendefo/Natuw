@@ -136,3 +136,4 @@ MonoBehaviour:
   CollisionAmount: 1
   Speed: 2
   SR: {fileID: 239973471690752446}
+  _damage: 25
