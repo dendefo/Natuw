@@ -22,7 +22,7 @@
 ///
 
 
-public static class GPGSIdsAAAAAAAAAAa
+public static class GoogleSetup
 {
         public const string achievement_welcome = "CgkInYbCztoCEAIQAQ"; // <GPGSID>
 
