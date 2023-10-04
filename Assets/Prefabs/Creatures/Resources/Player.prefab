@@ -944,10 +944,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WalkDustPS(OverDistance)
       objectReference: {fileID: 0}
-    - target: {fileID: 7643236304599909272, guid: 5884d64eaf7723c4691dc26cda22dfb0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

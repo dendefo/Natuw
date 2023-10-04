@@ -34,7 +34,8 @@ public abstract class Ground : Creature
                     IsTouchingFloor = true; 
                     SecondJumpReady = true;
                     animator.SetBool("InAir", false);
-                    DustParticles.gameObject.SetActive(true);
+                    DustParticles.Play();
+                    //DustParticles.gameObject.SetActive(true);
                 }
                 if (contact.normal.y <= -0.707) EndJump();
                 //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 135 degrees
@@ -45,7 +46,8 @@ public abstract class Ground : Creature
             if (collision.contacts[0].normal.y >= 0.707)
             {
                 animator.SetBool("InAir", false);
-                DustParticles.gameObject.SetActive(true);
+                DustParticles.Play();
+                //DustParticles.gameObject.SetActive(true);
                 rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
                 IsTouchingFloor = true;
                 SecondJumpReady = true;
@@ -88,7 +90,8 @@ public abstract class Ground : Creature
             _currentConnectedPlatform = null;
             if (((_currentPassingThroughPlatform.effector.colliderMask >> 3) & 1) == 1) _currentPassingThroughPlatform = null;
         }
-        DustParticles.gameObject.SetActive(false);
+        DustParticles.Stop();
+        //DustParticles.gameObject.SetActive(false);
     }
 
     #endregion
