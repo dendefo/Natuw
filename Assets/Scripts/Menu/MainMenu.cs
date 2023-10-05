@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
             if (PlayerPrefs.GetString("LastVersion") == Application.version) return;
         }
         PlayerPrefs.SetString("LastVersion", Application.version);
-        LastUpdateWindow.SetActive(true);
+        //LastUpdateWindow.SetActive(true);
     }
     public void PlayGame()
     {

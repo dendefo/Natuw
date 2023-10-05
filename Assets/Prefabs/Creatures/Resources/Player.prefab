@@ -905,6 +905,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: JumpTrailPS(OverDistance)
       objectReference: {fileID: 0}
+    - target: {fileID: 494460142614163558, guid: 4fb14755412d05748a021d65db0c6c1c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1211522823728556108, guid: 4fb14755412d05748a021d65db0c6c1c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
