@@ -132,7 +132,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 8
+  m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: c40146ab750f27643863fa8876acaaeb, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -199,8 +199,8 @@ MonoBehaviour:
     BulletFlightSpeed: 10
     CritChance: 0.2
     CritDamageMultiplier: 1.5
-    MoveVelocity: 7
-    JumpVelocity: 20
+    MoveVelocity: 6
+    JumpVelocity: 12
   BaseStats: {fileID: 11400000, guid: ad0103cd10874e34c86a483b9cf74420, type: 2}
   weapon: {fileID: 4089510029101017379}
   rb: {fileID: 223688728170418627}
