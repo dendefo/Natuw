@@ -8,10 +8,13 @@ public class RewardSystem : MonoBehaviour
 {
     public int PlayerXp;
     public int PlayerLevel;
+    public int CoinsInRun = 0;
 
     [SerializeField] List<LevelUpgrades> PossibleLevelUpgrades;
     [SerializeField] List<RewardButton> RewardButtons;
     [SerializeField] GameObject LevelUpCanvas;
+    [SerializeField] List<TMPro.TMP_Text> CoinCounters;
+
 
     private void Start()
     {
@@ -72,6 +75,11 @@ public class RewardSystem : MonoBehaviour
     public void OnEnemyDeath(IEnemy enemy)
     {
         PlayerXp += enemy.XPOnDeath;
+        CoinsInRun += (enemy as Creature).BaseStats.CoinsAmount;
+        foreach (var counter in CoinCounters)
+        {
+            counter.text = CoinsInRun.ToString();
+        }
         CheckForLevelUp();
     }
     public void Upgrade(LevelUpgrades upgrade)

@@ -25,10 +25,12 @@ public class PreLoadingManager : MonoBehaviour
         try
         {
             await LoginGooglePlayGames();
+            SceneManager.LoadScene("MainMenu");
         }
         catch
         {
             await SignAnonime();
+            SceneManager.LoadScene("MainMenu");
         }
         //await SignInWithGooglePlayGamesAsync(Token);
     }
@@ -62,7 +64,6 @@ public class PreLoadingManager : MonoBehaviour
     public Task SignAnonime()
     {
         var lol = AuthenticationService.Instance.SignInAnonymouslyAsync();
-        SceneManager.LoadScene("MainMenu");
         return lol;
     }
     async Task SignInWithGooglePlayGamesAsync(string authCode)

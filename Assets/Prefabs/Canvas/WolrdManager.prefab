@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f5a6c2405a4f02143b6ce1987ec8d4fc, type: 2}
   m_sharedMaterial: {fileID: 9004706465438922776, guid: f5a6c2405a4f02143b6ce1987ec8d4fc, type: 2}
@@ -3741,6 +3741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerXp: 0
   PlayerLevel: 0
+  CoinsInRun: 0
   PossibleLevelUpgrades:
   - {fileID: 11400000, guid: f775b70a41c44734397852dc0e8a30ce, type: 2}
   - {fileID: 11400000, guid: e33f32c42f1b72840a128034aff43997, type: 2}
@@ -3754,6 +3755,9 @@ MonoBehaviour:
   - {fileID: 4150770584216620293}
   - {fileID: 3951158150897983858}
   LevelUpCanvas: {fileID: 2899955128537864652}
+  CoinCounters:
+  - {fileID: 7959342113077258032}
+  - {fileID: 2576781222204759105}
 --- !u!1 &5218518392392667275
 GameObject:
   m_ObjectHideFlags: 0
@@ -5259,7 +5263,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 500
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 17ac4e6d13126c14cbf025fdeba5d2d4, type: 2}
   m_sharedMaterial: {fileID: 6940101298042819898, guid: 17ac4e6d13126c14cbf025fdeba5d2d4, type: 2}

@@ -12,6 +12,7 @@ public class BaseCreatureStats : ScriptableObject
     [Range(0, 1)] public float CritChance;
     [Min(0)] public float CritDamageMultiplier;
     public int XPOnDeath;
+    public int CoinsAmount;
 
     [Header("Movement")]
     public float MoveVelocity;

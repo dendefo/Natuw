@@ -7932,6 +7932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LastUpdateWindow: {fileID: 1416728145}
+  CoinCounter: {fileID: 0}
 --- !u!224 &1524258506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8316,6 +8317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LastUpdateWindow: {fileID: 1001859095}
+  CoinCounter: {fileID: 681208530}
 --- !u!114 &1632874189
 MonoBehaviour:
   m_ObjectHideFlags: 0

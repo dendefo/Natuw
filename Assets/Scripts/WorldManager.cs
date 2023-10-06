@@ -35,6 +35,7 @@ public class WorldManager : MonoBehaviour
     bool _isPaused;
     public float _timeWithoutPauses;
 
+
     void Awake()
     {
         if (Instance != null) Destroy(Instance.gameObject);
@@ -168,6 +169,7 @@ public class WorldManager : MonoBehaviour
     {
         if (PlayerReference.gameObject == null) return;
         Destroy(PlayerReference.gameObject);
+        MainMenu.IncrementCoins();
     }
 
 #if !UNITY_EDITOR
