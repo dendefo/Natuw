@@ -8,7 +8,7 @@ public class PassingThroughPlatform : MonoBehaviour
 
     public IEnumerator BlockPassing()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         PassPlayerDown(false);
     }
     public void PassPlayerDown(bool isDown)

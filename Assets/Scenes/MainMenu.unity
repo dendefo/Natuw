@@ -7340,6 +7340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WolrdManager (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 18359576614817655, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4674707932794442865, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
