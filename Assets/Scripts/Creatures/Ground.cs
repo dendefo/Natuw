@@ -72,9 +72,10 @@ public abstract class Ground : Creature
         }
         if (collision.collider.CompareTag("Platform"))
         {
+
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             if (_currentConnectedPlatform != null && collision.gameObject == _currentConnectedPlatform.gameObject)
             {
-                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 var vel = collision.rigidbody.velocity - rb.velocity;
                 if (vel.magnitude >= _currentConnectedPlatform.speed / 2 && vel.magnitude <= _currentConnectedPlatform.speed * 2) { Stop(); }
             }
