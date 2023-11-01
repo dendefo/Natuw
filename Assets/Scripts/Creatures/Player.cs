@@ -30,6 +30,7 @@ public class Player : Ground, IShooter
         DashTimer = Time.time;
         isInDash = true;
         isDashReady = false;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
     }
 
@@ -81,6 +82,8 @@ public class Player : Ground, IShooter
         {
             isInDash = false;
             rb.velocity = Vector2.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            rb.freezeRotation = true;
         }
     }
     protected void Update()

@@ -31,7 +31,7 @@ public abstract class Ground : Creature
 
                 if (contact.normal.y >= 0.707)
                 {
-                    IsTouchingFloor = true; 
+                    IsTouchingFloor = true;
                     SecondJumpReady = true;
                     animator.SetBool("InAir", false);
                     DustParticles.Play();
@@ -74,6 +74,7 @@ public abstract class Ground : Creature
         {
             if (_currentConnectedPlatform != null && collision.gameObject == _currentConnectedPlatform.gameObject)
             {
+                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 var vel = collision.rigidbody.velocity - rb.velocity;
                 if (vel.magnitude >= _currentConnectedPlatform.speed / 2 && vel.magnitude <= _currentConnectedPlatform.speed * 2) { Stop(); }
             }
@@ -81,6 +82,8 @@ public abstract class Ground : Creature
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+        rb.freezeRotation = true;
         if (collision.collider.CompareTag("TileMap")) IsTouchingFloor = false; //Collision with a map 
         if (collision.collider.CompareTag("Platform"))
         {
@@ -99,6 +102,8 @@ public abstract class Ground : Creature
     #region Movement 
     protected void Stop()
     {
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+        rb.freezeRotation = true;
         rb.velocity = new Vector2(0, rb.velocity.y) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
     }
     protected void StartJump()
@@ -127,6 +132,7 @@ public abstract class Ground : Creature
 
     protected virtual void Move(bool isRight)
     {
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity).x, rb.velocity.y);
         if (SRenderer != null) SRenderer.flipX = !isRight;
         else transform.GetChild(0).eulerAngles = new Vector3(0, isRight ? 0 : 180, 0);
