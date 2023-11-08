@@ -146,7 +146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SR: {fileID: 6093855767852697143}
   Trigger: {fileID: -5849956198399882100}
-  SecondSprite: {fileID: 21300000, guid: 276fc0170a0511b40891605afc48f2d4, type: 3}
   particles: {fileID: 3784854016300764778}
 --- !u!1001 &1943136869683559787
 PrefabInstance:
@@ -1076,7 +1075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2932046089906492028, guid: 2b653406d34660b498dd3e48e86a0047, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5672347917068071424, guid: 2b653406d34660b498dd3e48e86a0047, type: 3}
       propertyPath: m_SortingOrder

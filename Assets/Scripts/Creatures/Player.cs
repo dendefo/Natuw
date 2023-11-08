@@ -20,13 +20,14 @@ public class Player : Ground, IShooter
     [SerializeField] Light2D Glow;
 
 #if !UNITY_EDITOR
-    const float JOYSTICK_ERROR_VALUE = 0.05f;
+    const float JOYSTICK_ERROR_VALUE = 3.5f;
     private bool _isDown = false;
 #endif
     #endregion
     #region Movement
     public void Dash()
     {
+        if (!isDashReady) return;
         DashTimer = Time.time;
         isInDash = true;
         isDashReady = false;

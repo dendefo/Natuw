@@ -21,8 +21,18 @@ public class PassingThroughPlatform : MonoBehaviour
     {
 #if UNITY_EDITOR
         if (Input.GetKey(KeyCode.S)) { PassPlayerDown(true); StartCoroutine(BlockPassing()); }
+
 #else
-        if (WorldManager.Instance.Joystick.Vertical<=-0.707f&& WorldManager.Instance.Joystick.gameObject.active) { PassPlayerDown(true); StartCoroutine(BlockPassing()); }
+        if (WorldManager.Instance.Joystick.Vertical<=-0.707f&& WorldManager.Instance.Joystick.gameObject.active) 
+        { 
+            if (WorldManager.Instance.Joystick.CenterReference.position.y-WorldManager.Instance.Joystick.StickRect.position.y < 60)
+            {
+                Debug.Log(WorldManager.Instance.Joystick.CenterReference.position.y-WorldManager.Instance.Joystick.StickRect.position.y);
+                return;
+            }
+            PassPlayerDown(true); 
+            StartCoroutine(BlockPassing()); 
+        }
 #endif
     }
 }

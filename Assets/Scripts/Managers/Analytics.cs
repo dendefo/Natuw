@@ -11,6 +11,7 @@ public static class Analytics
 
     async static public void Start()
     {
+        Application.targetFrameRate = 60;
         try
         {
             await UnityServices.InitializeAsync();

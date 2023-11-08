@@ -15,8 +15,8 @@ public class bl_Joystick : MonoBehaviour
     [SerializeField, Range(0.1f, 5)]private float Duration = 1;
 
     [Header("Reference")]
-    [SerializeField]private RectTransform StickRect;//The middle joystick UI
-    [SerializeField] private RectTransform CenterReference;
+    public RectTransform StickRect;//The middle joystick UI
+    public RectTransform CenterReference;
 
     //Privates
     private Vector3 DeathArea;
