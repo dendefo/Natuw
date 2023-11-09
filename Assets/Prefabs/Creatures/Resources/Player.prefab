@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 102621556}
   - component: {fileID: 4334737665485336354}
   - component: {fileID: 1143955224653907525}
+  - component: {fileID: 4238231289351707741}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -213,6 +214,7 @@ MonoBehaviour:
   SecondJumpAvalible: 1
   DustParticles: {fileID: 2029984265175762267}
   DashSpeed: 40
+  DashCoolDown: 0.5
   DashTime: 0.125
   WeaponSolverTarget: {fileID: 3845711437004956412}
   WeaponSolver: {fileID: 6328697672445585017}
@@ -247,6 +249,41 @@ MonoBehaviour:
   ReadyPercentage: 0
   ability: {fileID: 1695137947539423190, guid: e94f06c410f270b4fa0d5e1d8ed3f12b, type: 3}
   ReadyBar: {fileID: 1191259282233174549}
+--- !u!70 &4238231289351707741
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223688728170418625}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.02425957, y: 0}
+  m_Size: {x: 0.82, y: 0.01}
+  m_Direction: 1
 --- !u!1 &1537648778098289357
 GameObject:
   m_ObjectHideFlags: 0

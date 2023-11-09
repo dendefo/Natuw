@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ecdf894936c0347b01cd37551936b4, type: 3}
   m_Name: Attack Speed
   m_EditorClassIdentifier: 
-  UpgradeIcon: {fileID: -5999422824933822019, guid: 252d1f9f9eb6dfe46873735361f596d6, type: 3}
+  UpgradeIcon: {fileID: 21300000, guid: 5cbd63e15b0e04f4aa620e6b8356a578, type: 3}
   UpgradeName: Attack Speed
   UpgradeDescription: 
   UpgradeType: 1

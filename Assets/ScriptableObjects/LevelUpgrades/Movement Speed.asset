@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ecdf894936c0347b01cd37551936b4, type: 3}
   m_Name: Movement Speed
   m_EditorClassIdentifier: 
-  UpgradeIcon: {fileID: -6979345463012375436, guid: 252d1f9f9eb6dfe46873735361f596d6, type: 3}
+  UpgradeIcon: {fileID: 21300000, guid: 3d16adfd89cc6c847b8932a8deb860ec, type: 3}
   UpgradeName: Movement Speed
   UpgradeDescription: 
   UpgradeType: 3

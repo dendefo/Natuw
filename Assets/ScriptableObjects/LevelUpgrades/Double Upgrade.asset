@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313fac6a119e2644eab886631f7abf55, type: 3}
   m_Name: Double Upgrade
   m_EditorClassIdentifier: 
-  UpgradeIcon: {fileID: -1663591504370042298, guid: 2a074b3b141f32f4e8abeb83cb9e231f, type: 3}
+  UpgradeIcon: {fileID: 21300000, guid: 311d216be6602174b97c169cbb7951aa, type: 3}
   UpgradeName: Double Barell
   UpgradeDescription: 
   upgradeType: 0

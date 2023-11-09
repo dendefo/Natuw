@@ -72,7 +72,17 @@ public abstract class Ground : Creature
         }
         if (collision.collider.CompareTag("Platform"))
         {
+            if (collision.contacts[0].normal.y >= 0.707)
+            {
+                animator.SetBool("InAir", false);
+                DustParticles.Play();
+                //DustParticles.gameObject.SetActive(true);
+                rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
+                IsTouchingFloor = true;
+                SecondJumpReady = true;
+                collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
 
+            }
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             if (_currentConnectedPlatform != null && collision.gameObject == _currentConnectedPlatform.gameObject)
             {
@@ -92,7 +102,7 @@ public abstract class Ground : Creature
             rb.interpolation = RigidbodyInterpolation2D.Interpolate;
             IsTouchingFloor = false;
             _currentConnectedPlatform = null;
-            if (((_currentPassingThroughPlatform.effector.colliderMask >> 3) & 1) == 1) _currentPassingThroughPlatform = null;
+            if (_currentPassingThroughPlatform != null && ((_currentPassingThroughPlatform.effector.colliderMask >> 3) & 1) == 1) _currentPassingThroughPlatform = null;
         }
         DustParticles.Stop();
         //DustParticles.gameObject.SetActive(false);

@@ -12,6 +12,7 @@ public class Player : Ground, IShooter
     protected bool isInDash = false;
     private float DashTimer;
     [SerializeField] private float DashSpeed;
+    [SerializeField] private float DashCoolDown;
     [SerializeField] private float DashTime;
     [SerializeField] Transform WeaponSolverTarget;
     [SerializeField] Transform WeaponSolver;
@@ -27,6 +28,7 @@ public class Player : Ground, IShooter
     #region Movement
     public void Dash()
     {
+        if (Time.time - DashTimer - DashCoolDown < DashTime) return;
         if (!isDashReady) return;
         DashTimer = Time.time;
         isInDash = true;
