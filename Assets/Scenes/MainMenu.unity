@@ -7340,6 +7340,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: WolrdManager (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4674707932794442865, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674707932794442865, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: LevelScenesNames.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: LevelScenesNames.Array.data[3]
+      value: Room1-4
+      objectReference: {fileID: 0}
     - target: {fileID: 9021904855417866166, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.4454072
@@ -10765,6 +10781,22 @@ PrefabInstance:
     - target: {fileID: 18359576614817655, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: m_Name
       value: WolrdManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674707932794442865, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674707932794442865, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: LevelScenesNames.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: LevelScenesNames.Array.data[3]
+      value: Room1-4
       objectReference: {fileID: 0}
     - target: {fileID: 9021904855417866166, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: m_LocalPosition.x

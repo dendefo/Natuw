@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2880733520760385761}
   - {fileID: 2449148291768450232}
@@ -125,11 +125,13 @@ MonoBehaviour:
   weapon: {fileID: 3127313614674710524}
   rb: {fileID: 2702123019719204600}
   SRenderer: {fileID: 8537360722119311677}
+  DamageColor: {r: 0.90588236, g: 0.34901962, b: 0.34901962, a: 1}
   animator: {fileID: 7907550036567064232}
   sprites: []
   HpBar: {fileID: 8910172909755031941}
   Angered: 0
   SecondJumpAvalible: 0
+  DustParticles: {fileID: 0}
   XpOnDeath: 50
   knockbackForce: 0
 --- !u!1 &2431750608213374311

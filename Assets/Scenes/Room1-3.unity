@@ -2365,13 +2365,13 @@ MonoBehaviour:
   Boundries:
     serializedVersion: 2
     x: -15
-    y: -10
+    y: -9
     width: 30
-    height: 18
+    height: 17
   cam: {fileID: 476063599}
   XOffset: 0
   YOffset: -0.3
-  CameraSpeed: 0.05
+  CameraSpeed: 0.1
 --- !u!114 &476063597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2459,7 +2459,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

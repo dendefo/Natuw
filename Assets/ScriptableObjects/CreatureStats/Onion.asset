@@ -20,5 +20,5 @@ MonoBehaviour:
   CritDamageMultiplier: 0
   XPOnDeath: 50
   CoinsAmount: 5
-  MoveVelocity: 6
+  MoveVelocity: 4.5
   JumpVelocity: 0
