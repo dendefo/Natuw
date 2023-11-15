@@ -7350,11 +7350,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: LevelScenesNames.Array.size
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: LevelScenesNames.Array.data[0]
+      value: Tutorial1-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: LevelScenesNames.Array.data[1]
+      value: Tutorial1-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: LevelScenesNames.Array.data[2]
+      value: Tutorial1-3
       objectReference: {fileID: 0}
     - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: LevelScenesNames.Array.data[3]
-      value: Room1-4
+      value: Tutorial1-4
       objectReference: {fileID: 0}
     - target: {fileID: 9021904855417866166, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10792,7 +10804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: LevelScenesNames.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: LevelScenesNames.Array.data[3]
