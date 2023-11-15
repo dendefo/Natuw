@@ -24920,6 +24920,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7888652929517824445, guid: 677c1d171ae430845a5ba31082c2714e, type: 3}
+      propertyPath: m_Color.a
+      value: 0.101960786
+      objectReference: {fileID: 0}
     - target: {fileID: 7888652929517824447, guid: 677c1d171ae430845a5ba31082c2714e, type: 3}
       propertyPath: m_Name
       value: PlayerSpawnPoint
@@ -25699,7 +25703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6825991999876523532, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_Size.x
-      value: 14.548451
+      value: 7.3595095
       objectReference: {fileID: 0}
     - target: {fileID: 6825991999876523532, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_Size.y
@@ -25735,7 +25739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8694125303743898757, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.7068
+      value: -10.504
       objectReference: {fileID: 0}
     - target: {fileID: 8694125303743898757, guid: caabd48fe7e5ce948b442d95392254af, type: 3}
       propertyPath: m_LocalPosition.y
