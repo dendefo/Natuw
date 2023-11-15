@@ -47,22 +47,25 @@ public class WorldManager : MonoBehaviour
     private void Update()
     {
         FPSCounter.text = ((int)(1 / Time.deltaTime)).ToString();
+
 #if !UNITY_EDITOR
         foreach (var touch in Input.touches)
         {
-            if (touch.position.x > Screen.width / 2) continue;
+            if (touch.rawPosition.x > Screen.width / 2) continue;
+            if (touch.rawPosition.y > Screen.height / 2) continue;
 
             var data = new PointerEventData(EventSystem.current);
             data.pointerId = touch.fingerId;
 
-            if (touch.phase == TouchPhase.Began)
+
+            if (touch.phase == TouchPhase.Began && !Joystick.gameObject.active)
             {
                 Joystick.gameObject.SetActive(true);
                 Joystick.transform.position = touch.position;
                 Joystick.OnPointerDown(data);
             }
             else if (touch.phase == TouchPhase.Moved) Joystick.OnDrag(data);
-            else if (touch.phase == TouchPhase.Ended||touch.phase == TouchPhase.Canceled) Joystick.OnPointerUp(data);
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) Joystick.OnPointerUp(data);
         }
 #endif
         if (Input.GetKeyDown(KeyCode.F1))
