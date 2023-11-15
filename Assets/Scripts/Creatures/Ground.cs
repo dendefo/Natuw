@@ -6,12 +6,12 @@ using UnityEngine.Tilemaps;
 public abstract class Ground : Creature
 {
     #region Fields
-    [SerializeField] private bool SecondJumpAvalible = false;
     private bool isInJump;
-    private bool SecondJumpReady = false;
     protected bool IsTouchingFloor { get; private set; }
     protected MovingPlatform _currentConnectedPlatform = null;
     protected PassingThroughPlatform _currentPassingThroughPlatform = null;
+    [SerializeField] protected int JumpsLeft = 2;
+    protected int MaxJumpCount = 2;
 
     [SerializeField] protected ParticleSystem DustParticles;
     #endregion
@@ -32,7 +32,7 @@ public abstract class Ground : Creature
                 if (contact.normal.y >= 0.707)
                 {
                     IsTouchingFloor = true;
-                    SecondJumpReady = true;
+                    JumpsLeft = MaxJumpCount;
                     animator.SetBool("InAir", false);
                     DustParticles.Play();
                     //DustParticles.gameObject.SetActive(true);
@@ -50,7 +50,7 @@ public abstract class Ground : Creature
                 //DustParticles.gameObject.SetActive(true);
                 rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
                 IsTouchingFloor = true;
-                SecondJumpReady = true;
+                JumpsLeft = MaxJumpCount;
                 collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
 
             }
@@ -66,20 +66,20 @@ public abstract class Ground : Creature
             foreach (var contact in collision.contacts)
             {
                 if (IsTouchingFloor) return;
-                if (contact.normal.y >= 0.707) { SecondJumpReady = true; IsTouchingFloor = true; }
+                if (contact.normal.y >= 0.707 && !isInJump) { JumpsLeft = MaxJumpCount; IsTouchingFloor = true; }
                 if (contact.normal.y <= -0.707) EndJump();
             }
         }
         if (collision.collider.CompareTag("Platform"))
         {
-            if (collision.contacts[0].normal.y >= 0.707)
+            if (collision.contacts[0].normal.y >= 0.707 && !isInJump)
             {
                 animator.SetBool("InAir", false);
                 DustParticles.Play();
                 //DustParticles.gameObject.SetActive(true);
                 rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
                 IsTouchingFloor = true;
-                SecondJumpReady = true;
+                JumpsLeft = MaxJumpCount;
                 collision.collider.TryGetComponent<MovingPlatform>(out _currentConnectedPlatform);
 
             }
@@ -120,11 +120,11 @@ public abstract class Ground : Creature
     protected void StartJump()
     {
         if (isInJump) return;
-        if (IsTouchingFloor || (SecondJumpAvalible && SecondJumpReady))
+        if (JumpsLeft > 0)
         {
+            JumpsLeft--;
             rb.velocity = Vector2.right * rb.velocity;
             rb.gravityScale /= 1.5f;
-            if (!IsTouchingFloor) SecondJumpReady = false;
             isInJump = true;
             rb.AddForce(Attributes.JumpVelocity * Vector2.up, ForceMode2D.Impulse);
             if (_currentConnectedPlatform != null) rb.velocity = new Vector2(rb.velocity.x - _currentConnectedPlatform.rb.velocity.x, rb.velocity.y);
@@ -147,10 +147,6 @@ public abstract class Ground : Creature
         rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity).x, rb.velocity.y);
         if (SRenderer != null) SRenderer.flipX = !isRight;
         else transform.GetChild(0).eulerAngles = new Vector3(0, isRight ? 0 : 180, 0);
-    }
-    public void UpgradeDoubleJump()
-    {
-        SecondJumpAvalible = true;
     }
 
     #endregion
