@@ -52,7 +52,7 @@ public class WorldManager : MonoBehaviour
         foreach (var touch in Input.touches)
         {
             if (touch.rawPosition.x > Screen.width / 2) continue;
-            if (touch.rawPosition.y > Screen.height / 2) continue;
+            if (touch.rawPosition.y > Screen.height / 1.5f) continue;
 
             var data = new PointerEventData(EventSystem.current);
             data.pointerId = touch.fingerId;

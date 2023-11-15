@@ -211,6 +211,7 @@ MonoBehaviour:
   sprites: []
   HpBar: {fileID: 780884516249573078}
   Angered: 0
+  IsVulnerable: 1
   SecondJumpAvalible: 1
   DustParticles: {fileID: 2029984265175762267}
   DashSpeed: 40
@@ -220,6 +221,7 @@ MonoBehaviour:
   WeaponSolver: {fileID: 6328697672445585017}
   specialAbility: {fileID: 1143955224653907525}
   Glow: {fileID: 3417814929896144788}
+  MainCollider: {fileID: 223688728170418624}
 --- !u!210 &4334737665485336354
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -264,7 +266,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 704
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

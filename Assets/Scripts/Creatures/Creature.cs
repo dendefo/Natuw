@@ -23,6 +23,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     [SerializeField] SpriteRenderer[] sprites;
     [SerializeField] protected Image HpBar;
     public bool Angered;
+    public bool IsVulnerable = true;
 
     public delegate void GotDamageEventHandler(Creature creature);
     public static event GotDamageEventHandler GotDamage;
@@ -57,8 +58,9 @@ abstract public class Creature : MonoBehaviour, IPausable
 
     #endregion
     #region BattleFunctions
-    public void GetDamage(float _damage, Vector2 knockback = new())
+    virtual public void GetDamage(float _damage, Vector2 knockback = new())
     {
+        if (!IsVulnerable) return;
         Attributes.GetDamage(_damage);
         HpBar.fillAmount = Attributes.HP / Attributes.MaxHP;
         GotDamage?.Invoke(this);
@@ -66,7 +68,7 @@ abstract public class Creature : MonoBehaviour, IPausable
         rb.velocity += knockback;
         foreach (SpriteRenderer sprite in sprites)
         {
-            sprite.DOColor(DamageColor, 0.5f).From().ChangeEndValue(Color.white);
+            sprite.DOColor(DamageColor, 1f).From().ChangeEndValue(Color.white);
         }
     }
     virtual protected void Die()

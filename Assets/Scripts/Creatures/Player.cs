@@ -19,6 +19,7 @@ public class Player : Ground, IShooter
 
     [SerializeField] SpecialAbility specialAbility;
     [SerializeField] Light2D Glow;
+    [SerializeField] Collider2D MainCollider;
 
 #if !UNITY_EDITOR
     const float JOYSTICK_ERROR_VALUE = 3.5f;
@@ -141,6 +142,20 @@ public class Player : Ground, IShooter
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, CalculateJumpHeight(), 0));
     }
     #endregion
+
+    public override void GetDamage(float _damage, Vector2 knockback = default)
+    {
+        base.GetDamage(_damage, knockback);
+        IsVulnerable = false;
+        MainCollider.excludeLayers = LayerMask.GetMask("Enemies","Projectiles");
+        StartCoroutine(VulnerableCooldown());
+        IEnumerator VulnerableCooldown()
+        {
+            yield return new WaitForSeconds(1);
+            MainCollider.excludeLayers = new();
+            IsVulnerable = true;
+        }
+    }
 
     private IEnumerator UserInput(bool left = false, bool right = false, bool stop = false, bool startJump = false, bool jump = false, bool endjump = false)
     {
