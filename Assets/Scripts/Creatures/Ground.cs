@@ -37,7 +37,12 @@ public abstract class Ground : Creature
                     DustParticles.Play();
                     //DustParticles.gameObject.SetActive(true);
                 }
-                if (contact.normal.y <= -0.707) EndJump();
+                if (contact.normal.y <= -0.707)
+                {
+
+                    if (contact.collider is CapsuleCollider2D && (contact.collider as CapsuleCollider2D).direction == CapsuleDirection2D.Horizontal) continue;
+                    EndJump();
+                }
                 //This number is SqrRoot(2)/2 it means that contact is counted only if happened between 45 and 135 degrees
             }
         }
@@ -65,6 +70,7 @@ public abstract class Ground : Creature
             IsTouchingFloor = false;
             foreach (var contact in collision.contacts)
             {
+                if (contact.collider is CapsuleCollider2D && (contact.collider as CapsuleCollider2D).direction == CapsuleDirection2D.Horizontal) continue;
                 if (IsTouchingFloor) return;
                 if (contact.normal.y >= 0.707 && !isInJump) { JumpsLeft = MaxJumpCount; IsTouchingFloor = true; }
                 if (contact.normal.y <= -0.707) EndJump();

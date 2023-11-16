@@ -212,7 +212,7 @@ MonoBehaviour:
   HpBar: {fileID: 780884516249573078}
   Angered: 0
   IsVulnerable: 1
-  SecondJumpAvalible: 1
+  JumpsLeft: 2
   DustParticles: {fileID: 2029984265175762267}
   DashSpeed: 40
   DashCoolDown: 0.5
@@ -283,8 +283,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02425957, y: 0}
-  m_Size: {x: 0.82, y: 0.01}
+  m_Offset: {x: -0.02425957, y: 0.03}
+  m_Size: {x: 0.6638269, y: 0.07}
   m_Direction: 1
 --- !u!1 &1537648778098289357
 GameObject:
