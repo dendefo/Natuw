@@ -11,7 +11,7 @@ public abstract class Ground : Creature
     protected MovingPlatform _currentConnectedPlatform = null;
     protected PassingThroughPlatform _currentPassingThroughPlatform = null;
     [SerializeField] protected int JumpsLeft = 2;
-    protected int MaxJumpCount = 2;
+    [SerializeField] protected int MaxJumpCount = 2;
 
     [SerializeField] protected ParticleSystem DustParticles;
     #endregion
@@ -119,7 +119,7 @@ public abstract class Ground : Creature
     #region Movement 
     protected void Stop()
     {
-        rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+        //zZrb.constraints = RigidbodyConstraints2D.FreezePositionX;
         rb.freezeRotation = true;
         rb.velocity = new Vector2(0, rb.velocity.y) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity);
     }
@@ -128,15 +128,31 @@ public abstract class Ground : Creature
         if (isInJump) return;
         if (JumpsLeft > 0)
         {
-            JumpsLeft--;
             rb.velocity = Vector2.right * rb.velocity;
             rb.gravityScale /= 1.5f;
             isInJump = true;
-            rb.AddForce(Attributes.JumpVelocity * Vector2.up, ForceMode2D.Impulse);
+            rb.AddForce(Attributes.JumpVelocity * Vector2.up*(ConvertScales(1,MaxJumpCount,1,0.85f,JumpsLeft)), ForceMode2D.Impulse);
+            JumpsLeft--;
             if (_currentConnectedPlatform != null) rb.velocity = new Vector2(rb.velocity.x - _currentConnectedPlatform.rb.velocity.x, rb.velocity.y);
         }
         else isInJump = false;
         animator.SetBool("InAir", true);
+    }
+
+    /// <summary>
+    /// returns corresponding number from second scale based on the value of first scale (works only when first scale are ints)
+    /// </summary>
+    /// <param name="minA">minimal value of the first scale</param>
+    /// <param name="maxA">maximal value of the first scale</param>
+    /// <param name="maxX">maximal value of the second scale</param>
+    /// <param name="minX">minimal value of the second scale</param>
+    /// <param name="a">current value on the first scale</param>
+    /// <returns> corresponding value on the second scale</returns>
+    private float ConvertScales(int minA,int maxA,float maxX,float minX, int a)
+    {
+
+        float step = (maxX - minX)/(maxA-minA);
+        return (a / (float)(maxA - minA)) * (maxX - minX) + minX - step;
     }
     protected void EndJump()
     {

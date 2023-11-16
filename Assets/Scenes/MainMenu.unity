@@ -10794,6 +10794,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WolrdManager
       objectReference: {fileID: 0}
+    - target: {fileID: 18359576614817655, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4674707932794442865, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -10801,6 +10805,26 @@ PrefabInstance:
     - target: {fileID: 4674707932794442865, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4687650780057582499, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4687650780063549201, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: m_Color.a
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 4687650780063614445, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: PressColor.a
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 4687650780063614445, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: NormalColor.a
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 4687650780063631275, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: m_Color.a
+      value: 0.6509804
       objectReference: {fileID: 0}
     - target: {fileID: 6733833691962882483, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: LevelScenesNames.Array.size

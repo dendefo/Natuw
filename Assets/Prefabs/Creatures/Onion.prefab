@@ -68,10 +68,12 @@ MonoBehaviour:
   sprites: []
   HpBar: {fileID: 2938589709832793673}
   Angered: 0
-  SecondJumpAvalible: 0
+  IsVulnerable: 1
+  JumpsLeft: 2
+  MaxJumpCount: 2
   DustParticles: {fileID: 0}
   XpOnDeath: 50
-  knockbackForce: 5
+  knockbackForce: 15
   canJump: 0
 --- !u!50 &2178963778833045037
 Rigidbody2D:

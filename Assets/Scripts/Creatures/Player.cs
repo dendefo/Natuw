@@ -19,7 +19,7 @@ public class Player : Ground, IShooter
 
     [SerializeField] SpecialAbility specialAbility;
     [SerializeField] Light2D Glow;
-    [SerializeField] Collider2D MainCollider;
+    public Collider2D MainCollider;
 
 #if !UNITY_EDITOR
     const float JOYSTICK_ERROR_VALUE = 3.5f;

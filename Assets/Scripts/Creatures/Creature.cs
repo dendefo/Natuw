@@ -65,7 +65,8 @@ abstract public class Creature : MonoBehaviour, IPausable
         HpBar.fillAmount = Attributes.HP / Attributes.MaxHP;
         GotDamage?.Invoke(this);
         if (Attributes.HP <= 0) Die();
-        rb.velocity += knockback;
+        rb.AddForce(knockback, ForceMode2D.Impulse);
+        //rb.velocity += knockback;
         foreach (SpriteRenderer sprite in sprites)
         {
             sprite.DOColor(DamageColor, 1f).From().ChangeEndValue(Color.white);

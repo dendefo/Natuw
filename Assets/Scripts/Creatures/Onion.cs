@@ -24,7 +24,7 @@ public class Onion : Ground, IEnemy
     private void Update()
     {
         LookForPlayer();
-        if (Angered && Mathf.Abs((LastSeen - (Vector2)transform.position).x) < 0.5) Angered = false;
+        if (Angered && Mathf.Abs((LastSeen - (Vector2)transform.position).x) < 0.15f) Angered = false;
         if (Angered) Move(LastSeen.x > transform.position.x);
         else ContinuePatrol();
 
@@ -67,9 +67,10 @@ public class Onion : Ground, IEnemy
     {
         var player = LevelManager.Instance.Player;
         if (player.transform.position.y - 1 > transform.position.y) { return; }
-        var hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, 100, layerMask: LayerMask.GetMask("Player", "TileMap"));
+        var hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position+((Vector3)player.MainCollider.offset)).normalized, 100, layerMask: LayerMask.GetMask("Player", "TileMap"));
         if (hit.rigidbody == null) {  return; }
-        if (hit.rigidbody.CompareTag("Player")) { LastSeen = hit.point; Angered = true; }
+        if (hit.rigidbody.CompareTag("Player")) { LastSeen = hit.centroid; Angered = true; }
+        Debug.Log(hit.centroid);
 
     }
     private void ContinuePatrol()
