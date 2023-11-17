@@ -34,4 +34,8 @@ public class HudManager : MonoBehaviour
         WinCanvas.SetActive(true);
     }
 
+    public void Feedback()
+    {
+        Application.OpenURL("https://docs.google.com/forms/d/e/1FAIpQLSdMIUtqCNF3MAnuHCE3muLgKqEb_3kR7BdwSWNdw8yEYq7f8Q/viewform?usp=sf_link");
+    }
 }
