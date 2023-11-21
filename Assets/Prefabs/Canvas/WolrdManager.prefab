@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 9004547727192482123}
   - component: {fileID: 6266142838779444890}
   m_Layer: 5
-  m_Name: BurrencyBar
+  m_Name: CurrencyBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3933,7 +3933,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f3fabb6938081c048a35b916a6dec80e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0656b1964b90af4a86df519ca9025b8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
