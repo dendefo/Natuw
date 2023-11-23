@@ -151,7 +151,7 @@ public class Player : Ground, IShooter
         StartCoroutine(VulnerableCooldown());
         IEnumerator VulnerableCooldown()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             MainCollider.excludeLayers = new();
             IsVulnerable = true;
         }
