@@ -13,21 +13,33 @@ EditorBuildSettings:
     guid: 30aaf7ea8c95b7043acaa39199131ccd
   - enabled: 1
     path: Assets/Scenes/Room1-1.unity
-    guid: cce00645f4ffc554da7db16226aa4b21
+    guid: 4a73b4fbcb376c244a1fbb1a110968a7
   - enabled: 1
     path: Assets/Scenes/Room1-2.unity
-    guid: c048fe5bfbad75d42a6a5447735ea476
+    guid: 5cdfefff21c610b4ab7c052262321258
   - enabled: 1
     path: Assets/Scenes/Room1-3.unity
-    guid: bf0cd75cdb0ba60449f1ff27f06945be
+    guid: c3d827d4add236b46a1aea5fcd6a59fb
   - enabled: 1
     path: Assets/Scenes/Room1-4.unity
-    guid: 81a189ec4b1d58643a2d722ace08bbf1
+    guid: d884987956eb1654795e1b2e13954b20
   - enabled: 1
     path: Assets/Scenes/Room1-5.unity
-    guid: b187cee1d912b1847be5cfb45f0e1aac
+    guid: cce00645f4ffc554da7db16226aa4b21
   - enabled: 1
     path: Assets/Scenes/Room1-6.unity
+    guid: c048fe5bfbad75d42a6a5447735ea476
+  - enabled: 1
+    path: Assets/Scenes/Room1-7.unity
+    guid: bf0cd75cdb0ba60449f1ff27f06945be
+  - enabled: 1
+    path: Assets/Scenes/Room1-8.unity
+    guid: 81a189ec4b1d58643a2d722ace08bbf1
+  - enabled: 1
+    path: Assets/Scenes/Room1-9.unity
+    guid: b187cee1d912b1847be5cfb45f0e1aac
+  - enabled: 1
+    path: Assets/Scenes/Room1-10.unity
     guid: d44d8c5038e0fa94db32d91f74a03be8
   - enabled: 1
     path: Assets/Scenes/Tutorial Levels/Tutorial1-1.unity
