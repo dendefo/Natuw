@@ -1,0 +1,449 @@
+fileFormatVersion: 2
+guid: 0dd2c25e9a6e2d44c9317684cc318159
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: eyes
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1502
+      width: 595
+      height: 335
+    spriteID: 391ace8c41e7d5144ab2fb2286a9f847
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1502}
+    spritePosition: {x: 717, y: 1037}
+  - name: right hand
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 725
+      y: 1369
+      width: 528
+      height: 329
+    spriteID: ef821c88e16f74b4996a1ebdab4e572d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 725, y: 1369}
+    spritePosition: {x: 750, y: 579}
+  - name: gun body
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1118
+      width: 687
+      height: 376
+    spriteID: 352fbc16573f145419b3aab30c7a4f61
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1118}
+    spritePosition: {x: 460, y: 545}
+  - name: gun barrel
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 725
+      y: 973
+      width: 494
+      height: 388
+    spriteID: b715c17730ef33348844d2de5d55cf33
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 725, y: 973}
+    spritePosition: {x: 151, y: 560}
+  - name: pipe
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 725
+      y: 4
+      width: 677
+      height: 961
+    spriteID: 723e2dcb329e56c478b7c4263e68cd00
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 725, y: 4}
+    spritePosition: {x: 1099, y: 632}
+  - name: right leg
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1410
+      y: 366
+      width: 209
+      height: 357
+    spriteID: bca03243219951d46818576f65128748
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1410, y: 366}
+    spritePosition: {x: 1060, y: 344}
+  - name: can
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 713
+      height: 1106
+    spriteID: 5bd72454d9c07e44bb723cd639648bce
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 724, y: 609}
+  - name: left leg
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1410
+      y: 4
+      width: 238
+      height: 354
+    spriteID: 1112d14a98ec9da4195c40cbf66943cb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1410, y: 4}
+    spritePosition: {x: 700, y: 401}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  sharedRigSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  platformSettings: []
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 1
+  skeletonAssetReferenceID: 
+  padding: 4
+  spriteSizeExpand: 0
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: eyes
+    spriteName: eyes
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 391ace8c41e7d5144ab2fb2286a9f847
+    layerID: 22
+    mosaicPosition: {x: 4, y: 1502}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: right hand
+    spriteName: right hand
+    isGroup: 0
+    parentIndex: -1
+    spriteID: ef821c88e16f74b4996a1ebdab4e572d
+    layerID: 18
+    mosaicPosition: {x: 725, y: 1369}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: gun body
+    spriteName: gun body
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 352fbc16573f145419b3aab30c7a4f61
+    layerID: 32
+    mosaicPosition: {x: 4, y: 1118}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: gun barrel
+    spriteName: gun barrel
+    isGroup: 0
+    parentIndex: -1
+    spriteID: b715c17730ef33348844d2de5d55cf33
+    layerID: 36
+    mosaicPosition: {x: 725, y: 973}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: pipe
+    spriteName: pipe
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 723e2dcb329e56c478b7c4263e68cd00
+    layerID: 15
+    mosaicPosition: {x: 725, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: right leg
+    spriteName: right leg
+    isGroup: 0
+    parentIndex: -1
+    spriteID: bca03243219951d46818576f65128748
+    layerID: 47
+    mosaicPosition: {x: 1410, y: 366}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: can
+    spriteName: can
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 5bd72454d9c07e44bb723cd639648bce
+    layerID: 12
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: left leg
+    spriteName: left leg
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 1112d14a98ec9da4195c40cbf66943cb
+    layerID: 42
+    mosaicPosition: {x: 1410, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Layer 6
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: bda898c6823fd22479b01b7c0c9b3fe1
+    layerID: 8
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Layer 4
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 99de39f677328964d93e4aa062966c6e
+    layerID: 5
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Layer 3
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 16ad1b771e90f8e4d813fc520366cdc5
+    layerID: 4
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Layer 2
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 1c476ca40053b944da2eb196769aee85
+    layerID: 3
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Layer 1
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 3d55244f9c3ed7244add3ed7a5aa9b56
+    layerID: 2
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Background
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 1cbfe53d4ced35f4e9e3958abc185bc3
+    layerID: 1
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  sharedRigPSDLayers: []
+  pSDLayerImportSetting: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
+  generateGOHierarchy: 0
+  textureAssetName: 
+  prefabAssetName: 
+  spriteLibAssetName: 
+  skeletonAssetName: 
+  secondarySpriteTextures: []
