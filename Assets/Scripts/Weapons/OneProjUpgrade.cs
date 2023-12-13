@@ -12,7 +12,7 @@ namespace Assets.Scripts.Weapons
     {
         public override void Activate(RangedWeapon weapon, float damage, float speed)
         {
-            var direction = (weapon.Target.transform.position - (weapon.transform.position + (weapon.transform.rotation * weapon.ProjectileSpawnPoint))).normalized;
+            var direction = (weapon.Target.transform.position + new Vector3(0,0.3f) - (weapon.transform.position + (weapon.transform.rotation * weapon.ProjectileSpawnPoint))).normalized;
             Shoot(weapon,damage,speed, weapon.transform.position + (weapon.transform.rotation * weapon.ProjectileSpawnPoint), weapon.transform.rotation,direction);
         }
     }
