@@ -213,6 +213,7 @@ MonoBehaviour:
   Angered: 0
   IsVulnerable: 1
   JumpsLeft: 2
+  MaxJumpCount: 2
   DustParticles: {fileID: 2029984265175762267}
   DashSpeed: 40
   DashCoolDown: 0.5
@@ -1156,6 +1157,10 @@ PrefabInstance:
     - target: {fileID: 3655461332387884781, guid: 6cf7a09d350865c4c8904a21e30c6c2b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8108735651688584264, guid: 6cf7a09d350865c4c8904a21e30c6c2b, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
