@@ -54,10 +54,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Density: 3
-    - _Power: 1
-    - _Strength: 15
+    - _Density: 4
+    - _Power: 2
+    - _Strength: 20
     - _TimeMultiplier: 0.2
     m_Colors:
-    - _Color: {r: 7.409896, g: 17.814074, b: 35.064693, a: 0}
+    - _Color: {r: 34.448128, g: 1.4299208, b: 15.128099, a: 0}
   m_BuildTextureStacks: []
