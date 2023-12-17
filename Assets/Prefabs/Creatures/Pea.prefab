@@ -130,7 +130,9 @@ MonoBehaviour:
   sprites: []
   HpBar: {fileID: 8910172909755031941}
   Angered: 0
-  SecondJumpAvalible: 0
+  IsVulnerable: 1
+  JumpsLeft: 2
+  MaxJumpCount: 2
   DustParticles: {fileID: 0}
   XpOnDeath: 50
   knockbackForce: 0
