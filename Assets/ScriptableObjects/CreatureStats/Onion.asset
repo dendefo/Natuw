@@ -21,4 +21,4 @@ MonoBehaviour:
   XPOnDeath: 50
   CoinsAmount: 5
   MoveVelocity: 3.5
-  JumpVelocity: 0
+  JumpVelocity: 1
