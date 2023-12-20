@@ -85,6 +85,9 @@ public class Onion : Ground, IEnemy
     {
         ((IEnemy)this).InvokeDeath(this);
         base.Die();
+        
     }
+
+   
     #endregion
 }

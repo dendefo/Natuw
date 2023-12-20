@@ -156911,7 +156911,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1001 &7212084396494272744
+--- !u!1001 &7229839438357830227
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -156919,13 +156919,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378980113515229633, guid: c75eea12c305754489d8fb1f0cecad51, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 378980113515229633, guid: c75eea12c305754489d8fb1f0cecad51, type: 3}
+      propertyPath: autoRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5350099248280750601, guid: c75eea12c305754489d8fb1f0cecad51, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.262
       objectReference: {fileID: 0}
     - target: {fileID: 5350099248280750601, guid: c75eea12c305754489d8fb1f0cecad51, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.158
       objectReference: {fileID: 0}
     - target: {fileID: 5350099248280750601, guid: c75eea12c305754489d8fb1f0cecad51, type: 3}
       propertyPath: m_LocalPosition.z
@@ -156961,7 +156969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5489575861213801890, guid: c75eea12c305754489d8fb1f0cecad51, type: 3}
       propertyPath: m_Name
-      value: LightningBulletPS
+      value: PlayerBulletPS
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -157213,5 +157221,5 @@ SceneRoots:
   - {fileID: 8732166808401996966}
   - {fileID: 927371252}
   - {fileID: 289813034}
-  - {fileID: 7212084396494272744}
   - {fileID: 4732024619871974144}
+  - {fileID: 7229839438357830227}

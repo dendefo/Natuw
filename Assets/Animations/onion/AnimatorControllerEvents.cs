@@ -8,4 +8,5 @@ public class AnimatorControllerEvents : MonoBehaviour
     {
         Destroy(transform.parent.gameObject);
     }
+   
 }

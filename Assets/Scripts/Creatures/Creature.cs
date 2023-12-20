@@ -28,6 +28,8 @@ abstract public class Creature : MonoBehaviour, IPausable
     public delegate void GotDamageEventHandler(Creature creature);
     public static event GotDamageEventHandler GotDamage;
 
+    [SerializeField] private ParticleSystem deathParticles;
+
     #endregion
     #region UnityFunctions
     virtual protected void Awake()
@@ -74,6 +76,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     }
     virtual protected void Die()
     {
+        deathParticles.Play();
         animator.SetTrigger("Die");
         rb.bodyType = RigidbodyType2D.Static;
         List<Collider2D> results = new();
