@@ -34,7 +34,7 @@ public abstract class Ground : Creature
                     IsTouchingFloor = true;
                     JumpsLeft = MaxJumpCount;
                     animator.SetBool("InAir", false);
-                    DustParticles.Play();
+                    if (DustParticles != null) DustParticles.Play();
                     //DustParticles.gameObject.SetActive(true);
                 }
                 if (contact.normal.y <= -0.707)
@@ -51,7 +51,7 @@ public abstract class Ground : Creature
             if (collision.contacts[0].normal.y >= 0.707)
             {
                 animator.SetBool("InAir", false);
-                DustParticles.Play();
+                if (DustParticles != null) DustParticles.Play();
                 //DustParticles.gameObject.SetActive(true);
                 rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
                 IsTouchingFloor = true;
@@ -81,7 +81,7 @@ public abstract class Ground : Creature
             if (collision.contacts[0].normal.y >= 0.707 && !isInJump)
             {
                 animator.SetBool("InAir", false);
-                DustParticles.Play();
+                if (DustParticles!=null) DustParticles.Play();
                 //DustParticles.gameObject.SetActive(true);
                 rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
                 IsTouchingFloor = true;
@@ -110,7 +110,7 @@ public abstract class Ground : Creature
             _currentConnectedPlatform = null;
             if (_currentPassingThroughPlatform != null && ((_currentPassingThroughPlatform.effector.colliderMask >> 3) & 1) == 1) _currentPassingThroughPlatform = null;
         }
-        DustParticles.Stop();
+        if (DustParticles != null)  DustParticles.Stop();
         //DustParticles.gameObject.SetActive(false);
     }
 

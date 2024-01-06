@@ -10,7 +10,6 @@ public class Onion : Ground, IEnemy
     [SerializeField] private float knockbackForce;
     public bool canJump;
 
-    private Vector2 LastSeen;
     private bool isMovingRight;
 
     public int XPOnDeath { get; set; }
@@ -23,13 +22,11 @@ public class Onion : Ground, IEnemy
     }
     private void Update()
     {
-        LookForPlayer();
-        if (Angered && Mathf.Abs((LastSeen - (Vector2)transform.position).x) < 0.15f) Angered = false;
-        if (Angered) Move(LastSeen.x > transform.position.x);
-        else ContinuePatrol();
 
+        Move(isMovingRight);
         PlayAnimation("EnemySpeed");
     }
+
     override protected void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
@@ -42,41 +39,34 @@ public class Onion : Ground, IEnemy
         {
             foreach (var contact in collision.contacts)
             {
-                if (contact.normal.x >= 0.707) { isMovingRight = false; Angered = false; }
-                else if (contact.normal.x <= -0.707) { isMovingRight = true; Angered = false; }
+                if (contact.normal.x >= 0.707) isMovingRight = false;
+                else if (contact.normal.x <= -0.707) isMovingRight = true;
             }
         }
     }
 
     protected override void OnCollisionStay2D(Collision2D collision)
     {
-        base.OnCollisionStay2D(collision);
+        
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            if (transform.position.x + 1 - collision.collider.bounds.max.x > 0) isMovingRight = false;
+            if (transform.position.x - 1 - collision.collider.bounds.min.x < 0) isMovingRight = true;
+        }
         if (collision.gameObject.CompareTag("TileMap"))
         {
             foreach (var contact in collision.contacts)
             {
-                if (contact.normal.x >= 0.707) { isMovingRight = true; Angered = false; }
-                else if (contact.normal.x <= -0.707) { isMovingRight = false; Angered = false; }
+                if (contact.normal.x >= 0.707) isMovingRight = true;
+                else if (contact.normal.x <= -0.707) isMovingRight = false;
             }
+            if (!LevelManager.Instance.TileMap.HasTile(LevelManager.Instance.TileMap.WorldToCell(new(transform.position.x + (isMovingRight ? 1 : -1), transform.position.y - 1, transform.position.z)))) isMovingRight = !isMovingRight;
         }
+        base.OnCollisionStay2D(collision);
+
     }
     #endregion
     #region Movement
-
-    private void LookForPlayer()
-    {
-        var player = LevelManager.Instance.Player;
-        if (player.transform.position.y - 1 > transform.position.y) { return; }
-        var hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position+((Vector3)player.MainCollider.offset)).normalized, 100, layerMask: LayerMask.GetMask("Player", "TileMap"));
-        if (hit.rigidbody == null) {  return; }
-        if (hit.rigidbody.CompareTag("Player")) { LastSeen = hit.centroid; Angered = true; }
-        Debug.Log(hit.centroid);
-
-    }
-    private void ContinuePatrol()
-    {
-        Move(isMovingRight);
-    }
 
     #endregion
 

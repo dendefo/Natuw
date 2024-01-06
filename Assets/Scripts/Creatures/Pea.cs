@@ -106,6 +106,7 @@ public class Pea : Ground, IShooter, IEnemy
 
     void IShooter.OnWeaponUpdate(float timeStamp)
     {
+        if (!Angered) return;
         if (((int)(timeStamp * 50)) % ((int)(Attributes.AttackSpeed * 50)) == 0)
         {
             animator.SetTrigger("Shoot");
