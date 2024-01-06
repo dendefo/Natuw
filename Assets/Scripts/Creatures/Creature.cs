@@ -76,7 +76,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     }
     virtual protected void Die()
     {
-        deathParticles.Play();
+        if (deathParticles != null) deathParticles.Play();
         animator.SetTrigger("Die");
         rb.bodyType = RigidbodyType2D.Static;
         List<Collider2D> results = new();

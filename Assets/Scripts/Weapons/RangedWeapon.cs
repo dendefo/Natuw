@@ -17,8 +17,6 @@ public class RangedWeapon : MonoBehaviour
     public Vector3 ProjectileSpawnPoint;
     public List<WeaponUpgrade> Upgrades =  new();
 
-    [SerializeField] Transform ProjectileSecondSpawnPoint;
-    [SerializeField] Transform ProjectileThirdSpawnPoint;
     public SpriteRenderer WeaponSprite;
     //[SerializeField] ParticleSystem particleProjectile;
     public Creature Target;
