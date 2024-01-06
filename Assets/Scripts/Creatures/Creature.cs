@@ -14,6 +14,7 @@ abstract public class Creature : MonoBehaviour, IPausable
     public CreatureAttributes Attributes;
     public BaseCreatureStats BaseStats;
     public RangedWeapon weapon;
+    public Transform TargetPoint;
 
     [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;

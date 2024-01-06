@@ -213,7 +213,7 @@ public class Player : Ground, IShooter
             return;
         }
         TargetLine.SetPosition(0, WeaponSolver.position);
-        TargetLine.SetPosition(1, target.transform.position);
+        TargetLine.SetPosition(1, target.TargetPoint.transform.position);
     }
 
 }

@@ -23,7 +23,7 @@ namespace Assets.Scripts.Weapons
             Vector3 FirstProjSpawnPoint = Vector3.Scale(rotation1 * weapon.ProjectileSpawnPoint, isRight);
             Vector3 SecondProjSpawnPoint = Vector3.Scale(rotation2 * weapon.ProjectileSpawnPoint, isRight);
             Vector3 WeaponPos = weapon.transform.position;
-            Vector3 TargetPos = weapon.Target.transform.position;
+            Vector3 TargetPos = weapon.Target.TargetPoint.transform.position;
 
             var direction = (TargetPos + FirstProjSpawnPoint - (WeaponPos + FirstProjSpawnPoint)).normalized;
             var direction2 = (TargetPos + SecondProjSpawnPoint - (WeaponPos + SecondProjSpawnPoint)).normalized;

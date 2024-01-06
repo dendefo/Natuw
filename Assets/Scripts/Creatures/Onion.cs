@@ -50,8 +50,8 @@ public class Onion : Ground, IEnemy
         
         if (collision.gameObject.CompareTag("Platform"))
         {
-            if (transform.position.x + 1 - collision.collider.bounds.max.x > 0) isMovingRight = false;
-            if (transform.position.x - 1 - collision.collider.bounds.min.x < 0) isMovingRight = true;
+            if (transform.position.x + 0.25f - collision.collider.bounds.max.x > 0) isMovingRight = false;
+            if (transform.position.x - 0.25f - collision.collider.bounds.min.x < 0) isMovingRight = true;
         }
         if (collision.gameObject.CompareTag("TileMap"))
         {
@@ -60,7 +60,7 @@ public class Onion : Ground, IEnemy
                 if (contact.normal.x >= 0.707) isMovingRight = true;
                 else if (contact.normal.x <= -0.707) isMovingRight = false;
             }
-            if (!LevelManager.Instance.TileMap.HasTile(LevelManager.Instance.TileMap.WorldToCell(new(transform.position.x + (isMovingRight ? 1 : -1), transform.position.y - 1, transform.position.z)))) isMovingRight = !isMovingRight;
+            if (!LevelManager.Instance.TileMap.HasTile(LevelManager.Instance.TileMap.WorldToCell(new(transform.position.x + (isMovingRight ? 0.25f : -0.25f), transform.position.y - 1, transform.position.z)))) isMovingRight = !isMovingRight;
         }
         base.OnCollisionStay2D(collision);
 

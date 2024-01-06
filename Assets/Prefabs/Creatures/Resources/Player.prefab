@@ -116,6 +116,7 @@ Transform:
   - {fileID: 8648890840221742344}
   - {fileID: 7069723835953094471}
   - {fileID: 5824506680519569141}
+  - {fileID: 2389304007214746209}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &223688728170418627
@@ -204,6 +205,7 @@ MonoBehaviour:
     JumpVelocity: 12
   BaseStats: {fileID: 11400000, guid: ad0103cd10874e34c86a483b9cf74420, type: 2}
   weapon: {fileID: 4089510029101017379}
+  TargetPoint: {fileID: 2389304007214746209}
   rb: {fileID: 223688728170418627}
   SRenderer: {fileID: 0}
   DamageColor: {r: 0.90588236, g: 0.34901962, b: 0.34901962, a: 1}
@@ -288,6 +290,37 @@ CapsuleCollider2D:
   m_Offset: {x: -0.02425957, y: 0.03}
   m_Size: {x: 0.6638269, y: 0.07}
   m_Direction: 1
+--- !u!1 &538272898218148894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2389304007214746209}
+  m_Layer: 3
+  m_Name: TargetPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2389304007214746209
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538272898218148894}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.762, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 223688728170418685}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1537648778098289357
 GameObject:
   m_ObjectHideFlags: 0

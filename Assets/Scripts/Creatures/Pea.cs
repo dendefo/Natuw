@@ -85,7 +85,7 @@ public class Pea : Ground, IShooter, IEnemy
     {
         Angered = false;
         var player = LevelManager.Instance.Player;
-        var hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, 100, layerMask: LayerMask.GetMask("Player", "TileMap"));
+        var hit = Physics2D.Raycast(transform.position, (player.TargetPoint.transform.position - TargetPoint.transform.position).normalized, 100, layerMask: LayerMask.GetMask("Player", "TileMap"));
         if (hit.rigidbody == null) { return; }
         if (hit.rigidbody.CompareTag("Player")) { Angered = true; }
 
