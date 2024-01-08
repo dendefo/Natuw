@@ -177,7 +177,7 @@ public class Player : Ground, IShooter
         ((IShooter)this).Aim(weapon.Target, weapon, weapon.TargetLine, transform);
 
     }
-    protected override void Move(bool isRight)
+    protected override void Move(bool isRight, bool isReversed = false)
     {
         if ((isRight && transform.GetChild(0).eulerAngles.y != 0) || (!isRight && transform.GetChild(0).eulerAngles.y == 0))
         {

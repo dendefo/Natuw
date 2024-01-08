@@ -359,15 +359,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655461332387884781, guid: 6cf7a09d350865c4c8904a21e30c6c2b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3655461332387884781, guid: 6cf7a09d350865c4c8904a21e30c6c2b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3655461332387884781, guid: 6cf7a09d350865c4c8904a21e30c6c2b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3655461332387884781, guid: 6cf7a09d350865c4c8904a21e30c6c2b, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -614,7 +614,7 @@ MonoBehaviour:
   DamageMultiplier: 1
   AttackSpeedMultiplier: 1
   ProjectilePrefab: {fileID: 6186162643695624949, guid: 3ea696d1b4d4eb244866c15b9530a66d, type: 3}
-  ProjectileSpawnPoint: {x: 0.81, y: -0.8, z: 0}
+  ProjectileSpawnPoint: {x: 0.81, y: 0, z: 0}
   Upgrades:
   - {fileID: 11400000, guid: f91f87b3becfd51459f7f28acc777a76, type: 2}
   WeaponSprite: {fileID: 2338677803416079550}

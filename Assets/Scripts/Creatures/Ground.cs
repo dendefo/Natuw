@@ -163,12 +163,12 @@ public abstract class Ground : Creature
     }
     protected float CalculateJumpHeight() => (-Mathf.Pow(Attributes.JumpVelocity, 2)) / (2 * Physics2D.gravity.y * rb.gravityScale / 3);
 
-    protected virtual void Move(bool isRight)
+    protected virtual void Move(bool isRight,bool isReversed = false)
     {
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.velocity = new Vector2(Attributes.MoveVelocity * (isRight ? 1 : -1) + (_currentConnectedPlatform == null ? Vector2.zero : _currentConnectedPlatform.rb.velocity).x, rb.velocity.y);
         if (SRenderer != null) SRenderer.flipX = !isRight;
-        else transform.GetChild(0).eulerAngles = new Vector3(0, isRight ? 0 : 180, 0);
+        else transform.GetChild(0).eulerAngles = new Vector3(0, (isRight ? 0 : 180)+(isReversed?180:0), 0);
     }
 
     #endregion

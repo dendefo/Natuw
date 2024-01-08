@@ -34,12 +34,15 @@ public class Pea : Ground, IShooter, IEnemy
         if (Angered)
         {
             Stop();
+            PlayAnimation("EnemySpeed");
             weapon.ChoseTarget(false);
             ((IShooter)this).Aim(weapon.Target, weapon, weapon.TargetLine, transform);
         }
-        else ContinuePatrol();
-
-        PlayAnimation("EnemySpeed");
+        else
+        {
+            PlayAnimation("EnemySpeed");
+            ContinuePatrol();
+        }
 
     }
     protected override void OnDisable()
@@ -68,7 +71,11 @@ public class Pea : Ground, IShooter, IEnemy
 
     protected override void OnCollisionStay2D(Collision2D collision)
     {
-        base.OnCollisionStay2D(collision);
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            if (transform.position.x + 0.25f - collision.collider.bounds.max.x > 0) isMovingRight = false;
+            if (transform.position.x - 0.25f - collision.collider.bounds.min.x < 0) isMovingRight = true;
+        }
         if (collision.gameObject.CompareTag("TileMap"))
         {
             foreach (var contact in collision.contacts)
@@ -76,7 +83,9 @@ public class Pea : Ground, IShooter, IEnemy
                 if (contact.normal.x >= 0.707) { isMovingRight = true; Angered = false; }
                 else if (contact.normal.x <= -0.707) { isMovingRight = false; Angered = false; }
             }
+            if (!LevelManager.Instance.TileMap.HasTile(LevelManager.Instance.TileMap.WorldToCell(new(transform.position.x + (isMovingRight ? 0.25f : -0.25f), transform.position.y - 1, transform.position.z)))) isMovingRight = !isMovingRight;
         }
+        base.OnCollisionStay2D(collision);
     }
     #endregion
     #region Movement
@@ -85,14 +94,14 @@ public class Pea : Ground, IShooter, IEnemy
     {
         Angered = false;
         var player = LevelManager.Instance.Player;
-        var hit = Physics2D.Raycast(transform.position, (player.TargetPoint.transform.position - TargetPoint.transform.position).normalized, 100, layerMask: LayerMask.GetMask("Player", "TileMap"));
+        var hit = Physics2D.Raycast(TargetPoint.transform.position, (player.TargetPoint.transform.position - TargetPoint.transform.position).normalized, 100, layerMask: LayerMask.GetMask("Player", "TileMap"));
         if (hit.rigidbody == null) { return; }
         if (hit.rigidbody.CompareTag("Player")) { Angered = true; }
 
     }
     private void ContinuePatrol()
     {
-        Move(isMovingRight);
+        Move(isMovingRight, true);
     }
 
     #endregion
