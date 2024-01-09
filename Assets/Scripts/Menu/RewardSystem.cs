@@ -15,6 +15,8 @@ public class RewardSystem : MonoBehaviour
     [SerializeField] GameObject LevelUpCanvas;
     [SerializeField] List<TMPro.TMP_Text> CoinCounters;
 
+    public List<LevelUpgrades> RecievedUpgrades;
+
 
     private void Start()
     {
@@ -51,17 +53,24 @@ public class RewardSystem : MonoBehaviour
     }
     private void ChooseRewards(bool isPaused)
     {
-        if (PossibleLevelUpgrades.Count < 3) return;
-
-        int[] ints = new int[] { Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count) };
-        while (ints.Count() != ints.Distinct().Count())
+        bool Predicate(LevelUpgrades upgrade)
         {
-            ints = new int[] { Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count), Random.Range(0, PossibleLevelUpgrades.Count) };
+            if (upgrade.isInfinite) return true;
+            if (RecievedUpgrades.Contains(upgrade)) return false;
+            if (upgrade.Dependency is null) return true;
+            foreach (var up in RecievedUpgrades)
+            {
+                if (up.GetInstanceID() == upgrade.Dependency.GetInstanceID()) return true;
+            }
+            return false;
         }
-        RewardButtons[0].Upgrade = PossibleLevelUpgrades[ints[0]];
-        RewardButtons[1].Upgrade = PossibleLevelUpgrades[ints[1]];
-        RewardButtons[2].Upgrade = PossibleLevelUpgrades[ints[2]];
+        var pull = PossibleLevelUpgrades.Where(Predicate).ToList();
 
+        for (int i = 0; i < 3; i++)
+        {
+            RewardButtons[i].Upgrade = pull[Random.Range(0, pull.Count)];
+            pull.Remove(RewardButtons[i].Upgrade);
+        }
     }
     private void CheckForLevelUp()
     {
@@ -84,17 +93,18 @@ public class RewardSystem : MonoBehaviour
     }
     public void Upgrade(LevelUpgrades upgrade)
     {
-        List<LevelUpgrades> upgrades = new List<LevelUpgrades>(3);
-        upgrades.Add(upgrade);
-        var a = RewardButtons.Where(x => x.Upgrade != upgrade).ToList();
-        upgrades.Add(a[0].Upgrade);
-        upgrades.Add(a[1].Upgrade);
-        Analytics.PlayerPickedUpgrade(upgrades);
+        if (!RecievedUpgrades.Contains(upgrade)) RecievedUpgrades.Add(upgrade);
+        //List<LevelUpgrades> upgrades = new List<LevelUpgrades>(3);
+        //upgrades.Add(upgrade);
+        //var a = RewardButtons.Where(x => x.Upgrade != upgrade).ToList();
+        //upgrades.Add(a[0].Upgrade);
+        //upgrades.Add(a[1].Upgrade);
+        //Analytics.PlayerPickedUpgrade(upgrades);
         WorldManager.Instance.RewardManager.LevelUpActive(false);
         WorldManager.Instance.LevelUpPausing(false);
 
         upgrade.Apply(WorldManager.Instance.PlayerReference);
         CheckForLevelUp();
     }
-    
+
 }

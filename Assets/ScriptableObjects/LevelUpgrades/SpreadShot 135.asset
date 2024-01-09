@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a5904de39cbc974883354a21562208e, type: 3}
-  m_Name: SpreadShot
+  m_Name: SpreadShot 135
   m_EditorClassIdentifier: 
   UpgradeIcon: {fileID: 21300000, guid: 6af5b6817ae26224ca6976c94885c0bd, type: 3}
-  UpgradeName: Side Proj
+  UpgradeName: Spread Shot
   UpgradeDescription: 
+  isInfinite: 0
+  Dependency: {fileID: 11400000, guid: df31b60d480dc1d43aa75bd6cd5b2540, type: 2}
   upgradeType: 1
-  AngleDistance: 45
+  AngleDistance: 135

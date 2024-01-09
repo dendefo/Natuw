@@ -54,7 +54,7 @@ public class RangedWeapon : MonoBehaviour
     #region Upgrades
     public void AddUpgrade(WeaponUpgrade upgrade)
     {
-        if (upgrade == null) return;
+        if (upgrade is null) return;
         if (upgrade.upgradeType == UpgradeType.ForwardShooter)
         {
             Upgrades.RemoveAll(x => x.upgradeType == UpgradeType.ForwardShooter);

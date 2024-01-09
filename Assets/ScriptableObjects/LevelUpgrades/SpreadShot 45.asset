@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99ecdf894936c0347b01cd37551936b4, type: 3}
-  m_Name: Movement Speed
+  m_Script: {fileID: 11500000, guid: 5a5904de39cbc974883354a21562208e, type: 3}
+  m_Name: SpreadShot 45
   m_EditorClassIdentifier: 
-  UpgradeIcon: {fileID: 21300000, guid: 3d16adfd89cc6c847b8932a8deb860ec, type: 3}
-  UpgradeName: Movement Speed
+  UpgradeIcon: {fileID: 21300000, guid: 6af5b6817ae26224ca6976c94885c0bd, type: 3}
+  UpgradeName: Spread Shot
   UpgradeDescription: 
-  isInfinite: 1
+  isInfinite: 0
   Dependency: {fileID: 0}
-  UpgradeType: 3
-  Multiplier: 1.1
+  upgradeType: 1
+  AngleDistance: 45

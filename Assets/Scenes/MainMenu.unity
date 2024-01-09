@@ -10253,6 +10253,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 341207456503574294, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: PossibleLevelUpgrades.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 341207456503574294, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: PossibleLevelUpgrades.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: df31b60d480dc1d43aa75bd6cd5b2540, type: 2}
+    - target: {fileID: 341207456503574294, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: PossibleLevelUpgrades.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: d9309590b24e975479fcbb3d5192bad8, type: 2}
+    - target: {fileID: 341207456503574294, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
+      propertyPath: PossibleLevelUpgrades.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: c1b7fe72d5c9f154fab803a7ad854594, type: 2}
     - target: {fileID: 1182370605959734488, guid: 354d44ff15e9f09418ccfb02c93ce18c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.000061035156

@@ -5212,6 +5212,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 16920790b068ba448bbe442c46c0e130, type: 2}
   - {fileID: 11400000, guid: db33ee8c23e9d5f48920bbdde868fb55, type: 2}
   - {fileID: 11400000, guid: b222727ce82e36647b248929f2073efd, type: 2}
+  - {fileID: 11400000, guid: df31b60d480dc1d43aa75bd6cd5b2540, type: 2}
+  - {fileID: 11400000, guid: d9309590b24e975479fcbb3d5192bad8, type: 2}
+  - {fileID: 11400000, guid: c1b7fe72d5c9f154fab803a7ad854594, type: 2}
   RewardButtons:
   - {fileID: 4525224925865741240}
   - {fileID: 4150770584216620293}
@@ -5219,6 +5222,7 @@ MonoBehaviour:
   LevelUpCanvas: {fileID: 2899955128537864652}
   CoinCounters:
   - {fileID: 7959342113077258032}
+  RecievedUpgrades: []
 --- !u!1 &5218518392392667275
 GameObject:
   m_ObjectHideFlags: 0
